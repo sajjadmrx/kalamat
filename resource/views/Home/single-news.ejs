@@ -1,0 +1,124 @@
+<div class="row">
+    <!-- Blog Post Content Column -->
+    <div class="col-lg-8">
+        <!-- Title -->
+        <h1 class="mb-3">
+            <%= news.title %>
+        </h1>
+
+        <!-- Author -->
+        <p class="text-muted small">
+            <span> توسط <a href="#">
+                    ادمین
+                </a></span>
+            -
+            <span>ارسال شده در <%= date(news.createdAt).format('jD jMMMM jYYYY') %></span>
+        </p>
+
+        <hr>
+        <!-- Post Content -->
+        <div class="col-sm-3 col-md-6 container">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info">
+                    <%= news.miniBody %>
+                </li>
+                <img src="<%=news.images%>" alt="" srcset="">
+            </ul>
+        </div>
+        <br>
+        <div id="content">
+
+
+            <%- news.body %>
+        </div>
+        <hr>
+
+
+
+
+        <%- include(viewPath('layouts/comments') , { subject : news , comments ,recaptcha}) %>
+
+
+    </div>
+
+    <!-- Blog Sidebar Widgets Column -->
+
+    <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card my-4">
+            <h5 class="card-header">لینک کوتاه</h5>
+            <div class="card-body">
+                <form class="input-group">
+                    <input type="text" class="form-control" id="shortLlink" value="<%=news.shortLink()%>">
+                    <span class="input-group-btn">
+
+                        <button type="button" class="btn btn-info btn-clipboard" data-clipboard-action="copy"
+                            onclick="copy()" id="btnCopy" data-clipboard-target="#clipboardExample1">کپی !</button>
+                    </span>
+                </form>
+            </div>
+        </div>
+        <div class="card my-4">
+            <h5 class="card-header">جستجو</h5>
+            <div class="card-body">
+                <form class="input-group" action="/courses" method="GET">
+                    <input type="text" class="form-control" name="search" placeholder="دنبال چی میگردی ؟">
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="submit">جستجو!</button>
+                    </span>
+                </form>
+            </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+            <h5 class="card-header">دسته بندی ها</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <ul class="list-unstyled pr-0">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    #imagTitle {
+        direction: unset;
+        background-color: steelblue;
+    }
+</style>
+
+
+
+
+<script>
+
+
+
+    function copy() {
+
+        var copyText = document.getElementById("shortLlink");
+        var btn = document.getElementById("btnCopy");
+
+        copyText.select();
+        copyText.setSelectionRange(0, 99999)
+        document.execCommand("copy");
+
+        const shortLlink = copyText.value
+
+        copyText.value = 'کپی شد.'
+
+        setTimeout(() => {
+            copyText.value = shortLlink
+
+        }, 1000)
+
+    }
+</script>

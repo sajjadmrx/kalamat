@@ -1,0 +1,47 @@
+<div class="d-flex justify-content-between align-items-center mb-3 border-bottom-1">
+        <h2>کامنت های تایید نشده</h2>
+        <div class="btn-group">
+            <a href="/admin/comments" class="btn btn-sm btn-primary">کامنت های تایید شده</a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>نام ارسال کننده</th>
+                <th>مطلب</th>
+                <th>متن نظر</th>
+                <th>تنظیمات</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% comments.docs.forEach(comment => { %> 
+                    <tr>
+                        <td><%= comment.user.name %></td>
+                        <td>
+                            <% if(comment.course) { %> 
+                                <a href="<%= comment.course.path() %>"><%= comment.course.title %></a>
+                            <% } else if(comment.episode) { %> 
+                                <a href="<%= comment.episode.path() %>"><%= comment.episode.title %></a>
+                            <% } %>
+                        </td>
+                        <td><%= comment.comment %></td>
+                        <td>
+                            <div class="d-flex">
+                                    <form action="/admin/comments/<%= comment.id %>/approved?_method=PUT" method="post">
+                                        <button type="submit" class="btn btn-sm btn-success ml-2">تایید</button>
+                                    </form>
+                                    <form action="/admin/comments/<%= comment.id %>?_method=DELETE" method="post">
+                                        <button type="submit" class="btn btn-sm btn-danger">حذف</button>
+                                    </form>
+                            </div>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <%- include(viewPath('layouts/pagination') ,{ pagination : comments}) %>
+    </div>
+    
+    

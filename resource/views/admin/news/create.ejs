@@ -1,0 +1,140 @@
+<div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+    <h2>ایجاد دوره</h2>
+</div>
+<form class="form-horizontal" action="/admin/news/create" method="post" enctype="multipart/form-data">
+
+    <%- include(viewPath('layouts/error-messages')) -%>
+
+        <div class="form-group row">
+            <div class="col">
+                <label for="title" class="control-label font-weight-bold">عنوان خبر</label>
+                <input type="text" class="form-control" name="title" id="title" placeholder="عنوان را وارد کنید"
+                    value="<%=old('title')%>">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col">
+                <label for="title" class="control-label font-weight-bold">یک توضیح کوتاه</label>
+                <input type="text" class="form-control" name="miniBody" id="miniBody"
+                    placeholder="یک توضیح کوتاه وارد کنیـد" value="<%=old('miniBody')%>">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col">
+                <label for="body" class="control-label font-weight-bold">متن</label>
+                <textarea rows="10" class="form-control" name="body" id="body"
+                    placeholder="متن مقاله را وارد کنید"><%=old('body')%></textarea>
+            </div>
+        </div>
+
+        <label for="tags" class="control-label font-weight-bold">تگ ها</label>
+        <div class="form-group row">
+            <div class="col">
+                <input data-role="tagsinput" type="text" class="input-tags" name="tags" id="tags"
+                    placeholder="تگ ها را وارد کنید" value="<%=old('tags')%>">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="images" class="control-label font-weight-bold">تصویر خبر</label>
+
+            <div class="container">
+                <div>
+                    <div class="col-sm-3 col-md-6 custom-file">
+                        <input type="file" class="custom-file-input" name="images" id="images">
+                        <label class="custom-file-label" for="inputGroupFile01">انتخـاب تصویر..</label>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+        <div class="checkbox">
+            <label class=" display-5">
+                <h6> - منتشر شود؟</h6>
+            </label>
+            <input type="checkbox" name="published" id="published" data-toggle="toggle" data-onstyle="success"
+                data-offstyle="warning">
+        </div>
+
+
+        <div class="container">
+
+
+            <button class="btn btn-danger" id="update" type="submit">ارسال</button>
+
+        </div>
+</form>
+
+
+<link rel="stylesheet" href="/css/component-chosen.min.css">
+<link rel="stylesheet" href="/css/bootstrap-tagsinput.css">
+
+<script src="/ckeditor/ckeditor.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.6/chosen.jquery.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="/js/bootstrap-tagsinput.js"></script>
+
+<script>
+    CKEDITOR.replace('body', {
+        filebrowserUploadUrl: '/admin/upload-image',
+        language: 'fa'
+    })
+
+    $('.form-control-chosen').chosen({});
+</script>
+
+<script>
+    $(function () {
+
+        $('#published').bootstrapToggle("<%=news.published ? 'on' : 'off' %>")
+
+    })
+
+    $(function () {
+        $('#published').bootstrapToggle({
+            on: 'Enabled',
+            off: 'Disabled'
+        });
+    })
+
+
+</script>
+
+
+<style>
+    .container {
+        width: 900px;
+        margin: 100px auto;
+        text-align: center;
+    }
+
+    .input-tags {
+        width: 100%;
+        padding: 15px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .label-info {
+        background-color: #5bc0de;
+        padding: 3px;
+    }
+
+    .custom-file-input {
+        background-color: #5bc0de;
+        cursor: pointer;
+    }
+
+    #update {
+        width: 50%;
+    }
+</style>
