@@ -57,8 +57,7 @@ class home extends controller {
     async comment(req, res, next) {
         try {
 
-            //await this.recaptchaValidator(req, res)
-
+            await this.recaptchaValidator(req, res)
             ///validator
             const result = await this.checkValidator(req)
             if (!result) return this.back(req, res)

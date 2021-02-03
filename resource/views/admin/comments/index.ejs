@@ -28,7 +28,11 @@
                     <td>
                         <%= comment.comment %>
                     </td>
+
                     <td>
+                        <button class="float-left btn-sm btn btn-xs btn-success" data-toggle="modal"
+                            data-target="#sendCommentModal" data-parent="<%= comment.id %>"
+                            data-news="<%= comment.news._id %>">پاسخ</button>
                         <form action="/admin/comments/<%= comment.id %>?_method=DELETE" method="post">
 
                             <div class="btn-group btn-group-sm">
@@ -42,9 +46,69 @@
                         </form>
                     </td>
                 </tr>
+
+                <!-- reply for Admin -->
+
                 <% }) %>
         </tbody>
     </table>
+
+
+    <div class="modal fade" id="sendCommentModal" tabindex="-1" role="dialog" aria-labelledby="sendCommentModalLabel"
+        aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">ارسال پاسخ</h4>
+                    <button type="button" class="close" style="margin-left: -1rem;" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/admin/comments/reply" method="post">
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">نام خود را وارد
+                                کنید</label>
+                            <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
+                                placeholder="به عنوان مثال : امید">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">ایمیل را وارد
+                                کنید</label>
+                            <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="name@example.com">
+                        </div>
+
+                        <input type="hidden" name="parent" value="">
+                        <input type="hidden" name="news" value="">
+
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">متن پاسخ:</label>
+                            <textarea class="form-control" id="message-text" name="comment"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">ارسال</button>
+                            <button type="button" class="btn btn-default mr-2 ml-0" data-dismiss="modal">انصراف</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#sendCommentModal').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget);
+            let parentId = button.data('parent');
+            let newsId = button.data('news')
+            let modal = $(this);
+            modal.find("[name='parent']").val(parentId);
+            modal.find("[name='news']").val(newsId)
+        });
+    </script>
+
 
     <%- include(viewPath('layouts/pagination') ,{ pagination : comments}) %>
 </div>

@@ -51,5 +51,9 @@ router.get('/comments', commentsControllers.commentsPage)
 router.get('/comments/:id/toggleApproved', commentsControllers.toggleApproved)
 router.get('/comments/:id/edit', commentsControllers.getForEdit)
 router.put('/comments/:id', commentsControllers.updateComment)
+router.delete('/comments/:id', commentsControllers.deleteComment)
+
+router.post('/comments/reply', commentsControllers.reply)
+
 
 module.exports = router;

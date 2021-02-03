@@ -27,26 +27,12 @@ class comments extends controller {
     async reply(req, res, next) {
         try {
 
-            const result = await this.checkValidator(req)
-            if (!result)
-                return this.back(req, res)
-
-            const { published } = req.body
-            delete req.body.published
-
-            /* short link || slug */
-            const code = unique()
-            code.substr(4)
-
-
-            const news = new newsModel({
-                ...req.body,
-                published: published == 'on' ? true : false,
-                code: code.substr(4),
-                slug: slugger.slug(req.body.title)
+            const result = new commetnsModel({
+                ...req.body
             })
-            await news.save()
-            res.redirect('/admin/news')
+
+            await result.save()
+            this.back(req, res)
         } catch (error) {
             next(error)
         }
@@ -89,6 +75,22 @@ class comments extends controller {
         }
     }
 
+
+    async deleteComment(req, res, next) {
+        const comment = await commetnsModel.findById(req.params.id, {}, {
+            populate: [{ path: 'childs' }]
+        })
+        if (!comment) return ''// alert
+        comment.childs.forEach(item => item.remove());
+
+        await comment.remove();
+        this.back(req, res)
+    }
+
+
+
+
+
     async toggleApproved(req, res, next) {
         try {
 
@@ -99,7 +101,7 @@ class comments extends controller {
 
             await comments.save()
             this.commentsPage(req, res, next)
-
+            this.back(req, res)
 
         } catch (error) {
             next(error)
