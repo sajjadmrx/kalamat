@@ -55,10 +55,10 @@ class comments extends controller {
 
     async getForEdit(req, res, next) {
         try {
-            const news = await newsModel.findById(req.params.id);
-            if (!news) return ''//alert
+            const comment = await commetnsModel.findById(req.params.id);
+            if (!comment) return ''//alert
 
-            res.render('admin/news/edit', { news })
+            res.render('admin/comments/edit', { comment })
 
         } catch (error) {
             next(error)
@@ -70,20 +70,20 @@ class comments extends controller {
     async updateComment(req, res, next) {
         try {
 
-            const result = await this.checkValidator(req)
-            if (!result)
-                return this.back(req, res)
+            /*        const result = await this.checkValidator(req)
+                   if (!result)
+                       return this.back(req, res) */
 
-            if (!req.body.images)
-                delete req.body.images
-            const { published } = req.body
-            delete req.body.published
-            await newsModel.findByIdAndUpdate(req.params.id, {
+
+
+            const { approved } = req.body
+            delete req.body.approved
+            await commetnsModel.findByIdAndUpdate(req.params.id, {
                 ...req.body,
-                published: published == 'on' ? true : false,
+                approved: approved == 'on' ? true : false,
             })
 
-            res.redirect('/admin/news')
+            res.redirect('/admin/comments')
         } catch (error) {
             next(error)
         }

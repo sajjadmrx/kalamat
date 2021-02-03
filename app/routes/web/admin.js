@@ -49,5 +49,7 @@ router.post('/file/post', (req, res) => {
 /* Comments */
 router.get('/comments', commentsControllers.commentsPage)
 router.get('/comments/:id/toggleApproved', commentsControllers.toggleApproved)
+router.get('/comments/:id/edit', commentsControllers.getForEdit)
+router.put('/comments/:id', commentsControllers.updateComment)
 
 module.exports = router;
