@@ -46,8 +46,8 @@ class home extends controller {
                 { news: news._id, approved: true, parent: null },
                 { limit: 5, page, populate: [{ path: 'childs', match: { approved: true } }] })
 
-
-            res.render('home/single-news', { news, recaptcha: this.recaptcha.render(), comments })
+            const tags = news.tags[0].split(',')
+            res.render('home/single-news', { news, recaptcha: this.recaptcha.render(), comments, tags })
         } catch (error) {
             next(error)
         }

@@ -30,19 +30,22 @@
                     </td>
 
                     <td>
-                        <button class="float-left btn-sm btn btn-xs btn-success" data-toggle="modal"
-                            data-target="#sendCommentModal" data-parent="<%= comment.id %>"
-                            data-news="<%= comment.news._id %>">پاسخ</button>
+
                         <form action="/admin/comments/<%= comment.id %>?_method=DELETE" method="post">
 
-                            <div class="btn-group btn-group-sm">
+                            <div class="btn-group" role="group">
                                 <a href="/admin/comments/<%= comment.id %>/edit" class="btn btn-primary">ویرایش</a>
                                 <a class="<%= comment.approved?" btn btn-secondary" :"btn btn-success" %>"
                                     href="/admin/comments/<%= comment.id %>/toggleApproved" >
                                         <%=comment.approved?'توقف انتشار':'تایید' %>
                                 </a>
                                 <button type="submit" class="btn btn-danger">حذف</button>
+
+                                <a class="btn btn-link" data-mdb-color="dark" data-toggle="modal"
+                                    data-target="#sendCommentModal" data-parent="<%= comment.id %>"
+                                    data-news="<%= comment.news._id %>">پاسخ</a>
                             </div>
+
                         </form>
                     </td>
                 </tr>

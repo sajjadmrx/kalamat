@@ -32,6 +32,18 @@
             <%- news.body %>
         </div>
         <hr>
+        <p>برچسب ها :
+            <% tags.forEach(tag=>{ %>
+                <a class="text-muted" href="/newses?tags=<%= tag %>">
+
+                    <span class="badge rounded-pill bg-info">
+                        <%= tag %>
+                    </span>
+                </a>
+                <%}) %>
+
+        </p>
+        <hr>
 
 
 

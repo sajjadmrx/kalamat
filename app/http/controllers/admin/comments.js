@@ -9,7 +9,11 @@ class comments extends controller {
     async commentsPage(req, res, next) {
         try {
             let page = req.query.page || 1
-            const comments = await commetnsModel.paginate({}, { limit: 4, page, populate: 'news' })
+            const comments = await commetnsModel.paginate({}, {
+                limit: 4, page, populate: 'news', sort: {
+                    createdAt: -1
+                }
+            })
             res.render('admin/comments/index', { comments })
         } catch (error) {
             next(error)
