@@ -1,0 +1,52 @@
+<style>
+    img {
+        max-width: 180px;
+    }
+
+    input[type=file] {
+        padding: 10px;
+        background: #2d2d2d;
+    }
+
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+</style>
+
+<label class="btn btn-default">
+    تغییر تصویر <a type="file"></a>
+    <input type="file" name="images" onchange="readURL(this)" class="inputfile" />
+</label>
+
+
+<script>
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#profileImage')
+                    .attr('src', e.target.result);
+
+            };
+            console.log(input.files[0]);
+
+            // inpu.onload = function (e) {
+            //     $('#imgProfie')
+            //         .attr('value', e.target.result);
+            // };
+
+
+            //imgProfie
+            reader.readAsDataURL(input.files[0]);
+            // inpu.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>

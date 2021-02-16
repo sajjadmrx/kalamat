@@ -15,7 +15,7 @@ class Helper {
             viewPath: this.viewPath,
             message: this.req.flash('errors'),
             old: this.old.bind(this),
-            date: this.date
+            date: this.date,
         }
     }
 
@@ -24,7 +24,7 @@ class Helper {
     }
     old(value, defult = null) {
         const x = this.formData && this.formData.hasOwnProperty(value) ? this.formData[value] : defult
-        console.log(x);
+
         return x
     }
     date(item) {

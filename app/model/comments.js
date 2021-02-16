@@ -12,7 +12,7 @@ const commentsModel = new schema({
     news: { type: schema.Types.ObjectId, ref: 'news' },
     comment: { type: String },
     approved: { type: Boolean, default: false },
-}, { toJSON: { virtuals: true } })
+}, { timestamps: true, toJSON: { virtuals: true } })
 
 commentsModel.plugin(mongoosePaginate)
 

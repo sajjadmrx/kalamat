@@ -10,13 +10,13 @@
 <% let { search , type , order , category }=req.query; %>
 
 
-  <form action="/courses" method="GET">
+  <form action="/newses" method="GET">
 
     <% if(search) { %>
       <div class="form-group col-md-3">
         <input type="hidden" name="search" value="<%= search %>">
         <span>عبارت جستجو شده : <%= search %> <a
-              href="/courses?<%= type ? 'type=' + type : '' %><%= order ? '&order=1' : '' %>"
+              href="/newses?<%= type ? 'type=' + type : '' %><%= order ? '&order=1' : '' %>"
               class="btn btn-sm btn-dark">حذف</a></span>
       </div>
       <% } %>
@@ -55,33 +55,9 @@
 
   <hr>
 
-  <% if(newses.docs.length) { %>
-    <div class="row">
-      <% newses.docs.forEach(item=> { %>
-        <div class="col-6 col-md-3">
-          <div class="card">
-            <img class="card-img-top" src="<%= item.images %>" alt="<%= item.title %>">
-            <div class="card-body">
-              <h3><a href="<%= item.path() %>">
-                  <%= item.title %>
-                </a></h3>
-              <p class="card-text">
-                <%= item.miniBody %>
-              </p>
-              <a href="<%= item.path() %>" class="btn btn-primary btn-sm">اطلاعات بیشتر</a>
-            </div>
-            <div class="card-footer text-muted">
-              <%= item.viewCount %> بازدید
-            </div>
-          </div>
-        </div>
-        <% }) %>
-    </div>
-    <% } else { %>
-      <div class="row">
-        <p>دوره ای یافت نشد</p>
-      </div>
-      <%} %>
 
 
-        <%- include(viewPath('layouts/pagination') ,{ pagination : newses}) %>
+  <%- include(viewPath('layouts/posts') , { post:posts}) %>
+
+
+    <%- include(viewPath('layouts/pagination') ,{ pagination : posts}) %>

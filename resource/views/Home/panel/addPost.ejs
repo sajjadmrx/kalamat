@@ -1,0 +1,119 @@
+<div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+    <h2>ایجاد یک نوشته جدید</h2>
+</div>
+<form class="form-horizontal" action="/panel/addpost" method="post" enctype="multipart/form-data">
+
+    <%- include(viewPath('layouts/error-messages')) -%>
+
+        <div class="form-group row">
+            <div class="col">
+                <label for="title" class="control-label font-weight-bold">عنوان نوشته</label>
+                <input type="text" class="form-control" name="title" id="title" placeholder="عنوان را وارد کنید"
+                    value="<%=old('title')%>">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="title" class="control-label font-weight-bold">یک متن کوتاه</label>
+
+            <div class="form-outline">
+                <input type="text" id="form1" name="miniBody" class="form-control" data-mdb-showcounter="true"
+                    maxlength="112" />
+
+                <span
+                    class="badge  badge-warning form-helper d-flex justify-content-between align-items-center mb-3 pb-2"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group row pb-2 ">
+            <div class="col ">
+                <label for="body" class="control-label font-weight-bold ">متن</label>
+                <textarea rows="10" class="form-control" name="body" id="body"
+                    placeholder="متن مقاله را وارد کنید"><%=old('body')%></textarea>
+            </div>
+        </div>
+
+        <label for="tags" class="control-label font-weight-bold">تگ ها</label>
+        <div class="form-group row">
+            <div class="col">
+                <input data-role="tagsinput" type="text" class="input-tags" name="tags" id="tags"
+                    placeholder="تگ ها را وارد کنید" value="<%=old('tags')%>">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="images" class="control-label font-weight-bold">تصویر خبر</label>
+
+            <div class="container">
+                <%- include(viewPath('layouts/image')) -%>
+
+                    <div class="user-avatar">
+                        <img id="profileImage" name="images">
+                    </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="container">
+
+
+            <button class="btn btn-danger" id="update" type="submit">ارسال</button>
+
+        </div>
+</form>
+
+
+<link rel="stylesheet" href="/css/component-chosen.min.css">
+<link rel="stylesheet" href="/css/bootstrap-tagsinput.css">
+
+<script src="/ckeditor/ckeditor.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.6/chosen.jquery.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="/js/bootstrap-tagsinput.js"></script>
+
+<script>
+    CKEDITOR.replace('body', {
+        filebrowserUploadUrl: '/admin/upload-image',
+        language: 'fa'
+    })
+
+    $('.form-control-chosen').chosen({});
+</script>
+
+
+
+<style>
+    .container {
+        width: 900px;
+
+        text-align: center;
+    }
+
+    .input-tags {
+        width: 100%;
+        padding: 15px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .label-info {
+        background-color: #5bc0de;
+        padding: 3px;
+    }
+
+    .custom-file-input {
+        background-color: #5bc0de;
+        cursor: pointer;
+    }
+
+    #update {
+        width: 50%;
+    }
+</style>

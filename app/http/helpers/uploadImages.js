@@ -17,6 +17,7 @@ const ImageStorage = multer.diskStorage({
         cb(null, getAddressDr())
     },
     filename: (req, file, cb) => {
+     
         const pathImage = getAddressDr() + '/' + file.originalname
         if (!fs.existsSync(pathImage))
             cb(null, file.originalname)

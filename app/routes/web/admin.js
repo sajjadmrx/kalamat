@@ -6,6 +6,7 @@ const router = express.Router();
 const homeControllers = require('../../http/controllers/admin/home')
 const newsControllers = require('../../http/controllers/admin/newsControllers')
 const commentsControllers = require('../../http/controllers/admin/comments')
+const usersControllers = require('../../http/controllers/admin/users')
 
 /* middlewares */
 const fileToFeild = require('../../http/middleware/fileToField')
@@ -54,6 +55,15 @@ router.put('/comments/:id', commentsControllers.updateComment)
 router.delete('/comments/:id', commentsControllers.deleteComment)
 
 router.post('/comments/reply', commentsControllers.reply)
+
+/* users */
+router.get('/users', usersControllers.pageUsers)
+router.get('/users/:id/toggleadmin', usersControllers.toggleApproved)
+router.get('/users/create', usersControllers.pageCreateNewUser)
+router.post('/users/create', usersControllers.createNewUser)
+
+router.get('/profile', usersControllers.profile)
+router.post('/profile', usersControllers.profilePost)
 
 
 module.exports = router;

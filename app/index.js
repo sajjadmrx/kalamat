@@ -7,11 +7,12 @@ const session = require('express-session')
 const flash = require('connect-flash')
 var methodOverride = require('method-override')
 const validator = require('express-validator');
+const passport = require('passport')
 
 
 const config = require('../config');
 const Helper = require('./helper');
-
+const userModel = require('./model/users')
 const app = express()
 
 
@@ -38,6 +39,7 @@ module.exports = class Application {
     }
 
     setConfig() {
+        require('./passport/passport-local')
         app.use(express.static(config.layout.public_dir))
         app.set('view engine', config.layout.view_engine)
         app.set('views', config.layout.view_dir)
@@ -50,13 +52,23 @@ module.exports = class Application {
         app.use(bodyParser.json())
         app.use(session({ ...config.session }))
         app.use(cookieParser('mysecretkey'));
-
+        app.use(passport.initialize());
+        app.use(passport.session());
         app.use(flash())
         app.use(methodOverride('_method'))
 
         app.use((req, res, next) => {
             res.locals = new Helper(req, res).getObject();
             next()
+        })
+        app.use(async (req, res, next) => {
+            const user = await userModel.findById(req.user?.id,{},{populate:'profile'})
+            if (!user)
+                return next();
+            else {
+                res.locals.user = user
+                next()
+            }
         })
 
     }

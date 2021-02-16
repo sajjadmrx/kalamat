@@ -13,9 +13,8 @@
             <tr>
                 <th>نام کاربر</th>
                 <th>ایمیل</th>
-                <th>تعداد کامنت ها</th>
-                <th>تعداد دوره های خریداری شده</th>
-                <th>تعداد دوره های تدریس شده</th>
+                <th>نقش کاربر</th>
+
                 <th>تاریخ عضویت</th>
 
                 <th>تنظیمات</th>
@@ -31,15 +30,8 @@
                         <%= user.email%>
                     </td>
                     <td>
-                        <%=user.comments.length%>
+                        <%=user.isAdmin?"ادمین":"کاربر"%>
                     </td>
-                    <td>
-                        <%=user.learning.length%>
-                    </td>
-                    <td>
-                        <%=user.courses.length%>
-                    </td>
-
                     <td>
                         <%= date(user.createdAt).fromNow() %>
                     </td>
@@ -48,9 +40,9 @@
                         <form action="/admin/users/<%= user.id %>?_method=DELETE" method="post">
                             <div class="btn-group btn-group-sm">
                                 <a href="/admin/users/<%= user.id %>/toggleadmin" class="btn btn-info">
-                                    <%= user.admin ? 'لغو مدیریت' : 'مدیریت' %>
+                                    <%= user.isAdmin ? 'لغو مدیریت' : 'مدیریت' %>
                                 </a>
-                                <% if(user.admin) { %>
+                                <% if(user.isAdmin) { %>
                                     <a href="/admin/users/<%= user.id %>/addrole" class="btn btn-success">اعمال سطح
                                         دسترسی</a>
                                     <% } %>

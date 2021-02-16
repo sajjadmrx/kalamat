@@ -1,25 +1,70 @@
 const controller = require('./controllers')
-const newsModel = require('../../model/news')
+const postModel = require('../../model/postes')
+const userModel = require('../../model/users')
+
 const commentsModel = require('../../model/comments')
 class home extends controller {
 
     async index(req, res, next) {
         try {
-            const news = await newsModel.paginate({ published: true }, { limit: 4, sort: { createAt: -1 } })
 
-            res.render('home/index', { news })
+            const post = await postModel.paginate({ published: true }, {
+                limit: 4,
+                sort: { createAt: -1 }, populate: { path: 'author', populate: 'profile' }
+            })
+
+            res.render('home/index', { post })
         } catch (error) {
             next(error)
         }
     }
 
 
-    async newsesPage(req, res, next) {
+    async userProfile(req, res, next) {
+
         try {
-            const newses = await newsModel.paginate({ published: true }, { limit: 8, sort: { createAt: -1 } })
+            let page = req.query.page || 1
+            let username = req.params.username
+            if (!username.startsWith('@')) return next()
+            username = username.substr(1)
+
+            const user = await userModel.findOne({ username }, {}, {
+                populate: [{ path: 'profile' }]
+            })
+            if (!user) return res.json(`Not Found ${username}`)///alert
 
 
-            res.render('home/newses', { newses })
+            const post = await postModel.paginate({ author: user.id }, {
+                limit: 5, page, populate: {
+                    path: 'author', populate: 'profile'
+                }
+            })
+
+            res.render('home/userProfile', { user, post })
+
+        } catch (error) {
+            next(error)
+        }
+
+
+
+    }
+
+
+    async postsPage(req, res, next) {
+        try {
+            let query = {}
+            let { search, tags } = req.query
+            if (search)
+                query.body = new RegExp(search, 'gi')
+            if (tags)
+                query.tags = new RegExp(tags, 'gi')
+
+
+            const posts = await postModel.paginate({ published: true, ...query }, { limit: 8, sort: { createAt: -1 }, populate: { path: 'author', populate: 'profile' } })
+
+
+            res.render('home/posts', { posts })
         } catch (error) {
             next(error)
         }
@@ -27,27 +72,39 @@ class home extends controller {
 
     async findByCode(req, res, next) {
         try {
-
+            let page = req.query.page || 1
             const code = req.params.code
-            const news = await newsModel.findOne({ code: code }, {}, { published: true })
-            res.render('home/single-news', { news })
+            const post = await postModel.findOne({ code: code }, {}, { published: true, populate: 'author' })
+            if (!post) return res.json('404') //404
+         
+            res.redirect(`/@${post.author.username}/${code}/${post.slug}`)
         } catch (error) {
             next(error)
         }
     }
 
-    async singleNews(req, res, next) {
+    async singlePost(req, res, next) {
         try {
             let page = req.query.page || 1
             const code = req.params.code
+            const username = req.params.username.substr(1)
             const slug = req.params.slug
-            const news = await newsModel.findOne({ code, slug }, {}, { published: true })
+            const post = await postModel.findOne({ code, slug }, {}, {
+                published: true, populate: [{
+                    path: 'author', match: {
+                        username: username
+                    }
+                }]
+            })
+
+
+            if (!post || !post.author) return res.json('404') //404
             const comments = await commentsModel.paginate(
-                { news: news._id, approved: true, parent: null },
+                { post: post._id, approved: true, parent: null },
                 { limit: 5, page, populate: [{ path: 'childs', match: { approved: true } }] })
 
-            const tags = news.tags[0].split(',')
-            res.render('home/single-news', { news, recaptcha: this.recaptcha.render(), comments, tags })
+            const tags = post.tags[0].split(',')
+            res.render('home/single-post', { post, recaptcha: this.recaptcha.render(), comments, tags })
         } catch (error) {
             next(error)
         }

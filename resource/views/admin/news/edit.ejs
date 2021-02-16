@@ -14,21 +14,15 @@
             </div>
         </div>
 
-        <div class="form-group row" id='miniBodyDiv'>
-            <div class="col">
-                <label for="title" class="control-label font-weight-bold">یک توضیح کوتاه</label>
-                <input onload="valiadtor()" onkeydown="valiadtor()" type="text" class="form-control" name="miniBody"
-                    id="miniBody" placeholder="یک توضیح کوتاه وارد کنیـد" value="<%=news.miniBody%>">
 
+        <div class="form-group row">
+            <div class="form-outline">
+                <input type="text" id="form1" class="form-control" value="<%=news.miniBody%>" data-mdb-showcounter="true"
+                    maxlength="350" />
+
+                <span class="badge badge-pill badge-warning form-helper"></span>
             </div>
 
-        </div>
-
-        <div class="alert alert-danger alert-dismissible" id='alert'>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span>×</span>
-            </button>
-            • حداکثر 112 کاراکتر
         </div>
 
         <div class="form-group row">
@@ -127,23 +121,7 @@
 
 
 
-    function valiadtor() {
-        const doc = document.getElementById('miniBody')
-        const alert = document.getElementById('alert')
-        const length = doc.value.length
 
-
-        if (length != 112) {
-            alert.className = 'alert alert-danger alert-dismissible'
-            alert.innerText = `• ⚠️ ${length} کاراکتر از 112`
-        }
-        if (length == 112) {
-            alert.className = 'alert alert-success alert-dismissible'
-
-            alert.innerText = `• بسیار خب! قابل انتشار میباشد. 🎉`
-        }
-
-    }
 
 
 </script>

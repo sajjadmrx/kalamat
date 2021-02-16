@@ -1,0 +1,95 @@
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+
+<div class="row pt-5 justify-content-center">
+    <div class="col-8">
+        <div class="card card-default">
+            <div class="card-header">
+                <h5>عضویت در سایت</h5>
+            </div>
+            <div class="card-body">
+                <form class="form-horizontal" method="POST" action="/auth/register" novalidate>
+
+                    <%- include(viewPath('layouts/error-messages')) %>
+
+
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="row gutters">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <h6 class="mb-3 text-primary">اطلاعات پروفایل</h6>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="username">نام کاربری</label>
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text ">@</div>
+                                                </div>
+                                                <input type="text" class="form-control" name="username" id="username"
+                                                    placeholder="نام کاربری">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="eMail">ایمیل</label>
+
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text ">
+                                                        <i class="fas fa-envelope"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" name="email" id="email"
+                                                    placeholder="ایمیل را وارد کنید">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="fullName">نام کامل</label>
+                                            <input type="text" class="form-control" id="fullName" name='name'
+                                                placeholder="نام کامل خود را وارد کنید">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="eMail">رمز عبور</label>
+                                            <input type="password" name="password" class="form-control"
+                                                placeholder="رمز عبور را وارد کنید">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <label for="eMail"> احراز هویت کنید </label>
+
+                                    <%- recaptcha %>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="text-align: center;">
+
+                                <button type="submit" class="btn btn-primary">عضویت</button>
+                                <!-- <a href="/auth/google" class=" btn btn-danger">ورود با اکانت گوگل <i
+                                        class="fa fa-google" aria-hidden="true"></i> -->
+                                </a>
+
+                                <!-- <a href="/login/google" class="btn btn-danger">ورود با اکانت گوگل</a> -->
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

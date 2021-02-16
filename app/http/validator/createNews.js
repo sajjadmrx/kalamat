@@ -7,7 +7,7 @@ class validatorCreateNews extends validators {
         return [
             check('title').isLength({ min: 5 })
                 .withMessage('موضوع نباید کمتر از 5 کاراکتر باشد.'),
-            check('miniBody').isLength({ min: 5, max: 350 })
+            check('miniBody').isLength({ min: 5, max: 112 })
                 .withMessage('توضیح کوتا  نباید کمتر از 5  و بیشتر از 350 کاراکتر باشد.'),
             check('body').isLength({ min: 5 })
                 .withMessage('مقاله نباید کمتر از 5 کاراکتر باشد.'),

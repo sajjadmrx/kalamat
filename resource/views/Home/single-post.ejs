@@ -3,38 +3,35 @@
     <div class="col-lg-8">
         <!-- Title -->
         <h1 class="mb-3">
-            <%= news.title %>
+            <%= post.title %>
         </h1>
 
         <!-- Author -->
         <p class="text-muted small">
-            <span> توسط <a href="#">
-                    ادمین
+            <span> توسط <a href="/@<%=post.author.username%>">
+                <%= post.author.username %>@
                 </a></span>
             -
-            <span>ارسال شده در <%= date(news.createdAt).format('jD jMMMM jYYYY') %></span>
+            <span>ارسال شده در <%= date(post.createdAt).format('jD jMMMM jYYYY') %></span>
         </p>
 
         <hr>
         <!-- Post Content -->
-        <div class="col-sm-3 col-md-6 container">
+        <div class="mb-3">
             <ul class="list-group">
-                <li class="list-group-item list-group-item-info">
-                    <%= news.miniBody %>
-                </li>
-                <img src="<%=news.images%>" alt="" srcset="">
+                <img src="<%=post.images%>" width="700px" alt="" srcset="">
             </ul>
         </div>
         <br>
         <div id="content">
 
 
-            <%- news.body %>
+            <%- post.body %>
         </div>
         <hr>
         <p>برچسب ها :
             <% tags.forEach(tag=>{ %>
-                <a class="text-muted" href="/newses?tags=<%= tag %>">
+                <a class="text-muted" href="/posts?tags=<%= tag %>">
 
                     <span class="badge rounded-pill bg-info">
                         <%= tag %>
@@ -48,7 +45,7 @@
 
 
 
-        <%- include(viewPath('layouts/comments') , { subject : news , comments ,recaptcha}) %>
+        <%- include(viewPath('layouts/comments') , { subject : post , comments ,recaptcha}) %>
 
 
     </div>
@@ -62,7 +59,7 @@
             <h5 class="card-header">لینک کوتاه</h5>
             <div class="card-body">
                 <form class="input-group">
-                    <input type="text" class="form-control" id="shortLlink" value="<%=news.shortLink()%>">
+                    <input type="text" class="form-control" id="shortLlink" value="<%=post.shortLink()%>">
                     <span class="input-group-btn">
 
                         <button type="button" class="btn btn-info btn-clipboard" data-clipboard-action="copy"

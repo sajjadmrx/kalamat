@@ -3,7 +3,7 @@ var GithubSlugger = require('github-slugger')
 var slugger = new GithubSlugger()
 const controller = require('../controllers')
 //models
-const newsModel = require('../../../model/news')
+const newsModel = require('../../../model/postes')
 class news extends controller {
 
     async newsPage(req, res, next) {
