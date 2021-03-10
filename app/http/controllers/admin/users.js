@@ -7,6 +7,7 @@ const usersModel = require('../../../model/users')
 class users extends controller {
 
 
+
     async pageUsers(req, res, next) {
         try {
             const page = req.query.page || 1
@@ -72,6 +73,9 @@ class users extends controller {
             next(error)
         }
     }
+
+
+
 }
 
 module.exports = new users()

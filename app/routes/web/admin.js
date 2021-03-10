@@ -7,6 +7,7 @@ const homeControllers = require('../../http/controllers/admin/home')
 const newsControllers = require('../../http/controllers/admin/newsControllers')
 const commentsControllers = require('../../http/controllers/admin/comments')
 const usersControllers = require('../../http/controllers/admin/users')
+const categoriesControllers = require('../../http/controllers/admin/categories')
 
 /* middlewares */
 const fileToFeild = require('../../http/middleware/fileToField')
@@ -44,6 +45,11 @@ router.post('/file/post', (req, res) => {
     res.json('ho')
 })
 
+/// categorys
+
+router.get('/categories', categoriesControllers.index)
+router.get('/categories/create', categoriesControllers.pageCreate)
+router.post('/categories/create', categoriesControllers.postCreate)
 
 
 
@@ -64,6 +70,9 @@ router.post('/users/create', usersControllers.createNewUser)
 
 router.get('/profile', usersControllers.profile)
 router.post('/profile', usersControllers.profilePost)
+
+
+
 
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const path = require('path')
 const config = require('../config')
-const moment = require('moment-jalaali')
+const moment = require('moment-jalaali');
+const userModel = require('./model/users');
 moment.loadPersian({ usePersianDigits: true })
 class Helper {
     constructor(req, res) {
@@ -30,6 +31,7 @@ class Helper {
     date(item) {
         return moment(item)
     }
+
 
 }
 

@@ -1,0 +1,105 @@
+<div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+    <h2>ایجاد دوره</h2>
+</div>
+<form class="form-horizontal" action="/panel/comments/<%= comment.id %>?_method=put" method="post">
+
+    <%- include(viewPath('layouts/error-messages')) -%>
+
+        <div class="form-group row">
+            <div class="col">
+                <label for="name" class="control-label font-weight-bold">نام ارسال کننده</label>
+                <input type="text" class="form-control" name="name" id="name" disabled placeholder="عنوان را وارد کنید"
+                    value="<%=comment.user.name%>">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col">
+                <label for="comment" class="control-label font-weight-bold">کامنت</label>
+                <textarea rows="10" class="form-control" name="comment" id="comment"
+                    placeholder="متن کامنت را وارد کنید"><%=comment.comment%></textarea>
+            </div>
+        </div>
+
+        <div class="checkbox">
+            <label class=" display-5">
+                <h6> - منتشر شود؟</h6>
+            </label>
+            <input type="checkbox" name="approved" id="published" data-toggle="toggle" data-onstyle="success"
+                data-offstyle="warning">
+        </div>
+        <div class="container">
+            <button class="btn btn-danger" id="update" type="submit">ذخیره ویرایش</button>
+        </div>
+</form>
+
+
+<link rel="stylesheet" href="/css/component-chosen.min.css">
+<link rel="stylesheet" href="/css/bootstrap-tagsinput.css">
+
+<script src="/ckeditor/ckeditor.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.6/chosen.jquery.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="/js/bootstrap-tagsinput.js"></script>
+
+<script>
+    CKEDITOR.replace('body', {
+        filebrowserUploadUrl: '/admin/upload-image',
+        language: 'fa'
+    })
+
+    $('.form-control-chosen').chosen({});
+</script>
+
+<script>
+    $(function () {
+
+        $('#published').bootstrapToggle("<%=comment.approved ? 'on' : 'off' %>")
+
+    })
+
+    $(function () {
+        $('#published').bootstrapToggle({
+            on: 'Enabled',
+            off: 'Disabled'
+        });
+    })
+
+
+
+
+
+</script>
+
+
+<style>
+    .container {
+        width: 900px;
+
+        text-align: center;
+    }
+
+    .input-tags {
+        width: 100%;
+        padding: 15px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .label-info {
+        background-color: #5bc0de;
+        padding: 3px;
+    }
+
+    .custom-file-input {
+        background-color: #5bc0de;
+        cursor: pointer;
+    }
+
+    #update {
+        width: 50%;
+    }
+</style>

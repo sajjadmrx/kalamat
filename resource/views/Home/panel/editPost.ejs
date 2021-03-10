@@ -1,7 +1,8 @@
 <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
     <h2>ایجاد یک نوشته جدید</h2>
 </div>
-<form class="form-horizontal" action="/panel/addpost" method="post" enctype="multipart/form-data">
+<form class="form-horizontal" action="/panel/post/<%= post._id %>?_method=put" method="post"
+    enctype="multipart/form-data">
 
     <%- include(viewPath('layouts/error-messages')) -%>
 
@@ -9,7 +10,7 @@
             <div class="col">
                 <label for="title" class="control-label font-weight-bold">عنوان نوشته</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="عنوان را وارد کنید"
-                    value="<%=old('title')%>">
+                    value="<%=post.title%>">
             </div>
         </div>
 
@@ -18,7 +19,7 @@
 
             <div class="form-outline">
                 <input type="text" id="form1" name="miniBody" class="form-control" data-mdb-showcounter="true"
-                    maxlength="112" />
+                    maxlength="112" value="<%= post.miniBody %> " />
 
                 <span
                     class="badge  badge-warning form-helper d-flex justify-content-between align-items-center mb-3 pb-2"></span>
@@ -30,21 +31,19 @@
             <div class="col ">
                 <label for="body" class="control-label font-weight-bold ">متن</label>
                 <textarea rows="10" class="form-control" name="body" id="body"
-                    placeholder="متن مقاله را وارد کنید"><%=old('body')%></textarea>
+                    placeholder="متن مقاله را وارد کنید"><%= post.body %> </textarea>
             </div>
         </div>
 
         <div class="form-group row">
 
-
-            <select id="optgroup" class="form-control form-control-chosen"
-                data-placeholder="دسته های مربوطه را انتخاب کنید" name="categories" multiple>
+            <select name="categories" id="categories" class="form-control form-control-chosen"
+                data-placeholder="دسته بندی مورد نظر ..." multiple>
                 <% categories.forEach(cate=> { %>
 
-                    <option value="<%= cate.id %>">
-                        <%= cate.name %>
+                    <option value="<%= cate.id %>" <%=post.categories.includes(`${cate._id}`) ? 'selected' : '' %>
+                        ><%= cate.name %>
                     </option>
-
                     <% }) %>
             </select>
 
@@ -55,7 +54,7 @@
         <div class="form-group row">
             <div class="col">
                 <input data-role="tagsinput" type="text" class="input-tags" name="tags" id="tags"
-                    placeholder="تگ ها را وارد کنید" value="<%=old('tags')%>">
+                    placeholder="تگ ها را وارد کنید" value="<%= post.tags %> ">
             </div>
         </div>
 
@@ -66,7 +65,7 @@
                 <%- include(viewPath('layouts/image')) -%>
 
                     <div class="user-avatar">
-                        <img id="profileImage" name="images">
+                        <img id="profileImage" name="images" src="<%= post.images %> ">
                     </div>
 
             </div>

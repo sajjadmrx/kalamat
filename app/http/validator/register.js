@@ -24,6 +24,13 @@ class validatorRegister extends validators {
                         return req.flash('errors', 'ایمیل تکراری میباشد')
                     }
                 }),
+            check('categories')
+                .custom(async (value, { req }) => {
+
+                    if (value == 'none') {
+                        return req.flash('errors', 'انتخاب دسته الزامیست.')
+                    }
+                }),
             check('name').isLength({ min: 5 })
                 .withMessage('نام نباید کمتر از 5 کاراکتر باشد.'),
         ]

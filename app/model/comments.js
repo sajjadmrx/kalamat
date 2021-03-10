@@ -6,10 +6,9 @@ const schema = mongoose.Schema
 
 
 const commentsModel = new schema({
-    name: { type: String },
-    email: { type: String },
+    user: { type: schema.Types.ObjectId, ref: 'users', default: null },
     parent: { type: schema.Types.ObjectId, ref: 'comments', default: null },
-    news: { type: schema.Types.ObjectId, ref: 'news' },
+    post: { type: schema.Types.ObjectId, ref: 'posts' },
     comment: { type: String },
     approved: { type: Boolean, default: false },
 }, { timestamps: true, toJSON: { virtuals: true } })

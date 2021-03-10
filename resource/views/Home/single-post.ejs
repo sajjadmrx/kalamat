@@ -9,7 +9,7 @@
         <!-- Author -->
         <p class="text-muted small">
             <span> توسط <a href="/@<%=post.author.username%>">
-                <%= post.author.username %>@
+                    <%= post.author.username %>@
                 </a></span>
             -
             <span>ارسال شده در <%= date(post.createdAt).format('jD jMMMM jYYYY') %></span>
@@ -47,7 +47,6 @@
 
         <%- include(viewPath('layouts/comments') , { subject : post , comments ,recaptcha}) %>
 
-
     </div>
 
     <!-- Blog Sidebar Widgets Column -->
@@ -82,12 +81,28 @@
 
         <!-- Categories Widget -->
         <div class="card my-4">
-            <h5 class="card-header">دسته بندی ها</h5>
+
+            <span class="card-header fa fa-th-large"> دسته ها</span>
             <div class="card-body">
                 <div class="row">
                     <div class="col">
-                        <ul class="list-unstyled pr-0">
-                        </ul>
+                        <%post.categories?.forEach(cate=>{%>
+
+                            <ul class="list-unstyled pr-0">
+                                <a href="/posts?categories=<%= cate.slug %>">
+                                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-globe mr-2 icon-inline">
+
+                                        </svg>
+                                        <%= cate.name %>
+                                    </h6>
+
+                                </a>
+
+                            </ul>
+                            <%})%>
                     </div>
                 </div>
             </div>

@@ -13,6 +13,8 @@ const usersModel = new schema({
     password: { type: String },
     phone: { type: Number },
     isAdmin: { type: Boolean, default: false },
+    followers: [{ user: { type: schema.Types.ObjectId, ref: 'users' } }],
+    following: [{ user: { type: schema.Types.ObjectId, ref: 'users' } }],
 
 }, { timestamps: true, toJSON: { virtuals: true } })
 
@@ -23,7 +25,7 @@ usersModel.virtual('profile', {
     ref: 'profile',
     localField: '_id',
     foreignField: 'user',
-    justOne:true
+    justOne: true
 })
 
 usersModel.virtual('posts', {

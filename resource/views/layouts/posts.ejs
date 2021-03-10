@@ -141,7 +141,7 @@
                                 <%= date(item.createdAt).fromNow() %>
                             </small>
                             <br>
-                            <h4 class="mt-2"><a href="javascript:void(0)" class="text-dark title">
+                            <h4 class="mt-2"><a href="<%= item.path() %> " class="text-dark title">
                                     <%= item.title %>
                                 </a></h4>
                             <p class="text-muted mt-2">

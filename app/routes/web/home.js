@@ -4,6 +4,7 @@ const router = express.Router();
 
 /* controllers */
 const homeControllers = require('../../http/controllers/home')
+const userControllers = require('../../http/controllers/users')
 
 /* Validator */
 const commentValidator = require('../../http/validator/comments')
@@ -17,7 +18,8 @@ router.get('/:username/:code/:slug', homeControllers.singlePost)
 /* comments */
 router.post('/comment', commentValidator.handel(), homeControllers.comment)
 
-
+router.post('/follow/:userId', userControllers.follow)
+router.post('/unfollow/:userId', userControllers.unfollow)
 
 router.get('/logOut', (req, res) => {
     req.logOut()

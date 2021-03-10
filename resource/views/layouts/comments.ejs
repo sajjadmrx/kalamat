@@ -1,132 +1,126 @@
-<div class="card my-4">
-    <h5 class="card-header">ثبت نظر :</h5>
-    <div class="card-body">
-        <%- include(viewPath('layouts/error-messages')) -%>
-
-            <form role="form" action="/comment" method="post">
-
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">نام خود را وارد کنید</label>
-                    <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
-                        placeholder="به عنوان مثال : امید">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">ایمیل را وارد کنید</label>
-                    <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
-                        placeholder="name@example.com">
-                </div>
-                <input type="hidden" name="<%= subject.constructor.modelName.toLowerCase() %>"
-                    value="<%= subject.id %>">
-                <div class="form-group">
-                    <textarea name="comment" class="form-control" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <%- recaptcha %>
-                </div>
-                <button type="submit" class="btn btn-primary">ارسال</button>
-            </form>
-    </div>
-</div>
+<%if(req.user){ %>
 
 
+    <div class="card my-4">
+        <h5 class="card-header">ثبت نظر :</h5>
+        <div class="card-body">
+            <%- include(viewPath('layouts/error-messages')) -%>
 
+                <form role="form" action="/comment" method="post">
 
-<hr>
-
-<% comments.docs.forEach(comment=> { %>
-
-    <div class="media mb-4">
-        <img class="d-flex ml-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-        <div class="media-body">
-            <h5 class="mt-0">
-                <%= comment.name %>
-
-                    <button class="float-left btn-sm btn btn-xs btn-success" data-toggle="modal"
-                        data-target="#sendCommentModal" data-parent="<%= comment.id %>">پاسخ</button>
-
-            </h5>
-            <span class="text-muted">ارسال شده در <%-date(comment.createdAt).fromNow() %></span>
-            <br>
-            <%- comment.comment %>
-
-
-                <% comment.childs.forEach(comment=> { %>
-                    <div class="media mt-4">
-                        <img class="d-flex ml-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                        <div class="media-body">
-                            <h5 class="mt-0">
-                                <%= comment.name %>
-                                    <button class="float-left btn-sm btn btn-xs btn-success" data-toggle="modal"
-                                        data-target="#sendCommentModal" data-parent="<%= comment.id %>">پاسخ</button>
-                            </h5>
-
-                            <span class="text-muted">ارسال شده در
-                                <%-date(comment.createdAt).fromNow(); %>
-                            </span>
-                            <br>
-                            <%- comment.comment %>
-                        </div>
+                    <input type="hidden" name="<%= subject.constructor.modelName.toLowerCase() %>"
+                        value="<%= subject.id %>">
+                    <div class="form-group">
+                        <textarea name="comment" class="form-control" rows="3"></textarea>
                     </div>
-                    <% }) %>
 
-
+                    <button type="submit" class="btn btn-primary">ارسال</button>
+                </form>
         </div>
     </div>
-    <% }) %>
-        <!-- Comment -->
 
-        <div class="modal fade" id="sendCommentModal" tabindex="-1" role="dialog"
-            aria-labelledby="sendCommentModalLabel" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="exampleModalLabel">ارسال پاسخ</h4>
-                        <button type="button" class="close" style="margin-left: -1rem;" data-dismiss="modal"
-                            aria-label="Close"><span aria-hidden="true">×</span></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/comment" method="post">
 
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">نام خود را وارد کنید</label>
-                                <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="به عنوان مثال : امید">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">ایمیل را وارد کنید</label>
-                                <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="name@example.com">
-                            </div>
+    <hr>
+    <% } %>
 
-                            <input type="hidden" name="parent" value="">
-                            <input type="hidden" name="<%= subject.constructor.modelName.toLowerCase() %>"
-                                value="<%= subject.id %>">
 
-                            <div class="form-group">
-                                <label for="message-text" class="control-label">متن پاسخ:</label>
-                                <textarea class="form-control" id="message-text" name="comment"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <%- recaptcha %>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">ارسال</button>
-                                <button type="button" class="btn btn-default mr-2 ml-0"
-                                    data-dismiss="modal">انصراف</button>
-                            </div>
-                        </form>
-                    </div>
+        <% comments.docs.forEach(comment=> { %>
+
+            <div class="media mb-4">
+
+                <img class="d-flex ml-3 rounded-circle" src=" <%=comment.user.profile.images %> " width="50px"
+                    height="50px">
+
+                <div class="media-body tab-content">
+                    <%if(req.user){ %>
+
+                        <h5 class="mt-0">
+
+
+                            <%= comment.name %>
+
+                                <button class="float-left btn-sm btn btn-xs btn-success" data-toggle="modal"
+                                    data-target="#sendCommentModal" data-parent="<%= comment.id %>">پاسخ</button>
+
+                        </h5>
+                        <% } %>
+
+                            <a class="text-muted  well well-lg" href="/@<%= comment.user.username %> ">
+                                <%=comment.user.name %>
+                            </a>
+                            <br>
+                            <span class="text-muted">ارسال شده در <%-date(comment.createdAt).fromNow() %></span>
+                            <br>
+                            <%- comment.comment %>
+
+
+                                <% comment.childs.forEach(comment=> { %>
+                                    <div class="media mt-4">
+                                        <img class="d-flex ml-3 rounded-circle"
+                                            src=" <%=comment.user.profile.images %> " width="50px" height="50px">
+
+                                        <div class="media-body">
+
+
+                                            <a class="text-muted" href="/@<%= comment.user.username %> ">
+                                                <%=comment.user.name %>
+                                            </a>
+                                            <br>
+                                            <span class="text-muted">ارسال شده در <%-date(comment.createdAt).fromNow()
+                                                    %></span>
+
+                                            <br>
+                                            <%- comment.comment %>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+
 
                 </div>
             </div>
-        </div>
+            <% }) %>
+                <!-- Comment -->
+
+                <div class="modal fade" id="sendCommentModal" tabindex="-1" role="dialog"
+                    aria-labelledby="sendCommentModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLabel">ارسال پاسخ</h4>
+                                <button type="button" class="close" style="margin-left: -1rem;" data-dismiss="modal"
+                                    aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/comment" method="post">
+                                    <input type="hidden" name="parent" value="">
+                                    <input type="hidden" name="<%= subject.constructor.modelName.toLowerCase() %>"
+                                        value="<%= subject.id %>">
+
+                                    <div class="form-group">
+                                        <label for="message-text" class="control-label">متن پاسخ:</label>
+                                        <textarea class="form-control" id="message-text" name="comment"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <%- recaptcha %>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">ارسال</button>
+                                        <button type="button" class="btn btn-default mr-2 ml-0"
+                                            data-dismiss="modal">انصراف</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
 
-        <script>
-            $('#sendCommentModal').on('show.bs.modal', function (event) {
-                let button = $(event.relatedTarget);
-                let parentId = button.data('parent');
-                let modal = $(this);
-                modal.find("[name='parent']").val(parentId);
-            });
-        </script>
+                <script>
+                    $('#sendCommentModal').on('show.bs.modal', function (event) {
+                        let button = $(event.relatedTarget);
+                        let parentId = button.data('parent');
+                        let modal = $(this);
+                        modal.find("[name='parent']").val(parentId);
+                    });
+                </script>

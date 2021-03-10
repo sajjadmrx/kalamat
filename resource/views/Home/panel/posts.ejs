@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-between align-items-center mb-3 border-bottom-1">
+    <h2>پست ها</h2>
+    <div class="btn-group">
+        <a href="/panel/addpost" class="btn btn-sm btn-primary">ایجاد پست جدید</a>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>عنوان </th>
+                <th>تعداد نظرات</th>
+                <th>مقدار بازدید</th>
+                <th>وضعیت </th>
+                <th>تنظیمات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% posts.docs.forEach(item=> { %>
+                <tr>
+                    <td><a href="/<%=item.path()%>">
+                            <%= item.title %>
+                        </a></td>
+                    <td>
+                        <%= item.commentCount %>
+                    </td>
+                    <td>
+                        <%= item.viewCount %>
+                    </td>
+                    <td style="<%= item.published?" color: rgb(30, 126, 52,1);" :"color: rgb(255, 0, 0);"%>">
+                        <%= item.published?'منتشر شده':'منتشر نشده' %>
+                    </td>
+
+                    <td>
+                        <form action="/panel/post/<%= item._id %>?_method=DELETE" method="post">
+                            <div class="btn-group btn-group-sm">
+                                <a href="/panel/post/<%= item.id %>/edit" class="btn btn-primary">ویرایش</a>
+                                <a class="<%= item.published?" btn btn-secondary" :"btn btn-success" %>"
+                                    href="/panel/post/<%= item.id %>/togglePublished" >
+                                        <%=item.published?'توقف انتشار':'انتشار' %>
+                                </a>
+                                <button type="submit" class="btn btn-danger">حذف</button>
+                            </div>
+                        </form>
+                    </td>
+
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+
+    <%- include(viewPath('layouts/pagination') ,{ pagination : posts}) %>
+</div>

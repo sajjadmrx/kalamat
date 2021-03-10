@@ -82,10 +82,30 @@
                                                         <a href="#" id="user-username">
                                                             <%= user.username %>
                                                         </a>@
-                                                        </h5>
+                                                    </h5>
                                                     <p id="user-bio">
                                                         <%= user.profile?.bio || "محل درباره من" %>
                                                     </p>
+                                                </div>
+                                                <div class="row mt-5">
+                                                    <div class="col border-right border-left text-center">
+                                                        <h2 class="font-light">
+                                                            <%= user.posts.length %>
+                                                        </h2>
+                                                        <span class="text-uppercase">پست </span>
+                                                    </div>
+                                                    <div class="col border-left text-center">
+                                                        <h2 class="font-light" id='followers'>
+                                                            <%= user.followers.length %>
+                                                        </h2>
+                                                        <span class="text-uppercase">دنبال کننده</span>
+                                                    </div>
+                                                    <div class="col text-center border-left ">
+                                                        <h2 class="font-light">
+                                                            <%= user.following.length %>
+                                                        </h2>
+                                                        <span class="text-uppercase">دنبال میکنید </span>
+                                                    </div>
                                                 </div>
                                         </div>
 

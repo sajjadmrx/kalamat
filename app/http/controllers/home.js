@@ -9,11 +9,35 @@ class home extends controller {
         try {
 
             const post = await postModel.paginate({ published: true }, {
-                limit: 4,
-                sort: { createAt: -1 }, populate: { path: 'author', populate: 'profile' }
+                limit: 3,
+                sort: { createdAt: -1 }, populate: { path: 'author', populate: 'profile' }
             })
+            let myUser;
+            if (req.user) {
 
-            res.render('home/index', { post })
+                myUser = await userModel.findById({ _id: req.user.id }, {}, {})
+
+                if (myUser.following.length) {
+
+                    myUser = await myUser.populate({
+
+                        path: 'following.user',
+                        select: '-password -_id',
+                        populate: [{
+                            path: 'posts',
+                            populate: [{ path: 'author', populate: 'profile', }],
+                            options: { limit: 2, sort: { updatedAt: -1 } }
+                        }],
+
+
+                    }).execPopulate();
+                }
+
+            }
+            else
+                myUser = null
+
+            res.render('home/index', { post, myUser })
         } catch (error) {
             next(error)
         }
@@ -28,19 +52,25 @@ class home extends controller {
             if (!username.startsWith('@')) return next()
             username = username.substr(1)
 
-            const user = await userModel.findOne({ username }, {}, {
-                populate: [{ path: 'profile' }]
+            const user_Target = await userModel.findOne({ username }, {}, {
+                populate: [{ path: 'profile' }, { path: "followrs.followers" }, { path: "followrs.following" }]
             })
-            if (!user) return res.json(`Not Found ${username}`)///alert
+            if (!user_Target) return res.json(`Not Found ${username}`)///alert 404
 
-
-            const post = await postModel.paginate({ author: user.id }, {
+            const post = await postModel.paginate({ author: user_Target.id, published: true }, {
                 limit: 5, page, populate: {
-                    path: 'author', populate: 'profile'
+                    path: 'author', populate: 'profile',
                 }
             })
+            let isFollow;
+            if (req.user) {
+                isFollow = user_Target.followers.find(u => u.user == req.user.id)
+                isFollow = isFollow !== undefined ? true : false
+            }
+            else
+                isFollow = false;
 
-            res.render('home/userProfile', { user, post })
+            res.render('home/userProfile', { user_Target, post, isFollow })
 
         } catch (error) {
             next(error)
@@ -76,7 +106,7 @@ class home extends controller {
             const code = req.params.code
             const post = await postModel.findOne({ code: code }, {}, { published: true, populate: 'author' })
             if (!post) return res.json('404') //404
-         
+
             res.redirect(`/@${post.author.username}/${code}/${post.slug}`)
         } catch (error) {
             next(error)
@@ -89,19 +119,35 @@ class home extends controller {
             const code = req.params.code
             const username = req.params.username.substr(1)
             const slug = req.params.slug
-            const post = await postModel.findOne({ code, slug }, {}, {
-                published: true, populate: [{
+            const post = await postModel.findOne({ code, slug, published: true }, {}, {
+                populate: [{
                     path: 'author', match: {
                         username: username
                     }
+                },
+                {
+                    path: 'categories'
                 }]
             })
-
 
             if (!post || !post.author) return res.json('404') //404
             const comments = await commentsModel.paginate(
                 { post: post._id, approved: true, parent: null },
-                { limit: 5, page, populate: [{ path: 'childs', match: { approved: true } }] })
+                {
+                    limit: 5, page, populate: [
+
+                        { path: 'user', populate: 'profile' },
+
+                        {
+                            path: 'childs', match: { approved: true }, populate: {
+                                path: 'user',
+                                populate: 'profile'
+                            }
+                        }
+
+                    ]
+
+                })
 
             const tags = post.tags[0].split(',')
             res.render('home/single-post', { post, recaptcha: this.recaptcha.render(), comments, tags })
@@ -114,14 +160,16 @@ class home extends controller {
     async comment(req, res, next) {
         try {
 
-            await this.recaptchaValidator(req, res)
+            const { posts, comment, parent } = req.body;
             ///validator
             const result = await this.checkValidator(req)
             if (!result) return this.back(req, res)
             // save 
-            const comment = new commentsModel({ ...req.body })
-            comment.approved = false;
-            comment.save()
+
+
+            const newcomment = new commentsModel({ post: posts, comment, user: req.user.id, parent: parent })
+            newcomment.approved = true;
+            newcomment.save()
             // redirect
             req.flash('errors', 'انجام شد منتظر باشید تا تایید بشه ')
             this.back(req, res)

@@ -1,0 +1,127 @@
+<div class="d-flex justify-content-between align-items-center mb-3 border-bottom-1">
+    <h2>کامنت ها </h2>
+
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>نام ارسال کننده</th>
+                <th>پاسخ به </th>
+                <th>مطلب</th>
+                <th>متن نظر</th>
+                <th>تنظیمات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% comments.docs.forEach(comment=> { %>
+                <tr>
+                    <td>
+                        <a class="text-muted" href="/@<%= comment.user.username %> ">
+                            <%= comment.user.name %>
+                        </a>
+                    </td>
+                    <td>
+                        <%= comment.parent?comment.parent.comment:"" %>
+                    </td>
+                    <td>
+
+
+
+                        <% if(comment.post) { %>
+
+                            <a href="/<%= comment.post.path() %>">
+                                <%= comment.post.title %>
+                            </a>
+                            <% } %>
+                    </td>
+                    <td>
+                        <%= comment.comment %>
+                    </td>
+
+                    <td>
+
+                        <form action="/panel/comments/<%= comment.id %>?_method=DELETE" method="post">
+
+                            <div class="btn-group" role="group">
+                                <a href="/panel/comments/<%= comment.id %>/edit" class="btn btn-primary">ویرایش</a>
+                                <a class="<%= comment.approved?" btn btn-secondary" :"btn btn-success" %>"
+                                    href="/panel/comments/<%= comment.id %>/toggleApproved" >
+                                        <%=comment.approved?'توقف انتشار':'تایید' %>
+                                </a>
+                                <button type="submit" class="btn btn-danger">حذف</button>
+
+                                <a class="btn btn-link" data-mdb-color="dark" data-toggle="modal"
+                                    data-target="#sendCommentModal" data-parent="<%= comment.id %>"
+                                    data-news="<%= comment.post._id %>">پاسخ</a>
+                            </div>
+
+                        </form>
+                    </td>
+                </tr>
+
+                <!-- reply for Admin -->
+
+                <% }) %>
+        </tbody>
+    </table>
+
+
+    <div class="modal fade" id="sendCommentModal" tabindex="-1" role="dialog" aria-labelledby="sendCommentModalLabel"
+        aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">ارسال پاسخ</h4>
+                    <button type="button" class="close" style="margin-left: -1rem;" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/admin/comments/reply" method="post">
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">نام خود را وارد
+                                کنید</label>
+                            <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
+                                placeholder="به عنوان مثال : امید">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">ایمیل را وارد
+                                کنید</label>
+                            <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="name@example.com">
+                        </div>
+
+                        <input type="hidden" name="parent" value="">
+                        <input type="hidden" name="news" value="">
+
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">متن پاسخ:</label>
+                            <textarea class="form-control" id="message-text" name="comment"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">ارسال</button>
+                            <button type="button" class="btn btn-default mr-2 ml-0" data-dismiss="modal">انصراف</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#sendCommentModal').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget);
+            let parentId = button.data('parent');
+            let newsId = button.data('news')
+            let modal = $(this);
+            modal.find("[name='parent']").val(parentId);
+            modal.find("[name='news']").val(newsId)
+        });
+    </script>
+
+
+    <%- include(viewPath('layouts/pagination') ,{ pagination : comments}) %>
+</div>

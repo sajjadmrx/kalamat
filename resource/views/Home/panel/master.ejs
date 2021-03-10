@@ -30,34 +30,31 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/">صفحه اصلی</span></a>
+            <a class="nav-link" href="/panel">داشبورد</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/posts">نوشته ها</a>
+            <a class="nav-link" href="/panel/posts"><span class="far fa-post"></span>پست ها</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/about-me">ورزشی</a>
+            <a class="nav-link" href="/panel/comments"><span class="far fa-comment"></span> کامنت ها</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-
-
-          <% if (req.user) { %>
-
-            <div class="container-fluid">
-              <ul class="navbar-nav">
-                <!-- Avatar -->
-                <li class="nav-item dropdown">
-
+          <div class="container-fluid">
+            <ul class="navbar-nav">
+              <!-- Avatar -->
+              <li class="nav-item dropdown">
+                <% const img='https://www.bootdey.com/img/Content/avatar/avatar1.png' %>
                   <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink"
                     role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                     <span class="d-flex container badge bg-primary">
                       <%= req.user.name %>
                     </span>
-                    <img src="<%=user?.profile.images%>" class="rounded-circle" height="22" alt="" loading="lazy" />
+                    <img src="<%=user?.profile.images||img%>" class="rounded-circle" height="22" alt=""
+                      loading="lazy" />
                   </a>
                   <ul style="text-align: right;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <%if (req.user.isAdmin){%>
@@ -68,14 +65,9 @@
                         <li><a class="dropdown-item" href="/panel">حساب کاربری</a></li>
                         <li><a class="dropdown-item" href="/logout">خروج</a></li>
                   </ul>
-                </li>
-              </ul>
-            </div>
-
-            <% } else { %>
-              <li><a class="btn btn-success btn-sm ml-2" href="/auth/login">ورود</a></li>
-              <li><a class="btn btn-primary btn-sm" href="/auth/register">عضویت</a></li>
-              <%} %>
+              </li>
+            </ul>
+          </div>
         </ul>
       </div>
     </div>
