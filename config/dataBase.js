@@ -1,6 +1,6 @@
 
 module.exports = {
-    url: 'mongodb://localhost/isnaNews',
+    url: process.env.DbUrl,
     setting: {
         useNewUrlParser: true,
         useUnifiedTopology: true,
