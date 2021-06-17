@@ -8,7 +8,7 @@ class validatorRegister extends validators {
             check('username').isLength({ min: 5 })
                 .withMessage('نام کاربری نباید کمتر از 5 کاراکتر باشد.'),
 
-            check('username').custom(async (value) => {
+            check('username').custom(async (value, { req }) => {
                 const user = await userModel.findOne({ username: value })
                 if (user) {
                     return req.flash('errors', 'نام کاربری تکراری میباشد')

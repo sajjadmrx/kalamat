@@ -35,9 +35,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/posts">نوشته ها</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about-me">ورزشی</a>
-          </li>
+
         </ul>
         <ul class="nav navbar-nav navbar-right">
 
@@ -57,7 +55,7 @@
                     <span class="d-flex container badge bg-primary">
                       <%= req.user.name %>
                     </span>
-                    <img src="<%=user?.profile.images%>" class="rounded-circle" height="22" alt="" loading="lazy" />
+                    <img src="<%=user.profile.images%>" class="rounded-circle" height="22" alt="" loading="lazy" />
                   </a>
                   <ul style="text-align: right;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <%if (req.user.isAdmin){%>

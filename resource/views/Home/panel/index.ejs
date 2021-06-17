@@ -1,295 +1,103 @@
-<style type="text/css">
-    body {
-        margin-top: 20px;
-        color: #bcd0f7;
-        background: #1A233A;
-    }
+<script src="https://use.fontawesome.com/61081366e6.js"></script>
+<script src="https://kit.fontawesome.com/211d2c33c8.js" crossorigin="anonymous"></script>
 
-    .account-settings .user-profile {
-        margin: 0 0 1rem 0;
-        padding-bottom: 1rem;
-        text-align: center;
-    }
 
-    .account-settings .user-profile .user-avatar {
-        margin: 0 0 1rem 0;
-    }
-
-    .account-settings .user-profile .user-avatar img {
-        width: 90px;
-        height: 90px;
-        -webkit-border-radius: 100px;
-        -moz-border-radius: 100px;
-        border-radius: 100px;
-    }
-
-    .account-settings .user-profile h5.user-name {
-        margin: 0 0 0.5rem 0;
-    }
-
-    .account-settings .user-profile h6.user-email {
-        margin: 0;
-        font-size: 0.8rem;
-        font-weight: 400;
-    }
-
-    .account-settings .about {
-        margin: 1rem 0 0 0;
-        font-size: 0.8rem;
-        text-align: center;
-    }
-
-    .card {
-        background: #272E48;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        border: 0;
-        margin-bottom: 1rem;
-    }
-
-    .form-control {
-        border: 1px solid #596280;
-        -webkit-border-radius: 2px;
-        -moz-border-radius: 2px;
-        border-radius: 2px;
-        font-size: .825rem;
-        background: #1A233A;
-        color: #bcd0f7;
-    }
-</style>
-</head>
-
-<% const img='https://www.bootdey.com/img/Content/avatar/avatar1.png' %>
-
-    <body>
+<body>
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <form action="/panel" method="post" enctype="multipart/form-data">
-            <div class="container">
-                <%- include(viewPath('layouts/error-messages')) -%>
+            <div class="card h-100">
+                <div class="card-body">
                     <div class="row gutters">
-                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <div class="account-settings">
-                                        <div class="user-profile">
-                                            <div class="user-avatar">
-                                                <img src="<%= user.profile?.images||img %> " id="profileImage"
-                                                    alt="عکس پروفایل">
-                                            </div>
-                                            <%- include(viewPath('layouts/image')) -%>
-                                                <div class="about">
-                                                    <h5 class="mb-2 text-primary">
-                                                        <a href="#" id="user-username">
-                                                            <%= user.username %>
-                                                        </a>@
-                                                    </h5>
-                                                    <p id="user-bio">
-                                                        <%= user.profile?.bio || "محل درباره من" %>
-                                                    </p>
-                                                </div>
-                                                <div class="row mt-5">
-                                                    <div class="col border-right border-left text-center">
-                                                        <h2 class="font-light">
-                                                            <%= user.posts.length %>
-                                                        </h2>
-                                                        <span class="text-uppercase">پست </span>
-                                                    </div>
-                                                    <div class="col border-left text-center">
-                                                        <h2 class="font-light" id='followers'>
-                                                            <%= user.followers.length %>
-                                                        </h2>
-                                                        <span class="text-uppercase">دنبال کننده</span>
-                                                    </div>
-                                                    <div class="col text-center border-left ">
-                                                        <h2 class="font-light">
-                                                            <%= user.following.length %>
-                                                        </h2>
-                                                        <span class="text-uppercase">دنبال میکنید </span>
-                                                    </div>
-                                                </div>
-                                        </div>
-
-                                        <div class="card mt-3">
-                                            <ul class="list-group list-group-flush">
-                                                <li
-                                                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            class="feather feather-globe mr-2 icon-inline">
-                                                            <circle cx="12" cy="12" r="10"></circle>
-                                                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                                                            <path
-                                                                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                                                            </path>
-                                                        </svg> وب سایت من</h6>
-                                                    <span class="text-secondary" id="user-website">
-                                                        <%= user.profile?.website %>
-                                                    </span>
-                                                </li>
-                                                <li
-                                                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            class="feather feather-github mr-2 icon-inline">
-                                                            <path
-                                                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                                                            </path>
-                                                        </svg> گیت هاب من</h6>
-                                                    <span class="text-secondary">
-                                                        <%= user.profile?.Github %>
-                                                    </span>
-                                                </li>
-                                                <li
-                                                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            class="feather feather-twitter mr-2 icon-inline text-info">
-                                                            <path
-                                                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-                                                            </path>
-                                                        </svg> توییتر من</h6>
-                                                    <span class="text-secondary">
-                                                        <%= user.profile?.twitter %>
-                                                    </span>
-                                                </li>
-                                                <li
-                                                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round"
-                                                            class="feather feather-instagram mr-2 icon-inline text-danger">
-                                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5">
-                                                            </rect>
-                                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z">
-                                                            </path>
-                                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                                        </svg> اینستاگرام من</h6>
-                                                    <span class="text-secondary">
-                                                        <%= user.profile?.instagram %>
-                                                    </span>
-                                                </li>
-
-                                            </ul>
-                                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <h6 class="mb-3 text-primary">اطلاعات پروفایل</h6>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="username">نام کاربری</label>
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text ">@</div>
                                     </div>
+                                    <input onkeyup="changer('username','user-username')"
+                                        onkeydown="changer('username','user-username')" type="text" class="form-control"
+                                        name="username" value="<%= user.username %>" id="username"
+                                        placeholder="نام کاربری">
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="eMail">ایمیل</label>
+                                <input type="email" class="form-control" id="eMail" name="email"
+                                    onkeyup="changer('eMail','user-email')" onkeydown="changer('eMail','user-email')"
+                                    placeholder="ایمیل خود را وارد کنید" value="<%= user.email %> ">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="fullName">نام کامل</label>
+                                <input type="text" class="form-control" id="fullName" name='name'
+                                    onkeyup="changer('fullName','user-name')"
+                                    onkeydown="changer('fullName','user-name')" placeholder="نام کامل خود را وارد کنید"
+                                    value="<%= user.name %>">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="eMail">رمز عبور</label>
+                                <input type="password" disabled class="form-control" value="<%= user.email %> ">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="phone">شماره همراه</label>
+                                <input type="text" class="form-control" id="phone" name="phone"
+                                    placeholder="شماره همراه خود را وارد کنید" value="<%= user.phone%>">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="website">آدرس وبسایت شما</label>
+                                <input type="url" class="form-control" id="website" name="website"
+                                    onkeyup="changer('website','user-website')"
+                                    onkeydown="changer('website','user-website')" placeholder="ادرس وبسایت را وارد کنید"
+                                    value="<%= user.profile?.website %>">
+                            </div>
+                        </div>
+                        <div class="user-profile">
 
-                        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <div class="row gutters">
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                            <h6 class="mb-3 text-primary">اطلاعات پروفایل</h6>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="username">نام کاربری</label>
-                                                <div class="input-group mb-2 mr-sm-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text ">@</div>
-                                                    </div>
-                                                    <input onkeyup="changer('username','user-username')"
-                                                        onkeydown="changer('username','user-username')" type="text"
-                                                        class="form-control" name="username"
-                                                        value="<%= user.username %>" id="username"
-                                                        placeholder="نام کاربری">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="eMail">ایمیل</label>
-                                                <input type="email" class="form-control" id="eMail" name="email"
-                                                    onkeyup="changer('eMail','user-email')"
-                                                    onkeydown="changer('eMail','user-email')"
-                                                    placeholder="ایمیل خود را وارد کنید" value="<%= user.email %> ">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="fullName">نام کامل</label>
-                                                <input type="text" class="form-control" id="fullName" name='name'
-                                                    onkeyup="changer('fullName','user-name')"
-                                                    onkeydown="changer('fullName','user-name')"
-                                                    placeholder="نام کامل خود را وارد کنید" value="<%= user.name %>">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="eMail">رمز عبور</label>
-                                                <input type="password" disabled class="form-control"
-                                                    value="<%= user.email %> ">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="phone">شماره همراه</label>
-                                                <input type="text" class="form-control" id="phone" name="phone"
-                                                    placeholder="شماره همراه خود را وارد کنید" value="<%= user.phone%>">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <label for="website">آدرس وبسایت شما</label>
-                                                <input type="url" class="form-control" id="website" name="website"
-                                                    onkeyup="changer('website','user-website')"
-                                                    onkeydown="changer('website','user-website')"
-                                                    placeholder="ادرس وبسایت را وارد کنید"
-                                                    value="<%= user.profile?.website %>">
-                                            </div>
-                                        </div>
-                                        <input type="hidden" id="imgProfie">
-                                    </div>
-                                    <div class="row gutters">
+                            <div class="user-avatar">
+                                <img src="<%= user.profile?.images %> " class="profileImage" alt="عکس پروفایل">
+                            </div>
+                            <%- include(viewPath('layouts/image')) -%>
+                        </div>
+                    </div>
+                    <div class="row gutters">
 
-                                        <div class="col">
-                                            <label for="body" class="control-label font-weight-bold">متن</label>
-                                            <textarea rows="8" class="form-control" name="bio" id="body"
-                                                onkeyup="changer('body','user-bio')"
-                                                onkeydown="changer('body','user-bio')"
-                                                placeholder="بیو خود را وارد کنید"><%=user.profile?.bio%></textarea>
-                                        </div>
+                        <div class="col">
+                            <label for="body" class="control-label font-weight-bold">متن</label>
+                            <textarea rows="8" class="form-control" name="bio" id="body"
+                                onkeyup="changer('body','user-bio')" onkeydown="changer('body','user-bio')"
+                                placeholder="بیو خود را وارد کنید"><%=user.profile?.bio%></textarea>
+                        </div>
 
-                                    </div>
-                                    <div class="row gutters pt-3">
-                                        <div class="col-xl-13 col-lg-12 col-md-12 col-sm-12 col-12">
-                                            <div class=" text-right">
+                    </div>
+                    <div class="row gutters pt-3">
+                        <div class="col-xl-13 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class=" text-right">
 
-                                                <button type="button" id="submit" class="btn btn-secondary">نمایش
-                                                    پروفایل</button>
-                                                <button type="submit" id="submit" class="btn btn-primary">بروز
-                                                    رسانی</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button type="button" id="submit" class="btn btn-secondary">نمایش
+                                    پروفایل</button>
+                                <button type="submit" id="submit" class="btn btn-primary">بروز
+                                    رسانی</button>
 
                             </div>
                         </div>
                     </div>
+                </div>
+
             </div>
         </form>
+    </div>
 
-        <script type="text/javascript">
-            function changer(id_, idTarget) {
-                const id = id_;
-                const doc = document.getElementById(id)
-                document.getElementById(idTarget).innerHTML = doc.value
-
-            }
-
-        </script>
-
-    </body>
-
-    </html>
+</body>

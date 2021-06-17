@@ -347,6 +347,7 @@ class panel extends controller {
 
 
             const user = await userModel.findById(req.user.id, '-password')
+
             const isFollow = user.following.find(u => u.user == userTarget.id)
 
             if (isFollow == undefined)

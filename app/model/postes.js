@@ -17,7 +17,7 @@ const postsModel = new schema({
     categories: [{ type: schema.Types.ObjectId, ref: 'categories' }],
     commentCount: { type: Number, default: 0 },
     viewCount: { type: Number, default: 0 },
-    published: { type: Boolean, default: true }
+    published: { type: Boolean, default: true },
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 postsModel.plugin(mongoosePaginate)
@@ -27,6 +27,16 @@ postsModel.virtual('comments', {
     ref: 'comments',
     localField: '_id',
     foreignField: 'post'
+})
+postsModel.virtual('savelngth', {
+    ref: 'users',
+    localField: '_id',
+    foreignField: 'bookmarks'
+})
+postsModel.virtual('likeLngth', {
+    ref: 'users',
+    localField: '_id',
+    foreignField: 'liked'
 })
 
 

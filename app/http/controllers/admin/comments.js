@@ -10,10 +10,12 @@ class comments extends controller {
         try {
             let page = req.query.page || 1
             const comments = await commetnsModel.paginate({}, {
-                limit: 4, page, populate: 'news', sort: {
+                limit: 4, page, populate: [{ path: 'user' }, { path: 'post' }], sort: {
                     createdAt: -1
                 }
             })
+
+
             res.render('admin/comments/index', { comments })
         } catch (error) {
             next(error)
@@ -105,7 +107,7 @@ class comments extends controller {
 
             await comments.save()
             this.commentsPage(req, res, next)
-            this.back(req, res)
+
 
         } catch (error) {
             next(error)

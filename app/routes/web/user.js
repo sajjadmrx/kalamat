@@ -4,8 +4,12 @@ const router = express.Router();
 
 /* controllers */
 
-const userpanel = require('../../http/controllers/users')
-
+const indexController = require('../../http/controllers/user/index')
+const postsController = require('../../http/controllers/user/posts')
+const vrefyController = require('../../http/controllers/user/vrefy')
+const commentsController = require('../../http/controllers/user/comments')
+const boockMarksController = require('../../http/controllers/user/bookmarks')
+const likesCntroller = require('../../http/controllers/user/likes')
 /* middlewares */
 const fileToFeild = require('../../http/middleware/fileToField')
 const checkVrefyed = require('../../http/middleware/checkVrefyd')
@@ -20,46 +24,69 @@ router.use((req, res, next) => {
     res.locals.layout = 'home/panel/master'
     next();
 })
-router.get('/', userpanel.panel)
+router.get('/', indexController.panel)
 router.post('/',
     upload.single('images'),
     fileToFeild.handel,
     profValidator.handel(),
-    userpanel.postPanel
+    indexController.updatePanel
 )
-router.get('/posts', userpanel.showMyPost)
-router.get('/post/:id/edit', userpanel.editMyPost)
-router.put('/post/:id', upload.single('images'),
-    fileToFeild.handel, userpanel.update)
 
-router.get('/post/:id/togglePublished', userpanel.togglePublished)
+
+
+
+router.get('/posts', postsController.showMyPost)
+router.get('/post/:id/edit', postsController.editMyPost)
+router.put('/post/:id', upload.single('images'),
+    fileToFeild.handel, postsController.update)
+
+router.get('/post/:id/togglePublished', postsController.togglePublished)
 
 ///vrefy
-router.get('/vrefyEmail', redirectIfVrefyed.handel, userpanel.vrefy)
-router.post('/vrefyEmail', redirectIfVrefyed.handel, userpanel.postVrefy)
-router.get('/vrefyEmail/:token', redirectIfVrefyed.handel, userpanel.getToken)
+router.get('/vrefyEmail', redirectIfVrefyed.handel, vrefyController.vrefy)
+router.post('/vrefyEmail', redirectIfVrefyed.handel, vrefyController.postVrefy)
+router.get('/vrefyEmail/:token', redirectIfVrefyed.handel, vrefyController.getToken)
 
 
 
 //post
 
-router.get('/addpost', checkVrefyed.handel, userpanel.pageAddpost)
+router.get('/addpost', (req, res, next) => {
+    res.locals.layout = 'home/master'
+    next();
+}, checkVrefyed.handel, postsController.pageAddpost)
 router.post('/addpost',
     checkVrefyed.handel,
     upload.single('images'),
     fileToFeild.handel,
-    userpanel.createPost
+    postsController.createPost
 )
 
 //comments
 
-router.get('/comments', userpanel.comments)
+router.get('/comments', commentsController.comments)
 /* Comments */
-router.get('/comments/:id/toggleApproved', userpanel.toggleApproved)
-router.get('/comments/:id/edit', userpanel.getForEdit)
-router.put('/comments/:id', userpanel.updateComment)
-router.delete('/comments/:id', userpanel.deleteComment)
+router.get('/comments/:id/toggleApproved', commentsController.toggleApproved)
+router.get('/comments/:id/edit', commentsController.getForEdit)
+router.put('/comments/:id', commentsController.updateComment)
+router.delete('/comments/:id', commentsController.deleteComment)
 
-router.post('/comments/reply', userpanel.reply)
+router.post('/comments/reply', commentsController.reply)
+
+
+
+
+
+
+
+/* bookmarks */
+router.get('/bookmarks', boockMarksController.index)
+router.get('/likes', likesCntroller.index)
+
+
+
+
+
+
 
 module.exports = router;

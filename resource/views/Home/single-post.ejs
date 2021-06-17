@@ -1,148 +1,231 @@
-<div class="row">
-    <!-- Blog Post Content Column -->
-    <div class="col-lg-8">
-        <!-- Title -->
-        <h1 class="mb-3">
-            <%= post.title %>
-        </h1>
-
-        <!-- Author -->
-        <p class="text-muted small">
-            <span> توسط <a href="/@<%=post.author.username%>">
-                    <%= post.author.username %>@
-                </a></span>
-            -
-            <span>ارسال شده در <%= date(post.createdAt).format('jD jMMMM jYYYY') %></span>
-        </p>
-
-        <hr>
-        <!-- Post Content -->
-        <div class="mb-3">
-            <ul class="list-group">
-                <img src="<%=post.images%>" width="700px" alt="" srcset="">
-            </ul>
-        </div>
-        <br>
-        <div id="content">
-
-
-            <%- post.body %>
-        </div>
-        <hr>
-        <p>برچسب ها :
-            <% tags.forEach(tag=>{ %>
-                <a class="text-muted" href="/posts?tags=<%= tag %>">
-
-                    <span class="badge rounded-pill bg-info">
-                        <%= tag %>
-                    </span>
-                </a>
-                <%}) %>
-
-        </p>
-        <hr>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
+<header>
 
-        <%- include(viewPath('layouts/comments') , { subject : post , comments ,recaptcha}) %>
+    <!-- Intro -->
+    <div class="card card-intro blue-gradient mb-3">
 
-    </div>
+        <div class="card-body white-text rgba-black-light text-center pt-5 pb-4">
 
-    <!-- Blog Sidebar Widgets Column -->
+            <!--Grid row-->
+            <div class="row d-flex justify-content-center">
 
-    <div class="col-md-4">
+                <!--Grid column-->
+                <div class="col-md-6">
+                    <h6 class="font-weight mb-2">
+                        <%= post.title %>
+                    </h6>
+                    <div class="read-more">
 
-        <!-- Search Widget -->
-        <div class="card my-4">
-            <h5 class="card-header">لینک کوتاه</h5>
-            <div class="card-body">
-                <form class="input-group">
-                    <input type="text" class="form-control" id="shortLlink" value="<%=post.shortLink()%>">
-                    <span class="input-group-btn">
 
-                        <button type="button" class="btn btn-info btn-clipboard" data-clipboard-action="copy"
-                            onclick="copy()" id="btnCopy" data-clipboard-target="#clipboardExample1">کپی !</button>
-                    </span>
-                </form>
-            </div>
-        </div>
-        <div class="card my-4">
-            <h5 class="card-header">جستجو</h5>
-            <div class="card-body">
-                <form class="input-group" action="/courses" method="GET">
-                    <input type="text" class="form-control" name="search" placeholder="دنبال چی میگردی ؟">
-                    <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="submit">جستجو!</button>
-                    </span>
-                </form>
-            </div>
-        </div>
+                        <!--like  -->
+                        <a id="<%=isAuth ? 'toggleLike':''%>" style="text-decoration:
+                                none;">
+                            <i class="<%= isLiked?" fas fa-heart":"far fa-heart"%> fa-3x " id="islike"
+                                style="color:red"></i>
+                        </a>
 
-        <!-- Categories Widget -->
-        <div class="card my-4">
+                        <span id="likeLength" class="text-muted">
+                            <%= post.likeLngth.length %>
+                        </span>
+                        <!--like  -->
 
-            <span class="card-header fa fa-th-large"> دسته ها</span>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <%post.categories?.forEach(cate=>{%>
 
-                            <ul class="list-unstyled pr-0">
-                                <a href="/posts?categories=<%= cate.slug %>">
-                                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-globe mr-2 icon-inline">
+                        <!-- bookmark -->
 
-                                        </svg>
-                                        <%= cate.name %>
-                                    </h6>
+                        <a id="<%=isAuth ? 'toggleBookmark' : '' %>" style="text-decoration: none;">
+                            <i class="<%= isBookmark?'fa':'far' %> fa-bookmark fa-3x" id="isBookmark" style="color:
+                                rgb(77, 75,
+                                75);"></i>
+                        </a>
 
-                                </a>
+                        <span id="bookmarkLength" class="text-muted">
+                            <%= post.savelngth.length %>
+                        </span>
+                        <!-- bookmark -->
 
-                            </ul>
-                            <%})%>
                     </div>
                 </div>
+                <!--Grid column-->
+
             </div>
+            <!--Grid row-->
+
         </div>
+
     </div>
-</div>
+    <!-- Intro -->
+
+</header>
+
+<main>
+    <div class="container">
+        <!--Section: Post-->
+        <section class="mt-3">
+
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+
+                <!--Grid column-->
+                <div class="col-md-8 mb-4">
+
+                    <!-- Breadcrumbs -->
+
+                    <!-- <ol class="breadcrumb white z-depth-1">
+                        <li class="breadcrumb-item">
+                            <a href="#">Home Page</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="#">Marketing Automation Category</a>
+                        </li>
+                        <li class="breadcrumb-item active">Very long title of the post</li>
+                    </ol> -->
+
+                    <!-- Breadcrumbs -->
+
+                    <!-- Featured image -->
+
+                    <img src="<%=post.images%>" width="700px" alt="" class="img-fluid z-depth-1-half mb-4">
+
+                    <!--Card-->
+                    <div class="card mb-4">
+
+                        <!--Card content-->
+                        <div class="card-body">
+
+                            <span> توسط <a href="/@<%=post.author.username%>">
+                                    <%= post.author.name %>
+                                </a></span>
+                            -
+                            <span>ارسال شده در <%= date(post.createdAt).format('jD jMMMM jYYYY') %></span>
+
+                            <hr>
+
+                            <%- post.body %>
+
+                        </div>
+
+                    </div>
+                    <!--/.Card-->
+
+                    <!--Card-->
+                    <div class="card card-avatar mb-4 wow fadeIn">
+
+                        <!-- Card header -->
+                        <div class="card-header font-weight-bold">
+                            <i class="fas fa-info-circle"></i>
+
+                            <span>درباره نویسنده</span>
+                            <span class="pull-right">
+                            </span>
+                        </div>
+
+                        <!--Card content-->
+                        <div class="card-body">
+
+                            <div class="media">
+                                <img class="d-flex mr-3 z-depth-1 rounded-circle px-2 mx-auto"
+                                    src="<%=  post.author.profile.images %> " width="60px"
+                                    alt="Generic placeholder image">
+                                <div class="media-body padding-5">
+                                    <h5 class="mt-0 font-weight-bold"><a href="/@<%=post.author.username%>"
+                                            class="text-muted">
+                                            <%= post.author.name %>
+                                        </a></h5>
+                                    <%= post.author.profile.bio %>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!--/.Card-->
+
+
+                    <!--Comments-->
+                    <%- include(viewPath('layouts/comments') , { subject : post , comments ,recaptcha}) %>
+
+                        <!--/.Comments-->
+
+                        <!--Reply-->
+
+                        <!--/.Reply-->
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-4 mb-4">
+
+                    <!-- Sticky content -->
+                    <div class="sticky">
+                        <!--Section: Dynamic Content Wrapper-->
+                        <section>
+                            <div id="dynamic-content"></div>
+
+                        </section>
+                        <!--Section: Dynamic Content Wrapper-->
+
+                        <!--Card-->
+                        <div class="card mb-4">
+
+                            <div class="card-header">مقالات مرتبط</div>
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <% const list=[] %>
+                                        <%post.categories?.forEach(cate=>{%>
+                                            <%cate.posts.forEach(pos=>{%>
+                                                <% if(pos.id==post.id)return %>
+                                                    <% if(list.includes(post.id))return %>
+
+                                                        <% list.push(post.id) %>
+                                                            <li class="media">
+                                                                <img class="d-flex mr-3" src="<%= pos.images %> "
+                                                                    width="90px" alt="Generic placeholder image">
+                                                                <div class="media-body">
+                                                                    <a href="/<%= pos.path() %>">
+                                                                        <h5 class="mt-0 mb-1 font-weight-bold">
+                                                                            <%= pos.title %>
+                                                                        </h5>
+                                                                    </a>
+                                                                    <%= pos.miniBody %>
+                                                                </div>
+                                                            </li>
+                                                            <%})%>
+                                                                <%})%>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+                    </div>
+                    <!-- Sticky content -->
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+        </section>
+        <!--Section: Post-->
+
+    </div>
+</main>
+
+
+<%- include(viewPath('layouts/toggleSaveAndLike') ) %>
 
 
 
-<style>
-    #imagTitle {
-        direction: unset;
-        background-color: steelblue;
-    }
-</style>
 
 
 
-
-<script>
-
-
-
-    function copy() {
-
-        var copyText = document.getElementById("shortLlink");
-        var btn = document.getElementById("btnCopy");
-
-        copyText.select();
-        copyText.setSelectionRange(0, 99999)
-        document.execCommand("copy");
-
-        const shortLlink = copyText.value
-
-        copyText.value = 'کپی شد.'
-
-        setTimeout(() => {
-            copyText.value = shortLlink
-
-        }, 1000)
-
-    }
-</script>
+    <script src="https://unpkg.com/sweetalert2@7.12.10/dist/sweetalert2.all.js"></script>

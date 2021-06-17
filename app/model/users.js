@@ -15,7 +15,9 @@ const usersModel = new schema({
     isAdmin: { type: Boolean, default: false },
     followers: [{ user: { type: schema.Types.ObjectId, ref: 'users' } }],
     following: [{ user: { type: schema.Types.ObjectId, ref: 'users' } }],
-
+    bookmarks: [{ type: schema.Types.ObjectId, ref: 'posts' }],
+    liked: [{ type: schema.Types.ObjectId, ref: 'posts' }],
+    sessions: [{ type: schema.Types.ObjectId, ref: 'sessions' }],
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 usersModel.plugin(mongoosePaginate)

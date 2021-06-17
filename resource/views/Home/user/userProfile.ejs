@@ -9,7 +9,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <img src="<%= user_Target.profile.images %> " alt="Admin" class="rounded-circle" width="150">
+                        <span class="absolute opacity-60 text-gray-700"
+                            style="font-size: 12px; bottom: 100%; right: 10%; display: none;" x-show="hover">
+                            آنلاین
+                        </span>
+                        <img src="<%= user_Target.profile.images %> " alt="Admin" class="rounded-circle " width="150">
                         <div class="mt-3">
                             <h4>
                                 <%= user_Target.username %>@
@@ -31,13 +35,17 @@
                                     <h2 class="font-light" id='followers'>
                                         <%= user_Target.followers.length %>
                                     </h2>
-                                    <span class="text-uppercase">دنبال کننده</span>
+                                    <span class="text-uppercase"><a href="/@<%= user_Target.username %>/followers"
+                                            style="text-decoration: none;" class="text-muted">دنبال
+                                            کننده</a></span>
                                 </div>
                                 <div class="col text-center border-left ">
                                     <h2 class="font-light">
                                         <%= user_Target.following.length %>
                                     </h2>
-                                    <span class="text-uppercase">دنبال میکند </span>
+                                    <span class="text-uppercase"><a href="/@<%= user_Target.username %>/following"
+                                            style="text-decoration: none;" class="text-muted">دنبال
+                                            میکند</a></span>
                                 </div>
                             </div>
                             <br>
@@ -205,6 +213,29 @@
         })
 
     });
+
+
+    var i = 0;
+    $("span")
+        .mouseover(function () {
+            i += 1;
+            $(this).find("span").text("mouse over x " + i);
+        })
+        .mouseout(function () {
+            $(this).find("span").text("mouse out ");
+        });
+
+
+    $("span.enterleave")
+        .mouseenter(function () {
+
+            // $(this).find("span").text("mouse enter x " + n);
+            console.log('hi');
+        })
+        .mouseleave(function () {
+            $(this).find("span").text("mouse leave");
+        });
+
 
 
 </script>

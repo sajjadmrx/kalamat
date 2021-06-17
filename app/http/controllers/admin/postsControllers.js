@@ -3,28 +3,28 @@ var GithubSlugger = require('github-slugger')
 var slugger = new GithubSlugger()
 const controller = require('../controllers')
 //models
-const newsModel = require('../../../model/postes')
-class news extends controller {
+const postesModel = require('../../../model/postes')
+class posts extends controller {
 
-    async newsPage(req, res, next) {
+    async showPage(req, res, next) {
         try {
             let page = req.query.page || 1
-            const news = await newsModel.paginate({}, { limit: 4, page })
-            res.render('admin/news/index', { news })
+            const posts = await postesModel.paginate({}, { limit: 4, page })
+            res.render('admin/posts/index', { posts })
         } catch (error) {
             next(error)
         }
     }
 
-    createNewsPage(req, res, next) {
+    createPostPage(req, res, next) {
         try {
-            res.render('admin/news/create', { news: '' })
+            res.render('admin/posts/create', { news: '' })
         } catch (error) {
             next(error)
         }
     }
 
-    async createNews(req, res, next) {
+    async createPost(req, res, next) {
         try {
 
             const result = await this.checkValidator(req)
@@ -39,14 +39,14 @@ class news extends controller {
             code.substr(4)
 
 
-            const news = new newsModel({
+            const news = new postesModel({
                 ...req.body,
                 published: published == 'on' ? true : false,
                 code: code.substr(4),
                 slug: slugger.slug(req.body.title)
             })
             await news.save()
-            res.redirect('/admin/news')
+            res.redirect('/admin/posts')
         } catch (error) {
             next(error)
         }
@@ -55,10 +55,10 @@ class news extends controller {
 
     async getForEdit(req, res, next) {
         try {
-            const news = await newsModel.findById(req.params.id);
-            if (!news) return ''//alert
+            const post = await postesModel.findById(req.params.id);
+            if (!post) return ''//alert
 
-            res.render('admin/news/edit', { news })
+            res.render('admin/posts/edit', { post })
 
         } catch (error) {
             next(error)
@@ -67,7 +67,7 @@ class news extends controller {
 
 
 
-    async updateNews(req, res, next) {
+    async updatePost(req, res, next) {
         try {
 
             const result = await this.checkValidator(req)
@@ -78,12 +78,12 @@ class news extends controller {
                 delete req.body.images
             const { published } = req.body
             delete req.body.published
-            await newsModel.findByIdAndUpdate(req.params.id, {
+            await postesModel.findByIdAndUpdate(req.params.id, {
                 ...req.body,
                 published: published == 'on' ? true : false,
             })
 
-            res.redirect('/admin/news')
+            res.redirect('/admin/posts')
         } catch (error) {
             next(error)
         }
@@ -94,11 +94,11 @@ class news extends controller {
 
 
             const id = req.params.id
-            let news = await newsModel.findById(id)
-            news.published = !news.published
+            let post = await postesModel.findById(id)
+            post.published = !post.published
 
-            await news.save()
-            this.newsPage(req, res, next)
+            await post.save()
+            this.showPage(req, res, next)
 
 
         } catch (error) {
@@ -108,4 +108,4 @@ class news extends controller {
 
 }
 
-module.exports = new news()
+module.exports = new posts()

@@ -13,6 +13,7 @@ const passport = require('passport')
 const config = require('../config');
 const Helper = require('./helper');
 const userModel = require('./model/users')
+require('./model/postes')
 const app = express()
 
 
@@ -62,11 +63,14 @@ module.exports = class Application {
             next()
         })
         app.use(async (req, res, next) => {
-            const user = await userModel.findById(req.user?.id,{},{populate:'profile'})
+            const user = await userModel.findById(req.user?.id, {}, { populate: 'profile' })
+
             if (!user)
                 return next();
             else {
+                await user.populate('posts').execPopulate();
                 res.locals.user = user
+
                 next()
             }
         })

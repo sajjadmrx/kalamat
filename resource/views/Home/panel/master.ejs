@@ -1,96 +1,214 @@
-<!DOCTYPE html>
-<html>
+<style type="text/css">
+    body {
+        margin-top: 20px;
+        color: #bcd0f7;
+        background: #1A233A;
+    }
+
+
+
+    .account-settings .user-profile {
+        margin: 0 0 1rem 0;
+        padding-bottom: 1rem;
+        text-align: center;
+    }
+
+    .account-settings .user-profile .user-avatar {
+        margin: 0 0 1rem 0;
+    }
+
+    .account-settings .user-profile .user-avatar img {
+        width: 90px;
+        height: 90px;
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
+        border-radius: 100px;
+    }
+
+    .account-settings .user-profile h5.user-name {
+        margin: 0 0 0.5rem 0;
+    }
+
+    .account-settings .user-profile h6.user-email {
+        margin: 0;
+        font-size: 0.8rem;
+        font-weight: 400;
+    }
+
+    .account-settings .about {
+        margin: 1rem 0 0 0;
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    .card {
+        background: #272E48;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 0;
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        border: 1px solid #596280;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        font-size: .825rem;
+        background: #1A233A;
+        color: #bcd0f7;
+    }
+</style>
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>
-    <%- defineContent('title') || 'ویرگول' %>
-  </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <link rel="stylesheet" href="/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/css/bootstrap-rtl.min.css" />
-  <link rel="stylesheet" href="/css/vazir.css">
-  <link rel="stylesheet" href="/css/home.css">
-  <%- style %>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/bootstrap-rtl.min.css" />
+    <link rel="stylesheet" href="/css/vazir.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <%- style %>
+
 </head>
+<script src="https://use.fontawesome.com/61081366e6.js"></script>
+<script src="https://kit.fontawesome.com/211d2c33c8.js" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+<%- style %>
+    <%- include(viewPath('layouts/headr')) -%>
 
-<body>
+        <body>
+            <div class="container">
 
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-    <div class="container">
-      <a class="navbar-brand" href="/">ویرگول</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+                <div class="row gutters">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="account-settings">
+                                    <div class="user-profile">
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/panel">داشبورد</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/panel/posts"><span class="far fa-post"></span>پست ها</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/panel/comments"><span class="far fa-comment"></span> کامنت ها</a>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
+                                        <div class="user-avatar">
+                                            <img src="<%= user.profile?.images %> " class="profileImage"
+                                                alt="عکس پروفایل">
+                                        </div>
 
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <div class="container-fluid">
-            <ul class="navbar-nav">
-              <!-- Avatar -->
-              <li class="nav-item dropdown">
-                <% const img='https://www.bootdey.com/img/Content/avatar/avatar1.png' %>
-                  <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink"
-                    role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                    <span class="d-flex container badge bg-primary">
-                      <%= req.user.name %>
-                    </span>
-                    <img src="<%=user?.profile.images||img%>" class="rounded-circle" height="22" alt=""
-                      loading="lazy" />
-                  </a>
-                  <ul style="text-align: right;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <%if (req.user.isAdmin){%>
-                      <li><a class="dropdown-item" href="/admin">پنل ادمین</a></li>
-                      <%} %>
-                        <li><a style="text-align: right;" class="dropdown-item" href="/panel/addpost">افزودن پست</a>
-                        </li>
-                        <li><a class="dropdown-item" href="/panel">حساب کاربری</a></li>
-                        <li><a class="dropdown-item" href="/logout">خروج</a></li>
-                  </ul>
-              </li>
-            </ul>
-          </div>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
-  <div class="container mt-4">
-    <%- body %>
-  </div>
+                                        <div class="about">
+                                            <h5 class="mb-2 text-primary">
+                                                <a href="/@<%=user.username %>" id="user-username">
+                                                    <%= user.username||"چیزی ثبت نشده است" %>
+                                                </a>
+                                            </h5>
+                                            <p id="user-bio">
+                                                <%= user.profile?.bio || "محل درباره من" %>
+                                            </p>
+                                        </div>
+                                        <div class="row mt-5">
+                                            <div class="col border-right border-left text-center">
+                                                <h2 class="font-light">
+                                                    <%= user.posts.length%>
+                                                </h2>
+                                                <span class="text-uppercase">پست </span>
+                                            </div>
+                                            <div class="col border-left text-center">
+                                                <h2 class="font-light" id='followers'>
+                                                    <%= user.followers.length %>
+                                                </h2>
+                                                <span class="text-uppercase">دنبال کننده</span>
+                                            </div>
+                                            <div class="col text-center border-left ">
+                                                <h2 class="font-light">
+                                                    <%= user.following.length %>
+                                                </h2>
+                                                <span class="text-uppercase">دنبال میکنید </span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-  <script src="/js/jquery-3.3.1.min.js"></script>
-  <script src="/js/popper.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
+                                    <div class="card mt-3">
+                                        <ul class="list-group list-group-flush">
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                <a href="#" style="text-decoration: none;" class="mb-0 "><i
+                                                        class="far fa-address-card" style="color: tan"></i>
+                                                    اطلاعات کاربری
+                                                </a>
+                                                <span class="text-secondary" id="user-website">
+                                                    <%= user.profile?.website %>
+                                                </span>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                <a href="/panel/bookmarks" style="text-decoration: none;" class="mb-0">
+                                                    <i class="fas fa-bookmark " style="color:tan"></i>
+                                                    پست های ذخیره شده
+                                                </a>
+                                                <span class="text-secondary">
+                                                    <%= user.profile?.Github %>
+                                                </span>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                <a href="/panel/likes" style="text-decoration: none;" class="mb-0">
+                                                    <i class="fas fa-heart" style="color: tan;"></i>
+                                                    پسندیده ها
+                                                </a>
+                                                <span class="text-secondary">
+                                                    <%= user.profile?.Github %>
+                                                </span>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                <a href="#" style="text-decoration: none;" class="mb-0">
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <%-script%>
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.css" rel="stylesheet" />
-    <!-- MDB -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.js"></script>
-</body>
+                                                    <i class="fas fa-envelope-open-text" style="color: tan;"></i>
+                                                    پیغام ها
+                                                </a>
+                                                <span class="text-secondary">
+                                                    <%= user.profile?.twitter %>
+                                                </span>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                <a class="mb-0" style="text-decoration: none;" href="#">
+                                                    <i class="fas fa-cog" style="color: tan;"></i>
+                                                    تنظیمات حساب کاربری
+                                                </a>
+                                                <span class="text-secondary">
+                                                    <%= user.profile?.instagram %>
+                                                </span>
+                                            </li>
 
-</html>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <%- body %>
+
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                function changer(id_, idTarget) {
+                    const id = id_;
+                    const doc = document.getElementById(id)
+                    document.getElementById(idTarget).innerHTML = doc.value
+
+                }
+
+            </script>
+            <%- script %>
+        </body>
+
+        <script src="/js/jquery-3.3.1.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+        </html>

@@ -17,6 +17,7 @@ class Helper {
             message: this.req.flash('errors'),
             old: this.old.bind(this),
             date: this.date,
+            isAuth: this.isAuth()
         }
     }
 
@@ -32,6 +33,9 @@ class Helper {
         return moment(item)
     }
 
+    isAuth() {
+        return this.req.user != undefined ? true : false
+    }
 
 }
 

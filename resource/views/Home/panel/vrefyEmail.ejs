@@ -1,47 +1,46 @@
 <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
 
-<div class="row pt-5 justify-content-center">
-    <div class="col-8">
-        <div class="card card-default">
-            <div class="card-header">
-                <h5>تایید ایمیل</h5>
-            </div>
-            <div class="card-body">
-                <form class="form-horizontal" method="POST" action="/panel/vrefyEmail" novalidate>
 
-                    <%- include(viewPath('layouts/error-messages')) %>
+<div class="col-8">
+    <div class="card card-default">
+        <div class="card-header">
+            <h5>تایید حساب کاربری</h5>
+        </div>
+        <div class="card-body">
+            <form class="form-horizontal" method="POST" action="/panel/vrefyEmail" novalidate>
+
+                <%- include(viewPath('layouts/error-messages')) %>
 
 
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <div class="row gutters">
-                            
 
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label for="eMail">ایمیل</label>
 
-                                            <div class="input-group mb-2 mr-sm-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text ">
-                                                        <i class="fas fa-envelope"></i>
-                                                    </div>
-                                                </div>
-                                                <input type="text" class="form-control" name="email" id="email"
-                                                    placeholder="ایمیل حساب خود را وارد کنید.">
-                                            </div>
-                                        </div>
-                                    </div>
 
+
+
+
+                    <div class="form-group">
+                        <label for="eMail">ایمیل</label>
+
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text ">
+                                    <i class="fas fa-envelope"></i>
                                 </div>
-
                             </div>
 
-                            <div class="form-group" style="text-align: center;">
-                                <button type="submit" class="btn btn-warning">ارسال</button>
-                            </div>
+                            <input disabled type="text" class="form-control" value="<%=user.email%>" name="email"
+                                id="email" placeholder="ایمیل حساب خود را وارد کنید.">
                         </div>
+                    </div>
+
+
+
+
+
+                    <div class="form-group" style="text-align: center;">
+                        <button type="submit" class="btn btn-warning">ارسال</button>
+                    </div>
 
 
 
@@ -50,8 +49,8 @@
 
 
 
-                </form>
-            </div>
+
+            </form>
         </div>
     </div>
 </div>

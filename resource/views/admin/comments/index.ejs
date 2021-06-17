@@ -16,12 +16,13 @@
             <% comments.docs.forEach(comment=> { %>
                 <tr>
                     <td>
-                        <%= comment.name %>
+
+                        <a href="/@<%= comment.user.username %>">@<%= comment.user.username %></a>
                     </td>
                     <td>
-                        <% if(comment.news) { %>
-                            <a href="<%= comment.news.path() %>">
-                                <%= comment.news.title %>
+                        <% if(comment.post) { %>
+                            <a href="<%= comment.post.path() %>">
+                                <%= comment.post.title %>
                             </a>
                             <% } %>
                     </td>
@@ -43,7 +44,7 @@
 
                                 <a class="btn btn-link" data-mdb-color="dark" data-toggle="modal"
                                     data-target="#sendCommentModal" data-parent="<%= comment.id %>"
-                                    data-news="<%= comment.news._id %>">پاسخ</a>
+                                    data-news="<%= comment.post._id %>">پاسخ</a>
                             </div>
 
                         </form>

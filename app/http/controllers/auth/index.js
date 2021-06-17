@@ -1,5 +1,7 @@
 const controller = require('../controllers')
 const passport = require('passport')
+const usersModel = require('../../../model/users')
+const mongoose = require('mongoose')
 class auth extends controller {
 
     async pageLogin(req, res, next) {
@@ -20,7 +22,6 @@ class auth extends controller {
             passport.authenticate('local.login', (err, user) => {
                 if (!user)
                     return this.back(req, res)
-
                 req.logIn(user, err => {
                     return res.redirect('/')
                 })

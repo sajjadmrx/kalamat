@@ -1,0 +1,75 @@
+<script>
+    function msgBox(text, icon) {
+        Swal.fire({
+            icon: icon,
+            title: text,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
+    $(document).on('click', "#toggleLike", function (data) {
+        $.post(`/toggleLike/<%=post.id%>`, function (res) {
+
+            if (res.sucess) {
+                Swal.fire({
+                    icon: 'success',
+                    title: res.data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                if (res.data.response)
+                    $(`#islike`).removeClass('far fa-heart').addClass('fas fa-heart')
+                else
+                    $(`#islike`).removeClass('fas fa-heart').addClass('far fa-heart')
+
+                const val = $('#likeLength')
+                let number = parseInt(val.text())
+                number += res.data.number
+                val.text(number)
+
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+
+    }).on('click', "#toggleBookmark", function (data) {
+        $.post(`/toggleBookmark/<%=post.id%>`, function (res) {
+            if (res.sucess) {
+                Swal.fire({
+                    icon: 'success',
+                    title: res.data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+                if (res.data.response)
+                    $(`#isBookmark`).removeClass('far fa-bookmark').addClass('fa fa-bookmark')
+                else
+                    $(`#isBookmark`).removeClass('fa fa-bookmark').addClass('far fa-bookmark')
+
+                const val = $('#bookmarkLength')
+                let number = parseInt(val.text())
+                number += res.data.number
+                val.text(number)
+
+            }
+            else {
+                Swal.fire({
+
+                    icon: 'error',
+                    title: res.data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+    });
+
+</script>

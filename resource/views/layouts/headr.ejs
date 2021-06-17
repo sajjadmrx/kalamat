@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/">ویرگول</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">صفحه اصلی</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/posts">نوشته ها</a>
+                </li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+
+                <% if (req.user) { %>
+
+                    <div class="container-fluid">
+                        <ul class="navbar-nav">
+                            <!-- Avatar -->
+                            <li class="nav-item dropdown">
+
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                                    id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <span class="d-flex container badge bg-primary">
+                                        <%= req.user.name %>
+                                    </span>
+                                    <img src="<%=user.profile.images%>" class="rounded-circle" height="22" alt=""
+                                        loading="lazy" />
+                                </a>
+                                <ul style="text-align: right;" class="dropdown-menu"
+                                    aria-labelledby="navbarDropdownMenuLink">
+                                    <%if (req.user.isAdmin){%>
+                                        <li><a class="dropdown-item" href="/admin">پنل ادمین</a></li>
+                                        <%} %>
+                                            <li><a style="text-align: right;" class="dropdown-item"
+                                                    href="/panel/addpost">افزودن پست</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="/panel">حساب کاربری</a></li>
+                                            <li><a class="dropdown-item" href="/logout">خروج</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <% } else { %>
+                        <li><a class="btn btn-success btn-sm ml-2" href="/auth/login">ورود</a></li>
+                        <li><a class="btn btn-primary btn-sm" href="/auth/register">عضویت</a></li>
+                        <%} %>
+            </ul>
+        </div>
+    </div>
+</nav>

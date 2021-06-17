@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* controllers */
 const homeControllers = require('../../http/controllers/admin/home')
-const newsControllers = require('../../http/controllers/admin/newsControllers')
+const postsControllers = require('../../http/controllers/admin/postsControllers')
 const commentsControllers = require('../../http/controllers/admin/comments')
 const usersControllers = require('../../http/controllers/admin/users')
 const categoriesControllers = require('../../http/controllers/admin/categories')
@@ -16,31 +16,31 @@ const fileToFeild = require('../../http/middleware/fileToField')
 const upload = require('../../http/helpers/uploadImages')
 
 /* validator */
-const createNewsValidator = require('../../http/validator/createNews')
+const createPostValidator = require('../../http/validator/createPost')
 router.use((req, res, next) => {
     res.locals.layout = 'admin/master'
     next()
 })
 
 router.get('/', homeControllers.index)
-router.get('/news', newsControllers.newsPage)
-router.get('/news/create', newsControllers.createNewsPage)
-router.post('/news/create',
+router.get('/posts', postsControllers.showPage)
+router.get('/posts/create', postsControllers.createPostPage)
+router.post('/posts/create',
     upload.single('images'),
     fileToFeild.handel,
-    createNewsValidator.handel(),
-    newsControllers.createNews
+    createPostValidator.handel(),
+    postsControllers.createPost
 )
 
-router.get('/news/:id/edit', newsControllers.getForEdit)
-router.put('/news/:id',
+router.get('/posts/:id/edit', postsControllers.getForEdit)
+router.put('/posts/:id',
     upload.single('images'),
     fileToFeild.handel,
-    createNewsValidator.handel(),
-    newsControllers.updateNews)
+    createPostValidator.handel(),
+    postsControllers.updatePost)
 
 
-router.get('/news/:id/togglePublished', newsControllers.togglePublished)
+router.get('/posts/:id/togglePublished', postsControllers.togglePublished)
 router.post('/file/post', (req, res) => {
     res.json('ho')
 })

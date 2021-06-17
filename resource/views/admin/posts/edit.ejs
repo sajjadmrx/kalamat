@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
     <h2>ایجاد دوره</h2>
 </div>
-<form class="form-horizontal" action="/admin/news/<%= news.id %>?_method=put" method="post"
+<form class="form-horizontal" action="/admin/posts/<%= post.id %>?_method=put" method="post"
     enctype="multipart/form-data">
 
     <%- include(viewPath('layouts/error-messages')) -%>
@@ -10,15 +10,15 @@
             <div class="col">
                 <label for="title" class="control-label font-weight-bold">عنوان خبر</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="عنوان را وارد کنید"
-                    value="<%=news.title%>">
+                    value="<%=post.title%>">
             </div>
         </div>
 
 
         <div class="form-group row">
             <div class="form-outline">
-                <input type="text" id="form1" class="form-control" value="<%=news.miniBody%>" data-mdb-showcounter="true"
-                    maxlength="350" />
+                <input type="text" id="form1" name="miniBody" class="form-control" value="<%=post.miniBody%>"
+                    data-mdb-showcounter="true" maxlength="112" />
 
                 <span class="badge badge-pill badge-warning form-helper"></span>
             </div>
@@ -29,7 +29,7 @@
             <div class="col">
                 <label for="body" class="control-label font-weight-bold">متن</label>
                 <textarea rows="10" class="form-control" name="body" id="body"
-                    placeholder="متن مقاله را وارد کنید"><%=news.body%></textarea>
+                    placeholder="متن مقاله را وارد کنید"><%=post.body%></textarea>
             </div>
         </div>
 
@@ -37,7 +37,7 @@
         <div class="form-group row">
             <div class="col">
                 <input data-role="tagsinput" type="text" class="input-tags" name="tags" id="tags"
-                    placeholder="تگ ها را وارد کنید" value="<%=news.tags%>">
+                    placeholder="تگ ها را وارد کنید" value="<%=post.tags%>">
             </div>
         </div>
 
@@ -48,7 +48,7 @@
 
 
                 <div class=" col-md-20">
-                    <img src="<%= news.images %>" class="jumbotron border border-warning" alt="Cinque Terre"
+                    <img src="<%= post.images %>" class="jumbotron border border-warning" alt="Cinque Terre"
                         width="50%">
                 </div>
 
@@ -108,7 +108,7 @@
 <script>
     $(function () {
 
-        $('#published').bootstrapToggle("<%=news.published ? 'on' : 'off' %>")
+        $('#published').bootstrapToggle("<%=post.published ? 'on' : 'off' %>")
 
     })
 

@@ -124,57 +124,64 @@
     <div class="row">
 
         <% if(myUser) { %>
+
             <% myUser.following.forEach(followins=> { %>
 
-                <% followins.user.posts.forEach(item=> { %>
-                    <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                        <div class="blog-post rounded border">
-                            <div class="blog-img d-block overflow-hidden position-relative">
-                                <img src="<%= item.images %> " class="img-fluid rounded-top" alt="">
-                                <div class="overlay rounded-top bg-dark"></div>
-                                <div class="post-meta">
-                                    <a href="javascript:void(0)" class="text-light d-block text-right like"><i
-                                            class="mdi mdi-heart"></i> 33</a>
-                                    <a href="javascript:void(0)" class="text-light d-block text-right like"><i
-                                            class="fa fa"></i> 33</a>
-                                    <a href="javascript:void(0)" class="text-light read-more"><i
-                                            class="mdi mdi-chevron-left"></i>دیدن ادامه</a>
+                <% if(followins.user) { %>
+
+                    <% followins.user.posts.forEach(item=> { %>
+                        <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                            <div class="blog-post rounded border">
+                                <div class="blog-img d-block overflow-hidden position-relative">
+                                    <img src="<%= item.images %> " class="img-fluid rounded-top" alt="">
+                                    <div class="overlay rounded-top bg-dark"></div>
+                                    <div class="post-meta">
+                                        <a href="javascript:void(0)" class="text-light d-block text-right like"><i
+                                                class="mdi mdi-heart"></i> 33</a>
+                                        <a href="javascript:void(0)" class="text-light d-block text-right like"><i
+                                                class="fa fa"></i> 33</a>
+                                        <a href="javascript:void(0)" class="text-light read-more"><i
+                                                class="mdi mdi-chevron-left"></i>دیدن
+                                            ادامه</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="content p-3">
-                                <small class="text-muted p float-right">
-                                    <%= date(item.createdAt).fromNow() %>
-                                </small>
-                                <br>
-                                <h4 class="mt-2"><a href="<%= item.path() %> " class="text-dark title">
-                                        <%= item.title %>
-                                    </a></h4>
-                                <p class="text-muted mt-2">
-                                    <%= item.miniBody %>
-                                </p>
-                                <div class="pt-3 mt-3 border-top d-flex">
-                                    <img src="<%= item.author.profile.images %>"
-                                        class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
-                                    <div class="author mt-2">
-                                        <span class="col-md-1 mb-3"><a href="@<%= item.author.username %> "
-                                                class="text-muted text-dark name">
-                                                <%= item.author.name %>
-                                            </a>
-                                        </span>
+                                <div class="content p-3">
+                                    <small class="text-muted p float-right">
+                                        <%= date(item.createdAt).fromNow() %>
+                                    </small>
+                                    <br>
+                                    <h4 class="mt-2"><a href="<%= item.path() %> " class="text-dark title">
+                                            <%= item.title %>
+                                        </a></h4>
+                                    <p class="text-muted mt-2">
+                                        <%= item.miniBody %>
+                                    </p>
+                                    <div class="pt-3 mt-3 border-top d-flex">
+                                        <img src="<%= item.author.profile.images %>"
+                                            class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
+                                        <div class="author mt-2">
+                                            <span class="col-md-1 mb-3"><a href="@<%= item.author.username %> "
+                                                    class="text-muted text-dark name">
+                                                    <%= item.author.name %>
+                                                </a>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--end blog post-->
                         </div>
-                        <!--end blog post-->
-                    </div>
-                    <!--end col-->
-                    <% })%>
+                        <!--end col-->
                         <% })%>
-                            <% } else { %>
-                                <div class="row  col-md-5 mb-6">
-                                    <p class="text-muted  ">هنوز چیزی پست نکرده است</p>
-                                </div>
-                                <%} %>
+
+                            <% }%>
+                                <% })%>
+                                    <% } else { %>
+                                        <div class="row  col-md-5 mb-6">
+                                            <p class="text-muted  ">هنوز چیزی پست نکرده است</p>
+                                        </div>
+
+                                        <%} %>
 
     </div>
     <!--end row-->

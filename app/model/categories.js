@@ -19,4 +19,11 @@ categoriesModel.virtual('childs', {
     foreignField: 'parent'
 })
 
+categoriesModel.virtual('posts', {
+    ref: 'posts',
+    localField: '_id',
+    foreignField: 'categories'
+})
+
+
 module.exports = mongoose.model('categories', categoriesModel)

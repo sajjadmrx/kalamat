@@ -70,13 +70,57 @@ class home extends controller {
             else
                 isFollow = false;
 
-            res.render('home/userProfile', { user_Target, post, isFollow })
+            res.render('home/user/userProfile', { user_Target, post, isFollow })
 
         } catch (error) {
             next(error)
         }
 
 
+
+    }
+
+
+    async following(req, res, next) {
+
+
+        const myInfo = await userModel.findById(req.user.id, '-password -email', {
+            populate: [{ path: 'following.user' }, { path: 'profile' }]
+        })
+
+
+        const users = await userModel.findOne({ username: req.params.username.substr(1) }, '-password -isVrefyed -isAdmin', {
+            populate: [{ path: 'following.user', select: '-password', populate: 'profile' }]
+        })
+
+        if (!users) return next(404);
+
+
+
+
+        res.render('home/user/following', { users, myInfo })
+
+    }
+
+
+    async followers(req, res, next) {
+
+
+        const myInfo = await userModel.findById(req.user.id, '-password -email', {
+            populate: [{ path: 'following.user' }, { path: 'profile' }]
+        })
+
+
+        const users = await userModel.findOne({ username: req.params.username.substr(1) }, '-password -isVrefyed -isAdmin', {
+            populate: [{ path: 'followers.user', select: '-password', populate: 'profile' }]
+        })
+
+        if (!users) return next(404);
+
+
+
+
+        res.render('home/user/followers', { users, myInfo })
 
     }
 
@@ -114,20 +158,18 @@ class home extends controller {
     }
 
     async singlePost(req, res, next) {
+
         try {
+
             let page = req.query.page || 1
             const code = req.params.code
             const username = req.params.username.substr(1)
             const slug = req.params.slug
             const post = await postModel.findOne({ code, slug, published: true }, {}, {
-                populate: [{
-                    path: 'author', match: {
-                        username: username
-                    }
-                },
-                {
-                    path: 'categories'
-                }]
+                populate: [
+                    { path: 'author', match: { username: username }, populate: 'profile' },
+                    { path: 'savelngth' }, { path: 'likeLngth' }, { path: "categories", populate: { path: 'posts', populate: 'author' } }
+                ]
             })
 
             if (!post || !post.author) return res.json('404') //404
@@ -149,8 +191,20 @@ class home extends controller {
 
                 })
 
+            let isLiked;
+            let isBookmark;
+            if (req.user) {
+                const myInfo = await userModel.findById(req.user.id)
+                isLiked = myInfo.liked.includes(post.id)
+                isBookmark = myInfo.bookmarks.includes(post.id)
+            } else {
+                isLiked = false;
+                isBookmark = false
+            }
+
             const tags = post.tags[0].split(',')
-            res.render('home/single-post', { post, recaptcha: this.recaptcha.render(), comments, tags })
+            res.render('home/single-post', { post, recaptcha: this.recaptcha.render(), comments, tags, isLiked, isBookmark })
+
         } catch (error) {
             next(error)
         }
@@ -180,6 +234,76 @@ class home extends controller {
             next(error)
         }
     }
+
+
+
+    async toggleLike(req, res, next) {
+        try {
+
+            this.id = req.params.id;
+            if (!this.id)
+                return res.json({ sucess: false, data: { message: 'درخواست نامعتبر' } })
+
+            this.user = await userModel.findById(req.user.id)
+            const isLiked = this.user.liked.includes(this.id)
+
+            let response;
+            if (!isLiked) {
+                response = await this.toggleProcess('liked', 'add', ' شما پسندیدید');
+            }
+            else {
+                response = await this.toggleProcess('liked', 'remove', 'شما نپسندیدید');
+            }
+
+            res.json(response)
+        } catch (error) {
+            next(error)
+        }
+
+    }
+
+    async toggleBookmark(req, res, next) {
+        try {
+            this.id = req.params.id;
+            if (!this.id)
+                return res.json({ sucess: false, data: { message: 'درخواست نامعتبر' } })
+
+            this.user = await userModel.findById(req.user.id)
+            const isBookmark = this.user.bookmarks.includes(this.id)
+
+            let response;
+
+            if (!isBookmark) {
+                response = await this.toggleProcess('bookmarks', 'add', 'با موفقیت ذخیره شد.');
+            }
+            else {
+                response = await this.toggleProcess('bookmarks', 'remove', 'از لیست ذخیره ها حذف شد.');
+            }
+
+            res.json(response)
+
+
+        } catch (error) {
+            next(error)
+        }
+
+    }
+
+
+    async toggleProcess(field, mehtod, message) {
+        const upd = this.user[field]
+        if (mehtod == 'add') {
+            upd.push(this.id)
+            await this.user.save();
+            return { sucess: true, data: { response: true, message, number: 1 } }
+        }
+        else if (mehtod == 'remove') {
+            upd.splice(upd.indexOf(this.id), 1)
+            await this.user.save()
+            return { sucess: true, data: { response: false, message, number: -1 } }
+        }
+    }
+
 
 }
 

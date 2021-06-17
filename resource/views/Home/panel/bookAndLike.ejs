@@ -1,0 +1,62 @@
+<body>
+
+
+  <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+    <form action="/panel" method="post" enctype="multipart/form-data">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <h6 class="mb-3 text-primary">
+                <%= title %>
+              </h6>
+            </div>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-2 g-4">
+            <% post.forEach(pos=>{%>
+              <div class="col">
+                <div class="card">
+                  <img src="<%= pos.images %> " class="card-img-top" alt="..." />
+                  <div class="card-body">
+
+                    <h4 class="card-title mt-2"><a href="/<%= pos.path() %> " class="text-dark title">
+                        <%= pos.title %>
+                      </a></h4>
+                    <small class="text-muted p float-right">
+                      <%= date(pos.createdAt).fromNow() %>
+                    </small>
+                    <br>
+
+                    <hr>
+                    <p class="card-text">
+                      <%= pos.miniBody %>
+                    </p>
+                    <div class="author mt-2">
+                      <img src="<%= pos.author.profile.images %>"
+                        class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" width="45px" alt="">
+
+                      <span class="col-md-1 mb-3"><a href="/@<%= pos.author.username %> "
+                          class="text-muted text-dark name">
+                          <%= pos.author.name %>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+
+
+              <% }) %>
+          </div>
+
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+
+
+</body>
