@@ -14,7 +14,7 @@ const usersModel = new schema({
     phone: { type: Number },
     role: { type: String, default: 'user' },
     provider: { type: String, default: 'local' },
-    providerId: { type: Number, default: 0 },
+    providerId: { type: String, default: 0 },
     isAdmin: { type: Boolean, default: false },
     followers: [{ user: { type: schema.Types.ObjectId, ref: 'users' } }],
     following: [{ user: { type: schema.Types.ObjectId, ref: 'users' } }],

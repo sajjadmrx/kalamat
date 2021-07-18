@@ -1,8 +1,10 @@
 const passport = require('passport')
 const bcrypt = require('bcrypt')
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
-var GithubSlugger = require('github-slugger')
-var slugger = new GithubSlugger()
+const SpotifyStrategy = require('passport-spotify').Strategy;
+
+const spotify = require('passport-spotify')
+
+
 //Model
 const userModel = require('../model/users')
 const profModel = require('../model/profile')
@@ -19,12 +21,16 @@ passport.deserializeUser(function (id, done) {
 })
 
 
-passport.use(new GoogleStrategy({
-    clientID: process.env.Google_client_key,
-    clientSecret: process.env.GOOGLE_SECRET_KEY,
-    callbackURL: 'http://localhost:3000/callback/google',
+passport.use(new SpotifyStrategy({
+    clientID: process.env.spotify_client_key,
+    clientSecret: process.env.spotify_SECRET_KEY,
+    callbackURL: 'http://localhost:3000/callback/spotify',
+    scope: ['user-read-email', 'user-read-private'],
+
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, cb) => {
+
+    //   cb(null, null, profile)
 
     try {
         let user = await userModel.findOne({ email: profile.emails[0].value })
@@ -38,10 +44,10 @@ passport.use(new GoogleStrategy({
             email: profile.emails[0].value,
             name: profile.displayName,
             username: profile.emails[0].value.split('@')[0],
-            provider: 'google',
+            provider: profile.provider,
             providerId: profile.id,
             role: 'user',
-            isVrefyed: profile.emails[0].verified ? true : false,
+            isVrefyed: false,
             password: bcrypt.hashSync(profile.id, salt),
 
         }).save()
@@ -50,7 +56,7 @@ passport.use(new GoogleStrategy({
         delete user.password
         cb(null, user)
     } catch (error) {
-
+        console.log(error)
         cb(error)
     }
 }))

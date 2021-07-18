@@ -18,5 +18,6 @@ router.post('/register', registerVaidator.handel(), authControllers.register)
 
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
+router.get('/spotify', passport.authenticate('spotify', { scope: ['user-read-email', 'user-read-private'] }))
 
 module.exports = router;

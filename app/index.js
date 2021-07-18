@@ -42,6 +42,7 @@ module.exports = class Application {
     setConfig() {
         require('./passport/passport-local')
         require('./passport/passport-google')
+        require('./passport/passport-spotify')
         app.use(express.static(config.layout.public_dir))
         app.set('view engine', config.layout.view_engine)
         app.set('views', config.layout.view_dir)
