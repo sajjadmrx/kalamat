@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const home = require('../../http/controllers/home');
 
 const router = express.Router();
 
@@ -18,6 +19,10 @@ router.get('/:username/following', homeControllers.following)
 
 router.get('/p/:code', homeControllers.findByCode)
 router.get('/:username/:code/:slug', homeControllers.singlePost)
+
+
+
+
 
 /* comments */
 router.post('/comment', commentValidator.handel(), homeControllers.comment)

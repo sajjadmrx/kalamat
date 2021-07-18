@@ -19,4 +19,5 @@ router.use('/callback', redirectIfAuth.handel, callbacksRoute)
 router.use('/panel', redirectIfNotAuth.handel, panelRoutes)
 router.use('/', homeRoutes)
 
+
 module.exports = router;

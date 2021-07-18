@@ -28,8 +28,10 @@ passport.use(new GoogleStrategy({
 
     try {
         let user = await userModel.findOne({ email: profile.emails[0].value })
-        if (user)
+        if (user) {
+            delete user.password
             return cb(null, user);
+        }
 
         const salt = bcrypt.genSaltSync(10)
         user = await new userModel({
@@ -45,7 +47,7 @@ passport.use(new GoogleStrategy({
         }).save()
         await new profModel({ user: user.id, images: profile.photos[0]?.value }).save()
 
-
+        delete user.password
         cb(null, user)
     } catch (error) {
         console.log(error)

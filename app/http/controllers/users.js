@@ -14,6 +14,15 @@ const commentsModel = require('../../model/comments')
 class panel extends controller {
 
 
+    async getAllUsers(req, res, next) {
+        const page = req.query.page || 1;
+        const username = new RegExp(req.query.username, 'gi') || ''
+        const users = await userModel.find({ username }, 'email username name', { populate: 'profile' })
+
+        res.json({ success: true, users })
+    }
+
+
     async panel(req, res, next) {
         try {
             const user = await userModel.findById(req.user.id, {}, {
@@ -94,7 +103,7 @@ class panel extends controller {
                 return this.back(req, res)
             const user = await userModel.findById(req.user.id, {}, { populate: 'profile' })
             let { name, email, phone, website, bio, images } = req.body
-            console.log(images);
+
             if (user.profile) {
                 if (!images)
                     delete req.body.images
