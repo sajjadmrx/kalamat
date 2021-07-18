@@ -25,14 +25,9 @@ router.get('/:username/:code/:slug', homeControllers.singlePost)
 
 
 /* comments */
-router.post('/comment', commentValidator.handel(), homeControllers.comment)
+router.post('/comment', commentValidator.handel(), userControllers.comment)
 
-router.post('/follow/:userId', userControllers.follow)
-router.post('/unfollow/:userId', userControllers.unfollow)
 
-router.post('/toggleLike/:id', homeControllers.toggleLike)
-
-router.post('/toggleBookmark/:id', homeControllers.toggleBookmark)
 
 
 router.get('/logOut', (req, res) => {

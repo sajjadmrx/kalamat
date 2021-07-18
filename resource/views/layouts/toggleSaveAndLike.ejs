@@ -9,7 +9,7 @@
     }
 
     $(document).on('click', "#toggleLike", function (data) {
-        $.post(`/toggleLike/<%=post.id%>`, function (res) {
+        $.post(`/api/toggleLike/<%=post.id%>`, function (res) {
 
             if (res.sucess) {
                 Swal.fire({
@@ -40,7 +40,7 @@
         })
 
     }).on('click', "#toggleBookmark", function (data) {
-        $.post(`/toggleBookmark/<%=post.id%>`, function (res) {
+        $.post(`/api/toggleBookmark/<%=post.id%>`, function (res) {
             if (res.sucess) {
                 Swal.fire({
                     icon: 'success',

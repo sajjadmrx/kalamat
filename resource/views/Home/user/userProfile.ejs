@@ -156,8 +156,8 @@
 
 
     $(document).on('click', "#follow", function () {
-        $.post(`/follow/<%=user_Target.id%>`, function (data) {
-            console.log(data.totalFollowers);
+        $.post(`/api/follow/<%=user_Target.id%>`, function (data) {
+         
             if (data.sucess) {
                 $('#followers').text(data.totalFollowers)
 
@@ -186,8 +186,8 @@
 
     }).on('click', "#unfollow", function () {
 
-        $.post(`/unfollow/<%=user_Target.id%>`, function (data) {
-            console.log(data.totalFollowers);
+        $.post(`/api/unfollow/<%=user_Target.id%>`, function (data) {
+        
             if (data.sucess) {
                 $('#followers').text(data.totalFollowers)
 

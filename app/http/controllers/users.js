@@ -374,6 +374,98 @@ class panel extends controller {
 
     }
 
+    async comment(req, res, next) {
+        try {
+
+            const { posts, comment, parent } = req.body;
+            ///validator
+            const result = await this.checkValidator(req)
+            if (!result) return this.back(req, res)
+            // save 
+
+
+            const newcomment = new commentsModel({ post: posts, comment, user: req.user.id, parent: parent })
+            newcomment.approved = true;
+            newcomment.save()
+            // redirect
+            req.flash('errors', 'انجام شد منتظر باشید تا تایید بشه ')
+            this.back(req, res)
+            //alert 
+
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
+
+    async toggleLike(req, res, next) {
+        try {
+
+            this.id = req.params.id;
+            if (!this.id)
+                return res.json({ sucess: false, data: { message: 'درخواست نامعتبر' } })
+
+            this.user = await userModel.findById(req.user.id)
+            const isLiked = this.user.liked.includes(this.id)
+
+            let response;
+            if (!isLiked) {
+                response = await this.toggleProcess('liked', 'add', ' شما پسندیدید');
+            }
+            else {
+                response = await this.toggleProcess('liked', 'remove', 'شما نپسندیدید');
+            }
+
+            res.json(response)
+        } catch (error) {
+            next(error)
+        }
+
+    }
+
+    async toggleBookmark(req, res, next) {
+        try {
+            this.id = req.params.id;
+            if (!this.id)
+                return res.json({ sucess: false, data: { message: 'درخواست نامعتبر' } })
+
+            this.user = await userModel.findById(req.user.id)
+            const isBookmark = this.user.bookmarks.includes(this.id)
+
+            let response;
+
+            if (!isBookmark) {
+                response = await this.toggleProcess('bookmarks', 'add', 'با موفقیت ذخیره شد.');
+            }
+            else {
+                response = await this.toggleProcess('bookmarks', 'remove', 'از لیست ذخیره ها حذف شد.');
+            }
+
+            res.json(response)
+
+
+        } catch (error) {
+            next(error)
+        }
+
+    }
+
+
+    async toggleProcess(field, mehtod, message) {
+        const upd = this.user[field]
+        if (mehtod == 'add') {
+            upd.push(this.id)
+            await this.user.save();
+            return { sucess: true, data: { response: true, message, number: 1 } }
+        }
+        else if (mehtod == 'remove') {
+            upd.splice(upd.indexOf(this.id), 1)
+            await this.user.save()
+            return { sucess: true, data: { response: false, message, number: -1 } }
+        }
+    }
+
 
 
 }
