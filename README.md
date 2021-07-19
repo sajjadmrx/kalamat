@@ -9,6 +9,11 @@
     auth with Google & Spotify & local
 
 ![enter image description here](https://i.imgur.com/ork7TAa.png)
+
+    verify account with Email
+
+![enter image description here](https://i.imgur.com/3ky0kPT.png)
+
     search users
 
 ![enter image description here](https://i.imgur.com/nyscBk1.png)
@@ -25,6 +30,7 @@
     Delete sessions
 
 ![](https://i.imgur.com/WWpfAZB.png)
+
 
 
 

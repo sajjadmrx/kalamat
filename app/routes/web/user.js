@@ -20,10 +20,17 @@ const upload = require('../../http/helpers/uploadImages')
 
 /* validator */
 const profValidator = require('../../http/validator/profile')
+
+// settings
+const settings = require('../../http/controllers/user/settings')
+
+
 router.use((req, res, next) => {
     res.locals.layout = 'home/panel/master'
     next();
 })
+
+
 router.get('/', indexController.panel)
 router.post('/',
     upload.single('images'),
@@ -48,8 +55,6 @@ router.post('/vrefyEmail', redirectIfVrefyed.handel, vrefyController.postVrefy)
 router.get('/vrefyEmail/:token', redirectIfVrefyed.handel, vrefyController.getToken)
 
 
-// settings
-const settings = require('../../http/controllers/user/settings')
 
 
 //post

@@ -8,7 +8,7 @@
             <h5>تایید حساب کاربری</h5>
         </div>
         <div class="card-body">
-            <form class="form-horizontal" method="POST" action="/panel/vrefyEmail" novalidate>
+            <form class="form-horizontal" method="POST" action="/panel/vrefyEmail">
 
                 <%- include(viewPath('layouts/error-messages')) %>
 
@@ -29,8 +29,9 @@
                                 </div>
                             </div>
 
-                            <input disabled type="text" class="form-control" value="<%=user.email%>" name="email"
-                                id="email" placeholder="ایمیل حساب خود را وارد کنید.">
+                            <input disabled type="text" class="form-control" id="email" value="<%=user.email%>"
+                                placeholder="ایمیل حساب خود را وارد کنید.">
+                            <input type="hidden" value="<%=user.email%>" name="email">
                         </div>
                     </div>
 

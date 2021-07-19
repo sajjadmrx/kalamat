@@ -27,7 +27,16 @@ class vrefy extends controller {
             const uniq = uniqString()
             let token = `http://localhost:3000/panel/vrefyEmail/${uniq}`
 
-            const user = await userModel.findById(req.user.id)
+            let user = await userModel.findOne({ email: req.body.email })
+
+
+
+            if (!user) {
+                req.flash('errors', 'ایمیل نامعتبر است')
+
+                return this.back(req, res)
+            }
+            user = await userModel.findById(req.user.id)
             if (user.isVrefed) {
                 req.flash('errors', 'شما قبلا تایید شده اید.')
                 return this.back(req, res)
@@ -36,10 +45,23 @@ class vrefy extends controller {
                 user: req.user.id,
                 token: uniq
             })
+
             ///process SendEmail
-            sendEmail({ username: req.user.username, token: token }).catch(err => console.log(err))
+            const transport = sendEmail()
+
+            let info = transport.sendMail({
+                from: '"وب سایت ویرگول" <info@virgol.com>',
+                to: `${req.body.email}`,
+                subject: "تایید حساب کاریری",
+                html: `
+        <h2>از اینکه مارو انتخاب کردید سپاس گذاریم !</h2>
+
+        <a href="${token}">برای تایید حساب کاربری کلیک کنید</a>
+    `,
+            });
 
             await newVrefy.save()
+
             this.back(req, res)
         } catch (error) {
             next(error)
