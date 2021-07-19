@@ -19,11 +19,19 @@ passport.deserializeUser(function (id, done) {
 
 passport.use('local.register', new passportLocal(
     {
-        usernameField: 'username',
+        usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
-    }, async (req, username, password, done) => {
+    }, async (req, email, password, done) => {
         let user;
+
+        user = await userModel.findOne({ email })
+        if (user)
+            return done(null, false, { message: 'ایمیل تکراری میباشد.' })
+
+        user = await userModel.findOne({ username: req.body.username })
+        if (user)
+            return done(null, false, { message: 'نام کاربری تکراری میباشد.' })
 
         delete req.body.password
 
