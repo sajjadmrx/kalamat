@@ -9,6 +9,7 @@ class utils {
         try {
             return await iplocate(req.ip)
         } catch (error) {
+            console.log(error)
             return {}
         }
     }

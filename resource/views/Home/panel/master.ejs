@@ -59,6 +59,11 @@
         background: #1A233A;
         color: #bcd0f7;
     }
+
+    li.active {
+        background-color: #f8ff868c !important;
+        border-color: #fbffbc !important;
+    }
 </style>
 
 <head>
@@ -129,9 +134,9 @@
 
                                     <div class="card mt-3">
                                         <ul class="list-group list-group-flush">
-                                            <li
-                                                class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                                <a href="#" style="text-decoration: none;" class="mb-0 "><i
+                                            <li class="list-group-item <%= req.path=='/'?" active":"" %> d-flex
+                                                justify-content-between align-items-center flex-wrap">
+                                                <a href="/panel" style="text-decoration: none;" class="mb-0 "><i
                                                         class="far fa-address-card" style="color: tan"></i>
                                                     اطلاعات کاربری
                                                 </a>
@@ -139,8 +144,8 @@
                                                     <%= user.profile?.website %>
                                                 </span>
                                             </li>
-                                            <li
-                                                class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <li class="list-group-item <%= req.path=='/bookmarks'?" active":"" %> d-flex
+                                                justify-content-between align-items-center flex-wrap">
                                                 <a href="/panel/bookmarks" style="text-decoration: none;" class="mb-0">
                                                     <i class="fas fa-bookmark " style="color:tan"></i>
                                                     پست های ذخیره شده
@@ -149,8 +154,8 @@
                                                     <%= user.profile?.Github %>
                                                 </span>
                                             </li>
-                                            <li
-                                                class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <li class="list-group-item <%= req.path=='/likes'?" active":"" %> d-flex
+                                                justify-content-between align-items-center flex-wrap">
                                                 <a href="/panel/likes" style="text-decoration: none;" class="mb-0">
                                                     <i class="fas fa-heart" style="color: tan;"></i>
                                                     پسندیده ها
@@ -170,10 +175,10 @@
                                                     <%= user.profile?.twitter %>
                                                 </span>
                                             </li>
-                                            <li
-                                                class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <li class="list-group-item <%= req.path=='/settings'?" active":"" %> d-flex
+                                                justify-content-between align-items-center flex-wrap">
                                                 <a class="mb-0" style="text-decoration: none;" href="/panel/settings">
-                                                    <i class="fas fa-cog" style="color: tan;"></i>
+                                                    <i class="fas fa-cog " style="color: tan;"></i>
                                                     تنظیمات حساب کاربری
                                                 </a>
                                                 <span class="text-secondary">
@@ -208,7 +213,9 @@
         <script src="/js/jquery-3.3.1.min.js"></script>
         <script src="/js/popper.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
-
+        <script src="/js/modal-loading.js"></script>
+        <link rel="stylesheet" href="/css/modal-loading.css">
+        <link rel="stylesheet" href="/css/modal-loading-animate.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         </html>

@@ -1,53 +1,95 @@
 <body>
 
-
   <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-    <form action="/panel" method="post" enctype="multipart/form-data">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-3 text-primary">
-                <%= title %>
-              </h6>
+    <div class="accordion py-2" id="accordionExample">
+      <div class="card  back">
+        <div class="card-header " id="headingMain">
+          <h2 class="mb-0">
+            <button class="btn btn-link title btn-block text-right" type="button" data-toggle="collapse"
+              data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <i class="fa fa-th" aria-hidden="true"></i> نشست های فعال
+            </button>
+          </h2>
+        </div>
+
+        <div id="collapseOne" class="collapse  show" aria-labelledby="headingMain" data-parent="#accordionExample">
+
+          <div class="card-body back ">
+
+
+
+
+
+            <div class="row">
+
+              <% data.forEach(session=> { %>
+                <div class="col-lg-3 col-sm-5 col-6 offset-sm-0 offset-1 " id="<%=session.sessionID%>">
+                  <div class="card  text-white mb-4"
+                    style="border-radius: 20px!important;background-color: #262a3a!important; ">
+
+                    <div class="card-body ">
+
+                      <img class="card-img-top" style="padding: 20%;"
+                        src="<%=icons[session.device.os.name] || icons.default %>" loading="lazy" width="20%" alt="">
+
+                    </div>
+                    <div class="pb-2">
+                      <div class="mb-2 pr-2">
+                        <span class="text-white ">سیستم : <%=session.device.os.name %> </span>
+                      </div>
+                      <div class="mb-2 pr-2">
+                        <span class="text-white ">مرورگر : <%=session.device.browser.name %> </span>
+                      </div>
+                      <div class="mb-2 pr-2">
+                        <span class="text-white ">
+                          آیپی: <%= session.device.ip.ip||"local" %>
+                        </span>
+
+                      </div>
+
+                      <% if (session.sessionID==req.session.id) { %>
+
+                        <div class="mb-2 pr-2">
+                          <span class="badge badge-success">دستگاه شما</span>
+                        </div>
+                        <% } %>
+                    </div>
+
+                    <div class="card-body mb-2 ">
+                      <% if (session.sessionID==req.session.id) { %>
+
+                        <button disabled type="button" class="btn btn-danger
+                                                                container">حذف
+                          نشست</button>
+                        <% }else{ %>
+                          <button data-sessionID=<%=session.sessionID%> type="button" class="btn btn-danger
+                            deleteSession
+                            container">حذف
+                            نشست</button>
+                          <% } %>
+                    </div>
+
+                  </div>
+                </div>
+                <% }) %>
+
+
+
             </div>
+
+
+
+
           </div>
-          <label class="alert alert-danger" for="">نشست های فعال </label>
-          <div class="row ">
-            <% data.forEach(session=>{%>
 
 
-              <div class="card bg-warining" role="alert">
-                <div class="title">
-                  سیستم عامل <span>
-                    <%=session.device.os.name%> | <%=session.device.os.version%>
-                  </span>
-                </div>
-                <div class="body">
-
-                  مرورگر <span>
-                    <%=session.device.browser.name%>
-                  </span>
-                </div>
-
-                <div class="body">
-
-                  آیپی <span>
-                    <%=session.device.ip.ip||"local"%>
-                  </span>
-                </div>
-
-              </div>
-
-              <% }) %>
-          </div>
 
         </div>
 
       </div>
-    </form>
+    </div>
   </div>
-
-
-
+  </div>
 </body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/scripts/deleteSessions.js"></script>

@@ -15,13 +15,26 @@ class settings extends controller {
                 data.push({ sessionID: ses._id, ...JSON.parse(ses.session) })
             })
 
-            //res.json(data)
+            //  res.json(data)
             res.render('home/panel/settings', { title: 'تنظیمات حساب کاربری', data })
         } catch (error) {
             next(error)
         }
     }
 
+
+    async deleteSession(req, res) {
+        try {
+            const sessionID = req.params.id
+            const sessionsModel = await mongoose.connection.collection('sessions')
+            const sessoin = await sessionsModel.deleteOne({ _id: sessionID })
+            res.json({ success: true, message: 'با موفقیت حذف شد' })
+
+        } catch (error) {
+            res.json({ success: false, message: 'لطفا دوباره امتحان کنید' })
+        }
+
+    }
 
 }
 module.exports = new settings();

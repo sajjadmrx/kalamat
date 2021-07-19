@@ -8,6 +8,7 @@ class checkDevice extends middleware {
             const ip = await utils.getIpInfo(req)
             device.ip = ip
             req.session.device = device
+            req.session.loginAt = Date.now();
             await req.session.save()
             next()
         } catch (error) {

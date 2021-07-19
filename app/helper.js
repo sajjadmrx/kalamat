@@ -17,7 +17,8 @@ class Helper {
             message: this.req.flash('errors'),
             old: this.old.bind(this),
             date: this.date,
-            isAuth: this.isAuth()
+            isAuth: this.isAuth(),
+            icons: this.icons(),
         }
     }
 
@@ -35,6 +36,18 @@ class Helper {
 
     isAuth() {
         return this.req.user != undefined ? true : false
+    }
+    icons() {
+        return {
+            Windows: 'https://image.flaticon.com/icons/png/512/906/906308.png',
+            Android: 'https://image.flaticon.com/icons/png/512/518/518705.png',
+            iOS: 'https://cdn0.iconfinder.com/data/icons/flat-round-system/512/apple-512.png',
+            Linux: 'https://cdn.icon-icons.com/icons2/2235/PNG/512/linux_os_logo_icon_134670.png',
+            Ubuntu: 'https://cdn.icon-icons.com/icons2/2699/PNG/512/ubuntu_tile_logo_icon_170354.png',
+            default: 'https://st3.depositphotos.com/10638838/14264/v/450/depositphotos_142648873-stock-illustration-computer-pc-monitor-web-logo.jpg'
+        }
+
+
     }
 
 }
