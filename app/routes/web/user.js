@@ -48,6 +48,9 @@ router.post('/vrefyEmail', redirectIfVrefyed.handel, vrefyController.postVrefy)
 router.get('/vrefyEmail/:token', redirectIfVrefyed.handel, vrefyController.getToken)
 
 
+// settings
+const settings = require('../../http/controllers/user/settings')
+
 
 //post
 
@@ -70,7 +73,6 @@ router.get('/comments/:id/toggleApproved', commentsController.toggleApproved)
 router.get('/comments/:id/edit', commentsController.getForEdit)
 router.put('/comments/:id', commentsController.updateComment)
 router.delete('/comments/:id', commentsController.deleteComment)
-
 router.post('/comments/reply', commentsController.reply)
 
 
@@ -83,6 +85,8 @@ router.post('/comments/reply', commentsController.reply)
 router.get('/bookmarks', boockMarksController.index)
 router.get('/likes', likesCntroller.index)
 
+// settings
+router.get('/settings', settings.showPage)
 
 
 

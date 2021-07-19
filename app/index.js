@@ -61,6 +61,7 @@ module.exports = class Application {
         app.use(methodOverride('_method'))
 
         app.use((req, res, next) => {
+
             res.locals = new Helper(req, res).getObject();
             next()
         })

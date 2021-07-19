@@ -20,7 +20,7 @@ const usersModel = new schema({
     following: [{ user: { type: schema.Types.ObjectId, ref: 'users' } }],
     bookmarks: [{ type: schema.Types.ObjectId, ref: 'posts' }],
     liked: [{ type: schema.Types.ObjectId, ref: 'posts' }],
-    sessions: [{ type: schema.Types.ObjectId, ref: 'sessions' }],
+    sessions: [{ type: String, ref: 'sessions' }],
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 usersModel.plugin(mongoosePaginate)

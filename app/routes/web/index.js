@@ -13,9 +13,15 @@ const panelRoutes = require('./user')
 const redirectIfNotAuth = require('../../http/middleware/redirectIfNotAuth')
 const redirectIfAuth = require('../../http/middleware/redirectIfAuthed')
 const redirectifNotAdmin = require('../../http/middleware/redirectIfNotAdmin')
+const checkDevice = require('../../http/middleware/checkDevice')
+
+
+
+
+
 router.use('/admin', redirectIfNotAuth.handel, redirectifNotAdmin.handel, adminRoutes)
 router.use('/auth', redirectIfAuth.handel, authRoutes)
-router.use('/callback', redirectIfAuth.handel, callbacksRoute)
+router.use('/callback', redirectIfAuth.handel, checkDevice.handel, callbacksRoute)
 router.use('/panel', redirectIfNotAuth.handel, panelRoutes)
 router.use('/', homeRoutes)
 

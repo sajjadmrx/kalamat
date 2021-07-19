@@ -3,6 +3,7 @@ const postModel = require('../../model/postes')
 const userModel = require('../../model/users')
 
 const commentsModel = require('../../model/comments')
+const mongoose = require('mongoose')
 class home extends controller {
 
     async index(req, res, next) {

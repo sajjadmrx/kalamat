@@ -35,6 +35,8 @@ passport.use(new SpotifyStrategy({
     try {
         let user = await userModel.findOne({ email: profile.emails[0].value })
         if (user) {
+            user.sessions.push(req.sessionID)
+            await user.save()
             delete user.password
             return cb(null, user);
         }
@@ -49,7 +51,7 @@ passport.use(new SpotifyStrategy({
             role: 'user',
             isVrefyed: false,
             password: bcrypt.hashSync(profile.id, salt),
-
+            sessions: req.sessionID,
         }).save()
         await new profModel({ user: user.id, images: profile.photos[0]?.value }).save()
 

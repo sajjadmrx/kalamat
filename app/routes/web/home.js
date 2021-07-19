@@ -31,6 +31,7 @@ router.post('/comment', commentValidator.handel(), userControllers.comment)
 
 
 router.get('/logOut', (req, res) => {
+
     req.logOut()
     res.redirect('/')
 })

@@ -1,0 +1,53 @@
+<body>
+
+
+  <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+    <form action="/panel" method="post" enctype="multipart/form-data">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <h6 class="mb-3 text-primary">
+                <%= title %>
+              </h6>
+            </div>
+          </div>
+          <label class="alert alert-danger" for="">نشست های فعال </label>
+          <div class="row ">
+            <% data.forEach(session=>{%>
+
+
+              <div class="card bg-warining" role="alert">
+                <div class="title">
+                  سیستم عامل <span>
+                    <%=session.device.os.name%> | <%=session.device.os.version%>
+                  </span>
+                </div>
+                <div class="body">
+
+                  مرورگر <span>
+                    <%=session.device.browser.name%>
+                  </span>
+                </div>
+
+                <div class="body">
+
+                  آیپی <span>
+                    <%=session.device.ip.ip||"local"%>
+                  </span>
+                </div>
+
+              </div>
+
+              <% }) %>
+          </div>
+
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+
+
+</body>
