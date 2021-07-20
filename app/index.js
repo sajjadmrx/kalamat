@@ -8,15 +8,19 @@ const flash = require('connect-flash')
 var methodOverride = require('method-override')
 const validator = require('express-validator');
 const passport = require('passport')
-
+var Server = require("http").Server;
 
 const config = require('../config');
 const Helper = require('./helper');
+const socketio = require('./socket')
 const userModel = require('./model/users')
 require('./model/postes')
+
 const app = express()
-
-
+var server = Server(app);
+var io = require("socket.io")(server, {
+    allowEIO3: true // false by default
+});
 module.exports = class Application {
 
     constructor() {
@@ -24,10 +28,11 @@ module.exports = class Application {
         this.setupMongoose();
         this.setConfig();
         this.setRoutes();
+        this.setSockets()
     }
 
     setupExpress() {
-        app.listen(process.env.PORT)
+        server.listen(process.env.PORT)
     }
 
     async setupMongoose() {
@@ -53,7 +58,13 @@ module.exports = class Application {
 
         app.use(bodyParser.urlencoded({ extended: true }))
         app.use(bodyParser.json())
-        app.use(session({ ...config.session }))
+        var sessionMiddleware = session({ ...config.session })
+        // app.use(session({ ...config.session }))
+        app.use(sessionMiddleware)
+        io.use((socket, next) => {
+            sessionMiddleware(socket.request, socket.res || {}, next)
+
+        })
         app.use(cookieParser('mysecretkey'));
         app.use(passport.initialize());
         app.use(passport.session());
@@ -83,5 +94,10 @@ module.exports = class Application {
     setRoutes() {
         app.use('/api', require('./routes/api'))
         app.use(require('./routes/web'))
+    }
+
+    setSockets() {
+        new socketio(io).handel()
+
     }
 }
