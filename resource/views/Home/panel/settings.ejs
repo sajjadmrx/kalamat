@@ -30,19 +30,19 @@
                     <div class="card-body ">
 
                       <img class="card-img-top" style="padding: 20%;"
-                        src="<%=icons[session.device.os.name] || icons.default %>" loading="lazy" width="20%" alt="">
+                        src="<%=icons[session.device?.os?.name] || icons.default %>" loading="lazy" width="20%" alt="">
 
                     </div>
                     <div class="pb-2">
                       <div class="mb-2 pr-2">
-                        <span class="text-white ">سیستم : <%=session.device.os.name %> </span>
+                        <span class="text-white ">سیستم : <%=session.device?.os.name %> </span>
                       </div>
                       <div class="mb-2 pr-2">
-                        <span class="text-white ">مرورگر : <%=session.device.browser.name %> </span>
+                        <span class="text-white ">مرورگر : <%=session.device?.browser.name %> </span>
                       </div>
                       <div class="mb-2 pr-2">
                         <span class="text-white ">
-                          آیپی: <%= session.device.ip.ip||"local" %>
+                          آیپی: <%= session.device?.ip?.ip||"local" %>
                         </span>
 
                       </div>

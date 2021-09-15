@@ -50,7 +50,7 @@ class vrefy extends controller {
             const transport = sendEmail()
 
             let info = transport.sendMail({
-                from: '"وب سایت ویرگول" <info@virgol.com>',
+                from: '"وب سایت کلمات" <info@kalamat.com>',
                 to: `${req.body.email}`,
                 subject: "تایید حساب کاریری",
                 html: `
