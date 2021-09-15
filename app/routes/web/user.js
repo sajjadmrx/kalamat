@@ -9,7 +9,10 @@ const postsController = require('../../http/controllers/user/posts')
 const vrefyController = require('../../http/controllers/user/vrefy')
 const commentsController = require('../../http/controllers/user/comments')
 const boockMarksController = require('../../http/controllers/user/bookmarks')
-const likesCntroller = require('../../http/controllers/user/likes')
+const likesController = require('../../http/controllers/user/likes')
+const chatsController = require('../../http/controllers/user/chat')
+
+
 /* middlewares */
 const fileToFeild = require('../../http/middleware/fileToField')
 const checkVrefyed = require('../../http/middleware/checkVrefyd')
@@ -88,13 +91,13 @@ router.post('/comments/reply', commentsController.reply)
 
 /* bookmarks */
 router.get('/bookmarks', boockMarksController.index)
-router.get('/likes', likesCntroller.index)
+router.get('/likes', likesController.index)
 
 // settings
 router.get('/settings', settings.showPage)
 
 
-
+router.get('/chats', chatsController.showPage)
 
 
 

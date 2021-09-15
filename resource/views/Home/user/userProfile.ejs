@@ -7,6 +7,7 @@
     <div class="row profile">
         <div class="col-md-15 mb-6">
             <div class="card">
+                <input type="hidden" value="<%= user_Target._id %>" id="userID">
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
                         <span class="absolute opacity-60 text-gray-700"
@@ -57,7 +58,7 @@
                                     </button>
 
 
-                                    <button class="btn btn-outline-primary">ارسال پیغام</button>
+                                    <button class="btn btn-outline-primary" id="sendMessage">ارسال پیغام</button>
                                     <%}else {%>
                                         <a href="/panel" class="btn btn-primary">ویرایش</a>
                                         <!-- <button class="btn btn-outline-primary"></button> -->
@@ -150,14 +151,14 @@
     </div>
 </div>
 <script src="https://unpkg.com/sweetalert2@7.12.10/dist/sweetalert2.all.js"></script>
-
+<script src='/js/user/profile.js'></script>
 <script>
 
 
 
     $(document).on('click', "#follow", function () {
         $.post(`/api/follow/<%=user_Target.id%>`, function (data) {
-         
+
             if (data.sucess) {
                 $('#followers').text(data.totalFollowers)
 
@@ -187,7 +188,7 @@
     }).on('click', "#unfollow", function () {
 
         $.post(`/api/unfollow/<%=user_Target.id%>`, function (data) {
-        
+
             if (data.sucess) {
                 $('#followers').text(data.totalFollowers)
 

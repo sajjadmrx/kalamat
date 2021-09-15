@@ -62,8 +62,7 @@ module.exports = class Application {
         // app.use(session({ ...config.session }))
         app.use(sessionMiddleware)
         io.use((socket, next) => {
-            sessionMiddleware(socket.request, socket.res || {}, next)
-
+            sessionMiddleware(socket.request, socket.res || { }, next)
         })
         app.use(cookieParser('mysecretkey'));
         app.use(passport.initialize());
@@ -77,7 +76,7 @@ module.exports = class Application {
             next()
         })
         app.use(async (req, res, next) => {
-            const user = await userModel.findById(req.user?.id, {}, { populate: 'profile' })
+            const user = await userModel.findById(req.user?.id, { }, { populate: 'profile' })
 
             if (!user)
                 return next();

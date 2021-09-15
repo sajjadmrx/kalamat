@@ -7,7 +7,6 @@ const usersControllers = require('../../http/controllers/users');
 
 //routers
 const userRoutes = require('./user')
-
 //middlewares
 const redirectIfNotAuth = require('../../http/middleware/api/redirectIfNotAuth')
 router.get('/getusers', usersControllers.getAllUsers)

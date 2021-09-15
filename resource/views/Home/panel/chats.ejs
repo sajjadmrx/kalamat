@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/chatPage.css">
+
+<head>
+    <title>
+        <%= title || 'Chat' %>
+    </title>
+</head>
+<div class="row rounded-lg overflow-hidden shadow">
+    <!-- Users box-->
+    <input type="hidden" id="myID" value="<%=user._id %>">
+    <div class="col-5 px-0">
+        <div class="bg-white">
+
+            <div class="bg-gray px-4 py-2 bg-light">
+                <p class="h5 mb-0 py-1">اخیر</p>
+            </div>
+
+            <div class="messages-box">
+                <div class="list-group rounded-0" id="chats">
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Chat Box-->
+    <div class="col-7 px-0">
+        <div class="px-4 py-5 chat-box bg-white" id="messages">
+
+
+            <!-- Select Chat -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="bg-gray px-4 py-2 bg-light">
+                        <p class="h5 mb-0 py-1">یک چت انتخاب کنید</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Typing area -->
+        <form class="bg-light" id="send">
+            <div class="input-group">
+                <input type="text" placeholder="Type a message" aria-describedby="button-addon2" id="input-content"
+                    class="form-control rounded-0 border-0 py-4 bg-light">
+                <div class="input-group-append">
+                    <button id="button-addon2" type="submit" class="btn btn-link"> <i
+                            class="fa fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/user/chats.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts/searchUsers.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
