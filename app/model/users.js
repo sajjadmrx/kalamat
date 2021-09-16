@@ -2,8 +2,10 @@ const mongoose = require('mongoose')
 
 
 const mongoosePaginate = require('mongoose-paginate-v2')
-const schema = mongoose.Schema
+const schema = mongoose.Schema;
 
+
+const avatar = 'default.png' // key for default avatar
 
 const usersModel = new schema({
     username: { type: String },
@@ -20,23 +22,28 @@ const usersModel = new schema({
     following: [{ user: { type: schema.Types.ObjectId, ref: 'users' } }],
     bookmarks: [{ type: schema.Types.ObjectId, ref: 'posts' }],
     liked: [{ type: schema.Types.ObjectId, ref: 'posts' }],
-    sessions: [{ type: String, ref: 'sessions' }],
+    profile: {
+        avatar: { type: String, default: avatar },
+        bio: { type: String },
+        links: [{ type: String, url: String }],
+    }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 usersModel.plugin(mongoosePaginate)
 
 
-usersModel.virtual('profile', {
-    ref: 'profile',
-    localField: '_id',
-    foreignField: 'user',
-    justOne: true
-})
+// usersModel.virtual('profile', {
+//     ref: 'profile',
+//     localField: '_id',
+//     foreignField: 'user',
+//     justOne: true
+// })
 
 usersModel.virtual('posts', {
     ref: 'posts',
     localField: '_id',
     foreignField: 'author',
 })
+
 
 module.exports = mongoose.model('users', usersModel)

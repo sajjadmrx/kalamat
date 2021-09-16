@@ -26,7 +26,7 @@ router.get('/', homeControllers.index)
 router.get('/posts', postsControllers.showPage)
 router.get('/posts/create', postsControllers.createPostPage)
 router.post('/posts/create',
-    upload.single('images'),
+    upload.post().single('images'),
     fileToFeild.handel,
     createPostValidator.handel(),
     postsControllers.createPost
@@ -34,7 +34,7 @@ router.post('/posts/create',
 
 router.get('/posts/:id/edit', postsControllers.getForEdit)
 router.put('/posts/:id',
-    upload.single('images'),
+    upload.post().single('images'),
     fileToFeild.handel,
     createPostValidator.handel(),
     postsControllers.updatePost)

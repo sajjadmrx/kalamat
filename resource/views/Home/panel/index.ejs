@@ -20,7 +20,7 @@
                                     </div>
                                     <input onkeyup="changer('username','user-username')"
                                         onkeydown="changer('username','user-username')" type="text" class="form-control"
-                                        name="username" value="<%= user.username %>" id="username"
+                                        name="username" value="<%= myUser.username %>" id="username"
                                         placeholder="نام کاربری">
                                 </div>
                             </div>
@@ -30,7 +30,7 @@
                                 <label for="eMail">ایمیل</label>
                                 <input type="email" class="form-control" id="eMail" name="email"
                                     onkeyup="changer('eMail','user-email')" onkeydown="changer('eMail','user-email')"
-                                    placeholder="ایمیل خود را وارد کنید" value="<%= user.email %> ">
+                                    placeholder="ایمیل خود را وارد کنید" value="<%= myUser.email %> ">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -39,20 +39,20 @@
                                 <input type="text" class="form-control" id="fullName" name='name'
                                     onkeyup="changer('fullName','user-name')"
                                     onkeydown="changer('fullName','user-name')" placeholder="نام کامل خود را وارد کنید"
-                                    value="<%= user.name %>">
+                                    value="<%= myUser.name %>">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="eMail">رمز عبور</label>
-                                <input type="password" disabled class="form-control" value="<%= user.email %> ">
+                                <input type="password" disabled class="form-control" value="<%= myUser.email %> ">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="phone">شماره همراه</label>
                                 <input type="text" class="form-control" id="phone" name="phone"
-                                    placeholder="شماره همراه خود را وارد کنید" value="<%= user.phone%>">
+                                    placeholder="شماره همراه خود را وارد کنید" value="<%= myUser.phone%>">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -61,13 +61,14 @@
                                 <input type="url" class="form-control" id="website" name="website"
                                     onkeyup="changer('website','user-website')"
                                     onkeydown="changer('website','user-website')" placeholder="ادرس وبسایت را وارد کنید"
-                                    value="<%= user.profile?.website %>">
+                                    value="<%= myUser.profile?.website %>">
                             </div>
                         </div>
                         <div class="user-profile">
 
                             <div class="user-avatar">
-                                <img src="<%= user.profile?.images %> " class="profileImage" alt="عکس پروفایل">
+                                <img src="<%= getUserAvatar(myUser.profile?.avatar) %> " class="profileImage"
+                                    alt="عکس پروفایل">
                             </div>
                             <%- include(viewPath('layouts/image')) -%>
                         </div>
@@ -78,7 +79,7 @@
                             <label for="body" class="control-label font-weight-bold">متن</label>
                             <textarea rows="8" class="form-control" name="bio" id="body"
                                 onkeyup="changer('body','user-bio')" onkeydown="changer('body','user-bio')"
-                                placeholder="بیو خود را وارد کنید"><%=user.profile?.bio%></textarea>
+                                placeholder="بیو خود را وارد کنید"><%=myUser.profile?.bio%></textarea>
                         </div>
 
                     </div>

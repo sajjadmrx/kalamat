@@ -5,6 +5,11 @@ const { validationResult } = require('express-validator')
 const Recaptcha = require('express-recaptcha').RecaptchaV2
 
 const config = require('../../../config')
+
+const upload = require('../helpers/uploadImages')
+
+
+const usersModel = require('../../model/users')
 module.exports = class controllers {
     constructor() {
         autoBind(this)
@@ -22,9 +27,11 @@ module.exports = class controllers {
         if (message.length == 0)
             return true
 
-        if (req.body.images)
-            fs.unlinkSync(path.resolve(`./public/${req.body.images}`))
-
+        if (req.body.images) {
+            var params = { Bucket: req.file.bucket, Key: req.file.key };
+            upload.removePhoto(params)
+            // fs.unlinkSync(path.resolve(`./public/${req.body.images}`))
+        }
         req.flash('errors', message)
         req.flash('forms', req.body)
         return false
@@ -54,6 +61,16 @@ module.exports = class controllers {
 
     back(req, res) {
         res.redirect(req.header('Referer') || '/')
+    }
+
+    removePhotoOnAws(params) {
+        upload.removePhoto(params)
+    }
+
+    async getUser(req) {
+        if (!req.user) return null;
+
+        return await usersModel.findById(req.user.id, '-password', { populate: 'posts' })
     }
 
 

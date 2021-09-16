@@ -35,8 +35,9 @@ router.use((req, res, next) => {
 
 
 router.get('/', indexController.panel)
+
 router.post('/',
-    upload.single('images'),
+    upload.profile().single('images'),
     fileToFeild.handel,
     profValidator.handel(),
     indexController.updatePanel
@@ -47,7 +48,7 @@ router.post('/',
 
 router.get('/posts', postsController.showMyPost)
 router.get('/post/:id/edit', postsController.editMyPost)
-router.put('/post/:id', upload.single('images'),
+router.put('/post/:id', upload.post().single('images'),
     fileToFeild.handel, postsController.update)
 
 router.get('/post/:id/togglePublished', postsController.togglePublished)
@@ -68,7 +69,7 @@ router.get('/addpost', (req, res, next) => {
 }, checkVrefyed.handel, postsController.pageAddpost)
 router.post('/addpost',
     checkVrefyed.handel,
-    upload.single('images'),
+    upload.post().single('images'),
     fileToFeild.handel,
     postsController.createPost
 )

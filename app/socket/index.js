@@ -7,7 +7,7 @@ class socket {
 
     handel() {
         this.io.sockets.on("connection", async (socket) => {
-            console.log("Connected succesfully to the socket ...");
+            // console.log("Connected succesfully to the socket ...");
             const session = socket.request.session;
             socket.userID = session.passport?.user;
 
@@ -36,7 +36,7 @@ class socket {
 
 
             socket.on('disconnect', async function () {
-                console.log("Disconnected from the socket ...");
+                // console.log("Disconnected from the socket ...");
             })
 
         });

@@ -95,37 +95,37 @@
                                     <div class="user-profile">
 
                                         <div class="user-avatar">
-                                            <img src="<%= user.profile?.images %> " class="profileImage"
-                                                alt="عکس پروفایل">
+                                            <img src="<%= getUserAvatar(myUser.profile?.avatar) %> "
+                                                class="profileImage" alt="عکس پروفایل">
                                         </div>
 
 
                                         <div class="about">
                                             <h5 class="mb-2 text-primary">
-                                                <a href="/@<%=user.username %>" id="user-username">
-                                                    <%= user.username||"چیزی ثبت نشده است" %>
+                                                <a href="/@<%=myUser.username %>" id="user-username">
+                                                    <%= myUser.username||"چیزی ثبت نشده است" %>
                                                 </a>
                                             </h5>
                                             <p id="user-bio">
-                                                <%= user.profile?.bio || "محل درباره من" %>
+                                                <%= myUser.profile?.bio || "محل درباره من" %>
                                             </p>
                                         </div>
                                         <div class="row mt-5">
                                             <div class="col border-right border-left text-center">
                                                 <h2 class="font-light">
-                                                    <%= user.posts.length%>
+                                                    <%= myUser.posts.length%>
                                                 </h2>
                                                 <span class="text-uppercase">پست </span>
                                             </div>
                                             <div class="col border-left text-center">
                                                 <h2 class="font-light" id='followers'>
-                                                    <%= user.followers.length %>
+                                                    <%= myUser.followers.length %>
                                                 </h2>
                                                 <span class="text-uppercase">دنبال کننده</span>
                                             </div>
                                             <div class="col text-center border-left ">
                                                 <h2 class="font-light">
-                                                    <%= user.following.length %>
+                                                    <%= myUser.following.length %>
                                                 </h2>
                                                 <span class="text-uppercase">دنبال میکنید </span>
                                             </div>
@@ -141,7 +141,7 @@
                                                     اطلاعات کاربری
                                                 </a>
                                                 <span class="text-secondary" id="user-website">
-                                                    <%= user.profile?.website %>
+                                                    <%= myUser.profile?.website %>
                                                 </span>
                                             </li>
                                             <li class="list-group-item <%= req.path=='/bookmarks'?" active":"" %> d-flex
@@ -151,7 +151,7 @@
                                                     پست های ذخیره شده
                                                 </a>
                                                 <span class="text-secondary">
-                                                    <%= user.profile?.Github %>
+                                                    <%= myUser.profile?.Github %>
                                                 </span>
                                             </li>
                                             <li class="list-group-item <%= req.path=='/likes'?" active":"" %> d-flex
@@ -161,7 +161,7 @@
                                                     پسندیده ها
                                                 </a>
                                                 <span class="text-secondary">
-                                                    <%= user.profile?.Github %>
+                                                    <%= myUser.profile?.Github %>
                                                 </span>
                                             </li>
                                             <li
@@ -172,7 +172,7 @@
                                                     پیغام ها
                                                 </a>
                                                 <span class="text-secondary">
-                                                    <%= user.profile?.twitter %>
+                                                    <%= myUser.profile?.twitter %>
                                                 </span>
                                             </li>
                                             <li class="list-group-item <%= req.path=='/settings'?" active":"" %> d-flex
@@ -182,7 +182,7 @@
                                                     تنظیمات حساب کاربری
                                                 </a>
                                                 <span class="text-secondary">
-                                                    <%= user.profile?.instagram %>
+                                                    <%= myUser.profile?.instagram %>
                                                 </span>
                                             </li>
 

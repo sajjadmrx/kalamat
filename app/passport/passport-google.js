@@ -18,11 +18,10 @@ passport.deserializeUser(function (id, done) {
     })
 })
 
-
 passport.use(new GoogleStrategy({
     clientID: process.env.Google_client_key,
     clientSecret: process.env.GOOGLE_SECRET_KEY,
-    callbackURL: 'http://localhost:3000/callback/google',
+    callbackURL: process.env.GOOGLE_CALLBACK,
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, cb) => {
 
@@ -43,9 +42,9 @@ passport.use(new GoogleStrategy({
             role: 'user',
             isVrefyed: profile.emails[0].verified ? true : false,
             password: bcrypt.hashSync(profile.id, salt),
-
+            "profile.avatar": profile.photos[0]?.value
         }).save()
-        await new profModel({ user: user.id, images: profile.photos[0]?.value }).save()
+
 
         delete user.password
         cb(null, user)

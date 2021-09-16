@@ -62,7 +62,7 @@ module.exports = class Application {
         // app.use(session({ ...config.session }))
         app.use(sessionMiddleware)
         io.use((socket, next) => {
-            sessionMiddleware(socket.request, socket.res || { }, next)
+            sessionMiddleware(socket.request, socket.res || {}, next)
         })
         app.use(cookieParser('mysecretkey'));
         app.use(passport.initialize());
@@ -76,14 +76,12 @@ module.exports = class Application {
             next()
         })
         app.use(async (req, res, next) => {
-            const user = await userModel.findById(req.user?.id, { }, { populate: 'profile' })
 
-            if (!user)
+            if (!req.user)
                 return next();
             else {
-                await user.populate('posts').execPopulate();
-                res.locals.user = user
-
+                let user = await userModel.findById(req.user.id, '-password', { populate: 'posts' })
+                res.locals.myUser = user
                 next()
             }
         })

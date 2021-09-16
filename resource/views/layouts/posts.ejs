@@ -4,6 +4,10 @@
         background: #f5f5f5;
     }
 
+    .thumbnail {
+        width: -webkit-fill-available;
+    }
+
     .blog-post {
         -webkit-transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s;
         transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s;
@@ -127,7 +131,9 @@
                 <div class="col-lg-4 col-md-6 mt-4 pt-2">
                     <div class="blog-post rounded border">
                         <div class="blog-img d-block overflow-hidden position-relative">
-                            <img src="<%= item.images %> " class="img-fluid rounded-top" alt="">
+
+                            <img src="<%= getThumbnail(item.thumbnail) %>" class="img-fluid rounded-top thumbnail"
+                                alt="">
                             <div class="overlay rounded-top bg-dark"></div>
                             <div class="post-meta">
                                 <a href="javascript:void(0)" class="text-light d-block text-right like"><i
@@ -148,7 +154,7 @@
                                 <%= item.miniBody %>
                             </p>
                             <div class="pt-3 mt-3 border-top d-flex">
-                                <img src="<%= item.author.profile.images %>"
+                                <img src="<%= getUserAvatar(item.author.profile.avatar) %>"
                                     class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
                                 <div class="author mt-2">
                                     <span class="col-md-1 mb-3"><a href="@<%= item.author.username %> "

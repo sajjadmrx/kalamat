@@ -13,7 +13,7 @@ class validatorCreateNews extends validators {
                 .withMessage('مقاله نباید کمتر از 5 کاراکتر باشد.'),
             check('tags').notEmpty()
                 .withMessage('تگ نباید خالی باشد.'),
-            check('images')
+            check('thumbnail')
                 .custom(async (value, { req }) => {
 
                     if (req.query._method == 'put' && value == undefined) return;
@@ -22,6 +22,7 @@ class validatorCreateNews extends validators {
                     const extFile = ['.png', '.jpg', '.jpeg', '.svg', '.PNG', '.JPG']
                     if (!extFile.includes(path.extname(value)))
                         throw new Error('فرمت عکس مجاز نیست.')
+                    req.body.thumbnail = value
                 }),
         ]
     }

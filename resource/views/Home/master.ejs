@@ -422,9 +422,10 @@
                   <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink"
                     role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                     <span class="d-flex container badge bg-primary">
-                      <%= req.user.name %>
+                      <%= myUser.name %>
                     </span>
-                    <img src="<%=user.profile.images%>" class="rounded-circle" height="22" alt="" loading="lazy" />
+                    <img src="<%=getUserAvatar(myUser.profile.avatar)%>" class="rounded-circle" height="22" alt=""
+                      loading="lazy" />
                   </a>
                   <ul style="text-align: right;" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <%if (req.user.isAdmin){%>

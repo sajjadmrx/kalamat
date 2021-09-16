@@ -7,7 +7,6 @@ const spotify = require('passport-spotify')
 
 //Model
 const userModel = require('../model/users')
-const profModel = require('../model/profile')
 
 
 passport.serializeUser(function (user, done) {
@@ -51,9 +50,8 @@ passport.use(new SpotifyStrategy({
             role: 'user',
             isVrefyed: false,
             password: bcrypt.hashSync(profile.id, salt),
-            sessions: req.sessionID,
+            "profile.avatar": profile.photos[0]?.value
         }).save()
-        await new profModel({ user: user.id, images: profile.photos[0]?.value }).save()
 
         delete user.password
         cb(null, user)

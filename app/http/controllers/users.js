@@ -18,8 +18,8 @@ class panel extends controller {
         const page = req.query.page || 1;
         const username = new RegExp(req.query.username, 'gi') || ''
         const users = await userModel.find({ username }, 'email username name', { populate: 'profile' })
-
-        res.json({ success: true, users })
+        const storage = 'https://userskalamat.s3.ir-thr-at1.arvanstorage.com/' // test
+        res.status(200).json({ users, storage })
     }
 
 
@@ -48,7 +48,7 @@ class panel extends controller {
         try {
             // -
             const uniq = uniqString()
-            let token = `http://localhost:3000/panel/vrefyEmail/${uniq}`
+            let token = process.env.HOST + `/panel/vrefyEmail/${uniq}`
 
             const user = await userModel.findById(req.user.id)
             if (user.isVrefed) {
@@ -79,9 +79,9 @@ class panel extends controller {
 
             const vrefyEmail = await vrefyEmailModel.findOne({ token: token }, {}, { populate: 'user' })
 
-            if (!vrefyEmail) return res.json('Token Not Found ')
+            if (!vrefyEmail) return res.json('درخواست نامعتبر')
 
-            if (vrefyEmail.used) return res.json('This link has expired')
+            if (vrefyEmail.used) return res.json('فرصتـ استفاده از این توکن به اتمام رسیده است')
 
             if (vrefyEmail.user.isVrefyed) return this.json('شما قبلا تایید شده اید')
 

@@ -19,6 +19,8 @@ class Helper {
             date: this.date,
             isAuth: this.isAuth(),
             icons: this.icons(),
+            getUserAvatar: this.getUserAvatar,
+            getThumbnail: this.getThumbnail
         }
     }
 
@@ -46,7 +48,12 @@ class Helper {
             Ubuntu: 'https://cdn.icon-icons.com/icons2/2699/PNG/512/ubuntu_tile_logo_icon_170354.png',
             default: 'https://st3.depositphotos.com/10638838/14264/v/450/depositphotos_142648873-stock-illustration-computer-pc-monitor-web-logo.jpg'
         }
-
+    }
+    getUserAvatar(key) {
+        return `https://userskalamat.s3.ir-thr-at1.arvanstorage.com/${key}`
+    }
+    getThumbnail(key) {
+        return `https://postskalamat.s3.ir-thr-at1.arvanstorage.com/${key}`
 
     }
 

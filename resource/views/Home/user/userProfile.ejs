@@ -14,7 +14,8 @@
                             style="font-size: 12px; bottom: 100%; right: 10%; display: none;" x-show="hover">
                             آنلاین
                         </span>
-                        <img src="<%= user_Target.profile.images %> " alt="Admin" class="rounded-circle " width="150">
+                        <img src="<%= getUserAvatar( user_Target.profile.avatar) %> " alt="Admin"
+                            class="rounded-circle " width="150">
                         <div class="mt-3">
                             <h4>
                                 <%= user_Target.username %>@

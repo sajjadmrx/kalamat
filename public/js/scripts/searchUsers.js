@@ -13,7 +13,7 @@ $('document').ready(function () {
             })
             const data = await result.json();
 
-            if (!data.success)
+            if (!data.users)
                 throw new Error(data.message);
 
 
@@ -21,7 +21,7 @@ $('document').ready(function () {
 
             data.users.forEach(function (user) {
                 var html = `<div class="list-item"><a href="/@${user.username}" class="item-author text-color" data-abc="true">
-                <div><img src="${user.profile.images}" class="rounded-circle" height="42" alt="" loading="lazy" /></div>
+                <div><img src="${data.storage + user.profile.avatar}" class="rounded-circle" height="42" alt="" loading="lazy" /></div>
                 <div class="flex"> ${user.username}
                   <div class="item-except text-muted text-sm h-1x">${user.profile.bio || user.name}</div>
                 </div>

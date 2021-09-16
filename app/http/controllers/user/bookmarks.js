@@ -17,12 +17,15 @@ class boockMarks extends controller {
 
     async index(req, res, next) {
         try {
-            const user = await userModel.findById(req.user.id, '-password', {
-                populate: [{ path: 'bookmarks', populate: [{ path: 'author', select: '-password', populate: 'profile' }] }]
-            })
+            const user = await res.locals.myUser.populate([{
+                path: 'bookmarks', populate: [
+                    { path: 'author', select: '-password', populate: 'profile' }
+                ]
+            }
+            ])
             const post = await user.bookmarks
 
-            res.render('home/panel/bookAndLike', { title: 'ذخیره شده ها', post })
+            res.render('home/panel/bookAndLike', { title: 'ذخیره شده ها', postes: post, myUser: user })
         } catch (error) {
             next(error)
         }

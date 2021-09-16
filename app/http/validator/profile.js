@@ -12,12 +12,12 @@ class validatorProfile extends validators {
                 .withMessage('یک ایمیل معتبر وارد کنید'),
             check('images')
                 .custom(async (value, { req }) => {
-                    console.log(value);
                     if (!value)
                         return true
                     const extFile = ['.png', '.jpg', '.jpeg', '.svg', '.PNG', '.JPG', '.gif', '.webp']
                     if (!extFile.includes(path.extname(value)))
                         throw new Error('فرمت عکس مجاز نیست.')
+
                 }),
         ]
     }

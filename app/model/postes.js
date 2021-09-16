@@ -12,7 +12,7 @@ const postsModel = new schema({
     miniBody: { type: String },
     body: { type: String },
     tags: { type: Array },
-    images: { type: String },
+    thumbnail: { type: String },
     author: { type: schema.Types.ObjectId, ref: 'users' },
     categories: [{ type: schema.Types.ObjectId, ref: 'categories' }],
     commentCount: { type: Number, default: 0 },

@@ -13,30 +13,23 @@ class home extends controller {
                 limit: 3,
                 sort: { createdAt: -1 }, populate: { path: 'author', populate: 'profile' }
             })
-            let myUser;
-            if (req.user) {
+            let myUser = await this.getUser(req)
+            if (myUser && myUser.following.length) {
 
-                myUser = await userModel.findById({ _id: req.user.id }, {}, {})
+                myUser = await myUser.populate({
 
-                if (myUser.following.length) {
-
-                    myUser = await myUser.populate({
-
-                        path: 'following.user',
-                        select: '-password -_id',
-                        populate: [{
-                            path: 'posts',
-                            populate: [{ path: 'author', populate: 'profile', }],
-                            options: { limit: 2, sort: { updatedAt: -1 } }
-                        }],
+                    path: 'following.user',
+                    select: '-password -_id',
+                    populate: [{
+                        path: 'posts',
+                        populate: [{ path: 'author' }],
+                        options: { limit: 2, sort: { updatedAt: -1 } }
+                    }],
 
 
-                    }).execPopulate();
-                }
-
+                }).execPopulate();
             }
-            else
-                myUser = null
+
 
             res.render('home/index', { post, myUser })
         } catch (error) {
@@ -56,7 +49,7 @@ class home extends controller {
             const user_Target = await userModel.findOne({ username }, {}, {
                 populate: [{ path: 'profile' }, { path: "followrs.followers" }, { path: "followrs.following" }]
             })
-            if (!user_Target) return res.json(`Not Found ${username}`)///alert 404
+            if (!user_Target) return res.json(`کاربر یافت نشد`)///alert 404
 
             const post = await postModel.paginate({ author: user_Target.id, published: true }, {
                 limit: 5, page, populate: {
@@ -71,7 +64,9 @@ class home extends controller {
             else
                 isFollow = false;
 
-            res.render('home/user/userProfile', { user_Target, post, isFollow })
+            let myUser = await this.getUser(req)
+
+            res.render('home/user/userProfile', { user_Target, post, isFollow, myUser })
 
         } catch (error) {
             next(error)
@@ -138,8 +133,9 @@ class home extends controller {
 
             const posts = await postModel.paginate({ published: true, ...query }, { limit: 8, sort: { createAt: -1 }, populate: { path: 'author', populate: 'profile' } })
 
+            let myUser = await this.getUser(req)
 
-            res.render('home/posts', { posts })
+            res.render('home/posts', { posts, myUser })
         } catch (error) {
             next(error)
         }

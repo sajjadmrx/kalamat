@@ -4,7 +4,7 @@ const passportLocal = require('passport-local')
 
 //Model
 const userModel = require('../model/users')
-const profModel = require('../model/profile')
+
 
 passport.serializeUser(function (user, done) {
     done(null, user.id)
@@ -41,10 +41,7 @@ passport.use('local.register', new passportLocal(
         user = new userModel({
             ...req.body
         })
-        const newprof = new profModel({
-            user: user.id
-        })
-        await newprof.save()
+
         await user.save()
         return done(null, user)
     }

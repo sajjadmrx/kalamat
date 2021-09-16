@@ -7,7 +7,7 @@ class fileToField extends middleware {
             if (!req.file)
                 req.body.images = undefined
             else
-                req.body.images = req.file.destination.slice(8) + '/' + req.file.filename
+                req.body.images = req.file.key
 
             next()
         } catch (error) {
