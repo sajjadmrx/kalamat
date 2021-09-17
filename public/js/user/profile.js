@@ -1,7 +1,12 @@
 $('#sendMessage').on('click', async function () {
     const userID = getUserId();
 
+
+    // loading 
+    $('#sendMessage').html('<i class="fa fa-spinner fa-spin"></i> ارسال پیغـام');
+
     try {
+
         const result = await axios.post('/api/chats', {
             user: userID
         })
@@ -10,7 +15,12 @@ $('#sendMessage').on('click', async function () {
 
         throw new Error(result.data.message);
     } catch (error) {
-        console.log(error.message);
+        $('#sendMessage').html('ارسال پیغـام');
+        pp.add({
+            type: 'error',
+            title: 'خطـا',
+            content: error.message,
+        });
     }
 })
 

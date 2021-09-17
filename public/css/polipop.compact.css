@@ -1,0 +1,162 @@
+.polipop_theme_compact {
+    font-size: 14px;
+}
+.polipop_theme_compact .polipop__closer {
+    font-weight: 600;
+    color: #777777;
+}
+.polipop_theme_compact .polipop__closer:hover {
+    color: #555555;
+}
+.polipop_theme_compact .polipop__closer-count {
+    background: #0ec47d;
+    color: #ffffff;
+    border-radius: 0;
+    font-weight: 600;
+}
+.polipop_theme_compact .polipop__notification {
+    color: #555555;
+    padding: 0;
+}
+.polipop_theme_compact .polipop__notification-icon {
+    padding: 6px 5px 5px;
+}
+.polipop_theme_compact .polipop__notification-icon svg {
+    fill: #ffffff;
+}
+.polipop_theme_compact .polipop__notification-inner {
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.15);
+}
+.polipop_theme_compact .polipop__notification-close {
+    background-color: transparent;
+    color: inherit;
+    border-radius: 0;
+}
+.polipop_theme_compact .polipop__notification-close:hover {
+    outline: none;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.05);
+}
+.polipop_theme_compact .polipop__notification-content {
+    line-height: 24px;
+    font-weight: 400;
+}
+.polipop_theme_compact .polipop__notification_type_success {
+    background-color: #0ec47d;
+    color: #ffffff;
+}
+.polipop_theme_compact .polipop__notification_type_info,
+.polipop_theme_compact .polipop__notification_type_notice {
+    background-color: #00b1fe;
+    color: #ffffff;
+}
+.polipop_theme_compact .polipop__notification_type_warning {
+    background-color: #ffc107;
+    color: #555555;
+}
+.polipop_theme_compact
+    .polipop__notification_type_warning
+    .polipop__notification-icon
+    svg {
+    fill: #555555;
+}
+.polipop_theme_compact .polipop__notification_type_error {
+    background-color: #f76860;
+    color: #ffffff;
+}
+.polipop_theme_compact .polipop__notification_type_default {
+    background-color: #ffffff;
+    color: #555555;
+}
+.polipop_theme_compact
+    .polipop__notification_type_default
+    .polipop__notification-icon
+    svg {
+    fill: #555555;
+}
+.polipop_layout_panel.polipop_theme_compact {
+    background-color: #f2f7fa;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.polipop_layout_panel.polipop_theme_compact .polipop__header {
+    background-color: #e8e8e8;
+}
+.polipop_layout_panel.polipop_theme_compact .polipop__header-inner {
+    background-color: #edf4f9;
+}
+.polipop_layout_panel.polipop_theme_compact
+    .polipop__header-inner:hover
+    .polipop__header-minimize {
+    color: #555555;
+}
+.polipop_layout_panel.polipop_theme_compact .polipop__header-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #777777;
+}
+.polipop_layout_panel.polipop_theme_compact .polipop__header-count {
+    background: #00b1fe;
+    color: #ffffff;
+    border-radius: 3px;
+    font-weight: 600;
+}
+.polipop_layout_panel.polipop_theme_compact .polipop__header-minimize {
+    color: #999999;
+}
+.polipop_layout_panel.polipop_theme_compact .polipop__notification {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.polipop_layout_panel.polipop_theme_compact
+    .polipop__notification_type_success {
+    border-color: #0daf71;
+}
+.polipop_layout_panel.polipop_theme_compact .polipop__notification_type_info,
+.polipop_layout_panel.polipop_theme_compact .polipop__notification_type_notice {
+    border-color: #009de0;
+}
+.polipop_layout_panel.polipop_theme_compact
+    .polipop__notification_type_warning {
+    border-color: #e0aa07;
+}
+.polipop_layout_panel.polipop_theme_compact .polipop__notification_type_error {
+    border-color: #d64f48;
+}
+.polipop_layout_panel.polipop_theme_compact
+    .polipop__notification_type_default {
+    border-color: #e8e8e8;
+}
+.polipop_layout_panel.polipop_theme_compact .polipop__notification-title {
+    line-height: 22px;
+}
+.polipop_layout_panel.polipop_theme_compact .polipop__closer {
+    font-weight: 600;
+    color: #777777;
+}
+.polipop_layout_panel.polipop_theme_compact .polipop__closer:hover {
+    color: #555555;
+}
+.polipop_layout_popups.polipop_theme_compact .polipop__notification {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+}
+.polipop_layout_popups.polipop_theme_compact .polipop__notification-title {
+    line-height: 24px;
+    margin: 0 0 3px;
+}
+.polipop_layout_popups.polipop_theme_compact .polipop__closer {
+    background-color: #333333;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    font-weight: 400;
+    color: #eeeeee;
+    border-color: #222222;
+}
+.polipop_layout_popups.polipop_theme_compact .polipop__closer:hover {
+    color: #ffffff;
+}
+
+.polipop{z-index:999;padding:0;box-sizing:border-box;width:350px;text-align:left}.polipop_position_inline{position:relative;width:100%;transition:height .25s ease-in-out}.polipop_position_top-left{position:fixed;left:10px;top:10px}.polipop_position_top-right{position:fixed;right:10px;top:10px}.polipop_position_bottom-left{position:fixed;left:10px;bottom:10px}.polipop_position_bottom-right{position:fixed;right:10px;bottom:10px}.polipop_position_center{position:fixed;transform:translateX(-50%);top:10px;left:50%}.polipop__notifications{height:100%;position:absolute;left:0;width:100%;z-index:998}.polipop__notification{width:100%;max-width:100%;margin:0;padding:0;box-sizing:border-box;text-align:left;display:none;position:absolute;transition:top .25s ease-in-out,bottom .25s ease-in-out;background-color:#fff;overflow:hidden}.polipop__notification-progress{width:100%;height:4px;background-color:rgba(0,0,0,.04)}.polipop__notification-progress-inner{width:0%;height:4px;background-color:rgba(0,0,0,.08)}.polipop__notification-icon{float:left}.polipop__notification-icon svg{width:20px;line-height:20px}.polipop__notification-inner{overflow:hidden}.polipop__notification-title{font-size:16px;font-weight:600}.polipop__notification-close{float:right;cursor:pointer;border:none;padding:0;width:22px;height:22px;line-height:22px;font-size:16px;font-weight:600}.polipop__notification-close:focus{outline:none}.polipop__notification-content{font-size:14px;box-sizing:border-box;padding:3px 0 0}.polipop__closer{line-height:22px;font-size:14px;padding:4px 10px;margin:0;cursor:pointer;text-align:center;box-sizing:border-box;position:absolute;width:100%;z-index:999}.polipop__closer-text{vertical-align:middle}.polipop_layout_panel{width:400px;max-width:100%;transition:height .25s ease-in-out;background-color:#f2f7fa;overflow:hidden}.polipop_layout_panel .polipop__notification-title{margin:0 0 5px}.polipop_layout_panel.polipop_position_top-right .polipop__notifications,.polipop_layout_panel.polipop_position_top-left .polipop__notifications,.polipop_layout_panel.polipop_position_center .polipop__notifications,.polipop_layout_panel.polipop_position_inline .polipop__notifications{top:43px}.polipop_layout_panel.polipop_position_top-right .polipop__notification,.polipop_layout_panel.polipop_position_top-left .polipop__notification,.polipop_layout_panel.polipop_position_center .polipop__notification,.polipop_layout_panel.polipop_position_inline .polipop__notification{border-top:1px solid transparent}.polipop_layout_panel.polipop_position_top-right .polipop__closer,.polipop_layout_panel.polipop_position_top-left .polipop__closer,.polipop_layout_panel.polipop_position_center .polipop__closer,.polipop_layout_panel.polipop_position_inline .polipop__closer{top:43px}.polipop_layout_panel.polipop_position_top-right .polipop__header,.polipop_layout_panel.polipop_position_top-left .polipop__header,.polipop_layout_panel.polipop_position_center .polipop__header,.polipop_layout_panel.polipop_position_inline .polipop__header{top:0}.polipop_layout_panel.polipop_position_top-right .polipop__header-inner,.polipop_layout_panel.polipop_position_top-left .polipop__header-inner,.polipop_layout_panel.polipop_position_center .polipop__header-inner,.polipop_layout_panel.polipop_position_inline .polipop__header-inner{top:0}.polipop_layout_panel.polipop_position_bottom-right .polipop__notifications,.polipop_layout_panel.polipop_position_bottom-left .polipop__notifications{bottom:43px}.polipop_layout_panel.polipop_position_bottom-right .polipop__notification,.polipop_layout_panel.polipop_position_bottom-left .polipop__notification{border-bottom:1px solid transparent}.polipop_layout_panel.polipop_position_bottom-right .polipop__closer,.polipop_layout_panel.polipop_position_bottom-left .polipop__closer{bottom:43px}.polipop_layout_panel.polipop_position_bottom-right .polipop__header,.polipop_layout_panel.polipop_position_bottom-left .polipop__header{bottom:0}.polipop_layout_panel.polipop_position_bottom-right .polipop__header-inner,.polipop_layout_panel.polipop_position_bottom-left .polipop__header-inner{bottom:0}.polipop__header{position:absolute;height:44px;width:100%;z-index:999}.polipop__header-inner{position:absolute;width:100%;padding:10px 15px;line-height:22px;cursor:pointer;background-color:#edf4f9}.polipop__header-inner span{vertical-align:middle}.polipop__header-count,.polipop__closer-count{display:inline-block;margin:0 0 0 5px;padding:3px;min-width:20px;height:20px;line-height:14px;vertical-align:middle;text-align:center;box-sizing:border-box;font-size:12px}.polipop__header-minimize{display:none;float:right;font-weight:600;font-size:20px;line-height:22px;color:#777}.polipop_layout_popups .polipop__notification{box-shadow:0 1px 2px rgba(0,0,0,.2)}.polipop_layout_popups .polipop__notification-title{margin:0 0 10px}.polipop_layout_popups .polipop__closer{border:1px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.2);background-color:#333;color:#fff}.polipop_layout_popups.polipop_position_top-left .polipop__notifications,.polipop_layout_popups.polipop_position_top-right .polipop__notifications,.polipop_layout_popups.polipop_position_center .polipop__notifications,.polipop_layout_popups.polipop_position_inline .polipop__notifications{top:0}.polipop_layout_popups.polipop_position_top-left .polipop__closer,.polipop_layout_popups.polipop_position_top-right .polipop__closer,.polipop_layout_popups.polipop_position_center .polipop__closer,.polipop_layout_popups.polipop_position_inline .polipop__closer{top:0}.polipop_layout_popups.polipop_position_bottom-left .polipop__notifications,.polipop_layout_popups.polipop_position_bottom-right .polipop__notifications{bottom:0}.polipop_layout_popups.polipop_position_bottom-left .polipop__closer,.polipop_layout_popups.polipop_position_bottom-right .polipop__closer{bottom:0}
+.polipop_theme_default{font-size:14px}.polipop_theme_default .polipop__closer{font-weight:600;color:#777}.polipop_theme_default .polipop__closer:hover{color:#555}.polipop_theme_default .polipop__closer-count{background:#0ec47d;color:#fff;border-radius:3px;font-weight:600}.polipop_theme_default .polipop__notification{color:#555}.polipop_theme_default .polipop__notification-outer{padding:15px}.polipop_theme_default .polipop__notification-icon{margin:0 12px 0 0}.polipop_theme_default .polipop__notification-icon svg{fill:#fff}.polipop_theme_default .polipop__notification-close{background-color:transparent;color:inherit;border-radius:50%}.polipop_theme_default .polipop__notification-close:hover{outline:none;text-decoration:none;background:rgba(0,0,0,.05)}.polipop_theme_default .polipop__notification-content{line-height:24px;font-weight:400}.polipop_theme_default .polipop__notification_type_success{background-color:#0ec47d;color:#fff}.polipop_theme_default .polipop__notification_type_info,.polipop_theme_default .polipop__notification_type_notice{background-color:#00b1fe;color:#fff}.polipop_theme_default .polipop__notification_type_warning{background-color:#ffc107;color:#555}.polipop_theme_default .polipop__notification_type_warning .polipop__notification-icon svg{fill:#555}.polipop_theme_default .polipop__notification_type_error{background-color:#f76860;color:#fff}.polipop_theme_default .polipop__notification_type_default{background-color:#fff;color:#555}.polipop_theme_default .polipop__notification_type_default .polipop__notification-icon svg{fill:#555}.polipop_layout_panel.polipop_theme_default{background-color:#f2f7fa;border-radius:5px;box-shadow:0 1px 2px rgba(0,0,0,.2)}.polipop_layout_panel.polipop_theme_default .polipop__header{background-color:#e8e8e8}.polipop_layout_panel.polipop_theme_default .polipop__header-inner{background-color:#edf4f9}.polipop_layout_panel.polipop_theme_default .polipop__header-inner:hover .polipop__header-minimize{color:#555}.polipop_layout_panel.polipop_theme_default .polipop__header-title{font-size:15px;font-weight:600;color:#777}.polipop_layout_panel.polipop_theme_default .polipop__header-count{background:#00b1fe;color:#fff;border-radius:3px;font-weight:600}.polipop_layout_panel.polipop_theme_default .polipop__header-minimize{color:#999}.polipop_layout_panel.polipop_theme_default .polipop__notification{box-shadow:0 1px 2px rgba(0,0,0,.05)}.polipop_layout_panel.polipop_theme_default .polipop__notification_type_success{border-color:#0daf71}.polipop_layout_panel.polipop_theme_default .polipop__notification_type_info,.polipop_layout_panel.polipop_theme_default .polipop__notification_type_notice{border-color:#009de0}.polipop_layout_panel.polipop_theme_default .polipop__notification_type_warning{border-color:#e0aa07}.polipop_layout_panel.polipop_theme_default .polipop__notification_type_error{border-color:#d64f48}.polipop_layout_panel.polipop_theme_default .polipop__notification_type_default{border-color:#e8e8e8}.polipop_layout_panel.polipop_theme_default .polipop__notification-title{line-height:22px}.polipop_layout_panel.polipop_theme_default .polipop__closer{font-weight:600;color:#777}.polipop_layout_panel.polipop_theme_default .polipop__closer:hover{color:#555}.polipop_layout_popups.polipop_theme_default .polipop__notification{box-shadow:0 1px 2px rgba(0,0,0,.2);border-radius:5px}.polipop_layout_popups.polipop_theme_default .polipop__notification-title{line-height:24px}.polipop_layout_popups.polipop_theme_default .polipop__closer{background-color:#333;box-shadow:0 1px 2px rgba(0,0,0,.2);border-radius:5px;font-weight:400;color:#eee;border-color:#222}.polipop_layout_popups.polipop_theme_default .polipop__closer:hover{color:#fff}
+.polipop_theme_minimal{font-size:14px}.polipop_theme_minimal .polipop__closer{font-weight:600;color:#777}.polipop_theme_minimal .polipop__closer:hover{color:#555}.polipop_theme_minimal .polipop__closer-count{background:#0ec47d;color:#fff;border-radius:3px;font-weight:600}.polipop_theme_minimal .polipop__notification{background-color:#fff;color:#555}.polipop_theme_minimal .polipop__notification-progress{background-color:rgba(0,0,0,.08)}.polipop_theme_minimal .polipop__notification-outer{padding:12px}.polipop_theme_minimal .polipop__notification-icon{margin:0 12px 0 0}.polipop_theme_minimal .polipop__notification-close{background-color:transparent;color:inherit;border-radius:50%}.polipop_theme_minimal .polipop__notification-close:hover{outline:none;text-decoration:none;background:rgba(0,0,0,.05)}.polipop_theme_minimal .polipop__notification-content{line-height:24px;font-weight:400}.polipop_theme_minimal .polipop__notification_type_success{background-color:#fff;color:#0daf71}.polipop_theme_minimal .polipop__notification_type_success .polipop__notification-progress-inner{background-color:#a7dac6}.polipop_theme_minimal .polipop__notification_type_success .polipop__notification-icon svg{fill:#0daf71}.polipop_theme_minimal .polipop__notification_type_info,.polipop_theme_minimal .polipop__notification_type_notice{color:#009de0}.polipop_theme_minimal .polipop__notification_type_info .polipop__notification-progress-inner,.polipop_theme_minimal .polipop__notification_type_notice .polipop__notification-progress-inner{background-color:#aadef5}.polipop_theme_minimal .polipop__notification_type_info .polipop__notification-icon svg,.polipop_theme_minimal .polipop__notification_type_notice .polipop__notification-icon svg{fill:#009de0}.polipop_theme_minimal .polipop__notification_type_warning{color:#ff8b07}.polipop_theme_minimal .polipop__notification_type_warning .polipop__notification-progress-inner{background-color:#f5dd96}.polipop_theme_minimal .polipop__notification_type_warning .polipop__notification-icon svg{fill:#ff8b07}.polipop_theme_minimal .polipop__notification_type_error{color:#e6554d}.polipop_theme_minimal .polipop__notification_type_error .polipop__notification-progress-inner{background-color:#f8c3c0}.polipop_theme_minimal .polipop__notification_type_error .polipop__notification-icon svg{fill:#e6554d}.polipop_theme_minimal .polipop__notification_type_default{color:#555}.polipop_theme_minimal .polipop__notification_type_default .polipop__notification-progress-inner{background-color:#ddd}.polipop_theme_minimal .polipop__notification_type_default .polipop__notification-icon svg{fill:#555}.polipop_layout_panel.polipop_theme_minimal{background-color:#f2f7fa;border-radius:5px;box-shadow:0 1px 2px rgba(0,0,0,.2)}.polipop_layout_panel.polipop_theme_minimal .polipop__header{background-color:#e8e8e8}.polipop_layout_panel.polipop_theme_minimal .polipop__header-inner{background-color:#edf4f9}.polipop_layout_panel.polipop_theme_minimal .polipop__header-inner:hover .polipop__header-minimize{color:#555}.polipop_layout_panel.polipop_theme_minimal .polipop__header-title{font-size:15px;font-weight:600;color:#777}.polipop_layout_panel.polipop_theme_minimal .polipop__header-count{background:#00b1fe;color:#fff;border-radius:3px;font-weight:600}.polipop_layout_panel.polipop_theme_minimal .polipop__header-minimize{color:#999}.polipop_layout_panel.polipop_theme_minimal .polipop__notification{border-color:#eee;box-shadow:0 1px 2px rgba(0,0,0,.05)}.polipop_layout_panel.polipop_theme_minimal .polipop__notification-title{line-height:22px}.polipop_layout_panel.polipop_theme_minimal .polipop__closer{font-weight:600;color:#777}.polipop_layout_panel.polipop_theme_minimal .polipop__closer:hover{color:#555}.polipop_layout_popups.polipop_theme_minimal .polipop__notification{box-shadow:0 1px 2px rgba(0,0,0,.2);border-radius:5px}.polipop_layout_popups.polipop_theme_minimal .polipop__notification-title{line-height:24px}.polipop_layout_popups.polipop_theme_minimal .polipop__closer{background-color:#333;box-shadow:0 1px 2px rgba(0,0,0,.2);border-radius:5px;font-weight:400;color:#eee;border-color:#222}.polipop_layout_popups.polipop_theme_minimal .polipop__closer:hover{color:#fff}

@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="/css/bootstrap-rtl.min.css" />
   <link rel="stylesheet" href="/css/vazir.css">
   <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="https://unpkg.com/polipop/dist/css/polipop.core.min.css" />
+  <link rel="stylesheet" href="/css/polipop.compact.css">
   <%- style %>
     <style>
       .form-control::placeholder {
@@ -500,6 +502,7 @@
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/scripts/searchUsers.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="/js/polipop.js"></script>
   <%-script%>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
@@ -515,6 +518,26 @@
 
     <script>
       const socket = io();
+    </script>
+
+    <script>
+
+      var pp = new Polipop('mypolipop', {
+        layout: 'popups',
+        position: 'bottom-right',
+        theme: 'default',
+        closeText: 'بستن',
+        icons: true,
+        insert: 'before',
+        pool: 0,
+        sticky: false,
+        pauseOnHover: true,
+        life: 5000,
+        progressbar: true,
+        effect: 'slide',
+        easing: 'ease-in-out',
+      });
+
     </script>
 
 </body>

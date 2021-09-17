@@ -34,7 +34,11 @@ $('document').ready(function () {
                 document.getElementById("resultSearch").innerHTML += html;
             })
         } catch (error) {
-            console.log(error);
+            pp.add({
+                type: 'error',
+                title: 'خطـا',
+                content: error.message,
+            });
         }
 
 

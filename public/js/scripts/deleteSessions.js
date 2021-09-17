@@ -35,7 +35,11 @@ $('.deleteSession').on('click', async (e) => {
 
         } catch (error) {
             loading.out()
-            alert(error.message)
+            pp.add({
+                type: 'error',
+                title: 'خطـا',
+                content: error.message,
+            });
         }
 
     }

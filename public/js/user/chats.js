@@ -197,7 +197,11 @@ async function getMessages(chatID) {
             throw new Error(results.statusText)
         screenChat(results.data.messages, chatID)
     } catch (error) {
-        console.log(error)
+        pp.add({
+            type: 'error',
+            title: 'خطـا',
+            content: error.message,
+        });
     }
 
 }
