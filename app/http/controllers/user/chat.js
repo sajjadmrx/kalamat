@@ -12,8 +12,8 @@ class chats extends controller {
 
     async showPage(req, res, next) {
         res.locals.layout = 'home/panel/chats'
-        const user = await userModel.findById(req.user.id, { }, {
-            populate: [{ path: 'profile' }, { path: 'posts' }]
+        const user = await userModel.findById(req.user.id, {}, {
+            populate: [{ path: 'posts' }]
         })
 
         res.render('Home/panel/chats', { title: 'چت ها', user })
@@ -54,8 +54,8 @@ class chats extends controller {
 
     async getChats(req, res) {
         try {
-            const chats = await chatsModel.find({ users: { $elemMatch: { $eq: req.user._id } } }, { }, {
-                populate: [{ path: 'users', populate: 'profile' }, { path: 'latestMessage' }],
+            const chats = await chatsModel.find({ users: { $elemMatch: { $eq: req.user._id } } }, {}, {
+                populate: [{ path: 'users' }, { path: 'latestMessage' }],
                 sort: { updatedAt: -1 }
             })
 
@@ -69,7 +69,7 @@ class chats extends controller {
 
     async getMessages(req, res) {
         try {
-            const chat = await chatsModel.findById(req.params.id, { }, { })
+            const chat = await chatsModel.findById(req.params.id, {}, {})
             if (!chat)
                 throw new Error('چت یافت نشد')
 
@@ -78,7 +78,7 @@ class chats extends controller {
                 throw new Error('شما در این چت نیستید')
 
 
-            const messages = await messgesModel.find({ chat: chat._id }, { },
+            const messages = await messgesModel.find({ chat: chat._id }, {},
                 {
                     sort: { createdAt: 1 },
                     populate: [
@@ -92,7 +92,6 @@ class chats extends controller {
             res.status(200).json({ success: true, messages })
         }
         catch (error) {
-            console.log(error)
             res.status(400).json({ success: false, message: error.message })
         }
     }

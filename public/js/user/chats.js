@@ -138,9 +138,14 @@ function addChat(chat) {
     function chatsHtml(chat) {
         // active text-white
         const classes = `list-group-item list-group-item-action list-group-item-light rounded-0`
+        let avatar;
+        if (chat.user.profile.avatar.startsWith("https"))
+            avatar = chat.user.profile.avatar
+        else
+            avatar = `https://userskalamat.s3.ir-thr-at1.arvanstorage.com/${chat.user.profile.avatar}`
         return `
     <a href='#' class="${classes} openChat" data-ref='${chat._id}' id='${chat._id}' >
-                        <div class="media"><img src="${chat.user.profile.images}" alt="user" width="50" class="rounded-circle">
+                        <div class="media"><img src="${avatar}" alt="user" width="50" class="rounded-circle">
                             <div class="media-body ml-4">
                                 <div class="d-flex align-items-center justify-content-between mb-1">
                                     <h6 class="mb-0">${chat.user.name}</h6><small class="small font-weight-bold">25 Dec</small>

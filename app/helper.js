@@ -50,6 +50,7 @@ class Helper {
         }
     }
     getUserAvatar(key) {
+        if (key.startsWith('https')) return key
         return `https://userskalamat.s3.ir-thr-at1.arvanstorage.com/${key}`
     }
     getThumbnail(key) {
